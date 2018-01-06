@@ -11,7 +11,7 @@
 
 #include <unordered_map>
 #include "WindowConfig.hpp"
-#include "json.hpp"
+#include "../../vendor/json.hpp"
 
 using json = nlohmann::json;
 
@@ -30,7 +30,7 @@ public:
     bool shouldClose();
     GLFWwindow * addWindow(WindowConfig * config);
     std::unordered_map<std::string, GLFWwindow*> * windows;
-
+    
 };
 
 

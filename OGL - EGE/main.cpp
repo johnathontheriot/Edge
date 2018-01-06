@@ -10,13 +10,13 @@
 #include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "System.hpp"
+#include "engine/system/System.hpp"
+#include "engine/object/GLObject.hpp"
+#include "engine/shader/ShaderManager.hpp"
 
-
-void render(void) {
+void render(GLObject * obj) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-    
+    obj->render();
 }
 
 
@@ -40,16 +40,15 @@ int main(int argc, const char * argv[]) {
     if (!glewInit()) {
         
     }
+    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    GLObject * obj = new GLObject(new GLfloat [9] {
+        -1.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, 0.0f,
+        0.0f,  1.0f, 0.0f
+    }, 9);
+    obj->setProgram(ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl"));
     while(!system->shouldClose()) {
-        /*
-         This wont exist - will replace with
-         a call to scene render. Haven't decided by which means yet.
-         Will probably allow user to bind scenes to a window, then will bind
-         each window, calling render on each of their bound scenes. 
-         
-         Just starting with default main window for now.
-        */
-        render();
+        render(obj);
         glfwSwapBuffers(system->windows->at("main"));
         glfwPollEvents();
     }

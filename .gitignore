@@ -1,6 +1,6 @@
 # Prerequisites
 *.d
-
+OGL - EGE.xcodeproj/*
 # Compiled Object files
 *.slo
 *.lo
@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Vendor Folder
+OGL - EGE/vendor/*

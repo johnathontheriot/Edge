@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "json.hpp"
+#include "../../vendor/json.hpp"
 #include "System.hpp"
 #include "WindowConfig.hpp"
 
@@ -31,7 +31,7 @@ System::System() {
 }
 
 std::string System::readFile(std::string path) {
-    std::ifstream fileStream(System::configPath);
+    std::ifstream fileStream(path);
     fileStream.seekg(0, std::ios::end);
     size_t size = fileStream.tellg();
     std::string buffer(size, ' ');
@@ -53,8 +53,7 @@ bool System::shouldClose() {
 
     
 GLFWwindow * System::addWindow(WindowConfig * config) {
-    
-    GLFWwindow * window = glfwCreateWindow(config->width, config->height, config->title.c_str(), this->primaryMonitor, NULL);
+    GLFWwindow * window = glfwCreateWindow(config->width, config->height, config->title.c_str(), config->fullScreen ? this->primaryMonitor : NULL, NULL);
     this->windows->insert({config->name, window});
     return window;
 }

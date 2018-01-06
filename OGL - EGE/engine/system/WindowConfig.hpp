@@ -9,7 +9,7 @@
 #ifndef WindowConfig_hpp
 #define WindowConfig_hpp
 
-#include "json.hpp"
+#include "../../vendor/json.hpp"
 
 using json = nlohmann::json;
 
@@ -20,7 +20,7 @@ public:
     int height;
     std::string title;
     std::string name;
-
+    bool fullScreen;
     WindowConfig(json config);
 };
 
