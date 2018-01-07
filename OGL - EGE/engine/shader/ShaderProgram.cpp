@@ -12,6 +12,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <vector>
+#include "GLObject.hpp"
 
 ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentShader) {
     GLint result = GL_FALSE;
@@ -30,4 +31,18 @@ ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentSha
         glGetProgramInfoLog(this->id, resLength, NULL, &programCompileErr[0]);
         std::cout << &programCompileErr[0];
     }
+}
+
+void ShaderProgram::bind(GLObject* obj, Scene * scene) {
+    obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
+    obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->viewMatrix);
+
+    if (this->bindVars) {
+        bindVars(obj, scene);
+    }
+}
+
+void ShaderProgram::bind4fMatrix(std::string name, glm::mat4x4 mat) {
+    GLuint matrixID = glGetUniformLocation(this->id, name.c_str());
+    glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
 }

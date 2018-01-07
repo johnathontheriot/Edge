@@ -14,14 +14,22 @@
 #include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "../object/GLObject.hpp"
+#include <glm/mat4x4.hpp>
+#include "../object/Scene.hpp"
 
+class GLObject;
+class Scene;
 
 class ShaderProgram {
 private:
     GLSLShader * vertexShader;
     GLSLShader * fragmentShader;
 public:
+    void (*bindVars)(GLObject*, Scene*) = NULL;
+    void bind4fMatrix(std::string, glm::mat4x4);
     GLuint id;
+    void bind(GLObject*, Scene *);
     ShaderProgram(GLSLShader *, GLSLShader *);
 };
 

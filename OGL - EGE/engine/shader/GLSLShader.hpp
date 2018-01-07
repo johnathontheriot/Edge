@@ -16,7 +16,7 @@
 
 class GLSLShader {
 private:
-public:
+public:    
     GLuint shaderID;
     GLSLShader(GLuint);
 };

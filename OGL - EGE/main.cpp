@@ -8,16 +8,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <cmath>
+#include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "engine/system/System.hpp"
 #include "engine/object/GLObject.hpp"
 #include "engine/shader/ShaderManager.hpp"
+#include "engine/object/Scene.hpp"
 
-void render(GLObject * obj) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    obj->render();
-}
 
 
 int main(int argc, const char * argv[]) {
@@ -41,14 +40,18 @@ int main(int argc, const char * argv[]) {
         
     }
     glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-    GLObject * obj = new GLObject(new GLfloat [9] {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f
-    }, 9);
-    obj->setProgram(ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl"));
+    Scene * scene = new Scene();
+    scene->objects->insert({"Triange1", new GLObject(new GLfloat [9] {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f,  0.5f, 0.0f
+    }, 9)});
+    ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
+    scene->objects->at("Triange1")->setProgram(shader);
+    // can set bindVars event on shader here to change active camera, bind new vars, etc.
     while(!system->shouldClose()) {
-        render(obj);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        scene->render();
         glfwSwapBuffers(system->windows->at("main"));
         glfwPollEvents();
     }
