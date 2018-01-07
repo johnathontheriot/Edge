@@ -10,9 +10,10 @@
 #define Scene_hpp
 
 #include <stdio.h>
-#include "Camera.hpp"
+#include "../Camera.hpp"
 #include <unordered_map>
-#include "GLObject.hpp"
+#include "../GLObject.hpp"
+#include "Script.hpp"
 
 class GLObject;
 
@@ -20,8 +21,11 @@ class Scene {
 private:
 public:
     std::unordered_map<std::string, Camera*> * cameras;
+    std::unordered_map<std::string, Script<Scene>*> * scripts;
+    template <class ScriptType> void attachScript(std::string name);
     std::unordered_map<std::string, GLObject*> * objects;
     void render();
+    void tick();
     Scene();
 };
 

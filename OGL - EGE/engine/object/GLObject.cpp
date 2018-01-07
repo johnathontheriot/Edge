@@ -37,6 +37,13 @@ GLObject::GLObject(GLfloat * vertexBuffer, int vertexBufferSize) {
     this->bindVAO(this->VAOid);
     this->createBuffer(this->VBOid);
     this->bindVertices(this->VBOid);
+    this->scripts = new std::unordered_map<std::string, Script<GLObject>*>();
+}
+
+void GLObject::tick() {
+    for (std::unordered_map<std::string, Script<GLObject>*>::const_iterator it = this->scripts->begin(); it != this->scripts->end(); ++it) {
+        it->second->tick(this);
+    }
 }
 
 void GLObject::createBuffer(GLuint & id) {
@@ -74,6 +81,8 @@ glm::mat4x4 GLObject::getLocalModelMatrix() {
 glm::mat4x4 GLObject::getGlobalModelMatrix() {
     return this->globalTranslation * this->globalRotation * this->globalScale;
 }
+
+
 
 void GLObject::translateLocal(GLfloat x, GLfloat y, GLfloat z) {
     this->localTranslation = this->localTranslation * glm::mat4x4(1, 0, 0, 0,

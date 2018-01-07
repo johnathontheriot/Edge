@@ -12,9 +12,10 @@
 #include <stdio.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../shader/ShaderProgram.hpp"
+#include "ShaderProgram.hpp"
 #include <glm/mat4x4.hpp>
 #include "Scene.hpp"
+#include "../physics/Script.hpp"
 
 class ShaderProgram;
 class Scene;
@@ -39,6 +40,12 @@ private:
     
 public:
     ShaderProgram * shader;
+    void tick();
+    std::unordered_map<std::string, Script<GLObject>*> * scripts;
+    template <class ScriptType> void attachScript(std::string name) {
+        ScriptType * script = new ScriptType();
+        this->scripts->insert({name, script});
+    }
     glm::mat4x4 getModelMatrix();
     glm::mat4x4 getLocalModelMatrix();
     glm::mat4x4 getGlobalModelMatrix();

@@ -16,7 +16,7 @@
 #include <GLFW/glfw3.h>
 #include "../object/GLObject.hpp"
 #include <glm/mat4x4.hpp>
-#include "../object/Scene.hpp"
+#include "../object/scene/Scene.hpp"
 
 class GLObject;
 class Scene;
