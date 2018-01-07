@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include "WindowConfig.hpp"
 #include "../../vendor/json.hpp"
+#include "../object/Scene.hpp"
 
 using json = nlohmann::json;
 
@@ -31,7 +32,7 @@ public:
     GLFWwindow * addWindow(WindowConfig * config);
     std::unordered_map<std::string, GLFWwindow*> * windows;
     
+    void start();
+
 };
-
-
 #endif /* System_hpp */

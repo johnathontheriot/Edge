@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE7998BB2001ED8F00936CF5 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998B92001ED8F00936CF5 /* SceneManager.cpp */; };
 		AEA1785E2000176C00653C66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1785D2000176C00653C66 /* main.cpp */; };
 		AEA17866200017C200653C66 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA17865200017C200653C66 /* OpenGL.framework */; };
 		AEA178682000182A00653C66 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */; };
@@ -42,6 +43,8 @@
 /* Begin PBXFileReference section */
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
+		AE7998B92001ED8F00936CF5 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		AE7998BA2001ED8F00936CF5 /* SceneManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneManager.hpp; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -412,6 +415,8 @@
 				AED9F24D2001A62E006BB437 /* Camera.hpp */,
 				AED9F24F2001A6D4006BB437 /* Scene.cpp */,
 				AED9F2502001A6D4006BB437 /* Scene.hpp */,
+				AE7998B92001ED8F00936CF5 /* SceneManager.cpp */,
+				AE7998BA2001ED8F00936CF5 /* SceneManager.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -811,6 +816,7 @@
 				AED9F13C20018D93006BB437 /* WindowConfig.cpp in Sources */,
 				AED9F24E2001A62E006BB437 /* Camera.cpp in Sources */,
 				AED9F13920018D93006BB437 /* ShaderManager.cpp in Sources */,
+				AE7998BB2001ED8F00936CF5 /* SceneManager.cpp in Sources */,
 				AED9F13A20018D93006BB437 /* ShaderProgram.cpp in Sources */,
 				AED9F2512001A6D4006BB437 /* Scene.cpp in Sources */,
 				AED9F13820018D93006BB437 /* GLSLShader.cpp in Sources */,

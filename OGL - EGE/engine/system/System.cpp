@@ -14,7 +14,8 @@
 #include "../../vendor/json.hpp"
 #include "System.hpp"
 #include "WindowConfig.hpp"
-
+#include "../object/Scene.hpp"
+#include "../object/SceneManager.hpp"
 
 using json = nlohmann::json;
 
@@ -22,12 +23,27 @@ System * System::Instance;
 std::string System::configPath;
 
 System::System() {
+    if (!glfwInit()) {
+        
+    }
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     std::string fileData = System::readFile(System::configPath);
     json systemConfig = json::parse(fileData);
     this->primaryMonitor = glfwGetPrimaryMonitor();
     this->monitors = glfwGetMonitors(&this->monitorCount);
     this->windows = new std::unordered_map<std::string, GLFWwindow*>();
     this->addWindow(new WindowConfig(systemConfig));
+    glfwMakeContextCurrent(this->windows->at("main"));
+    glewExperimental = GL_TRUE;
+    if (!glewInit()) {
+        
+    }
+    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 }
 
 std::string System::readFile(std::string path) {
@@ -51,7 +67,20 @@ bool System::shouldClose() {
     return this->monitorCount == 0;
 }
 
-    
+void System::start() {
+    while(!this->shouldClose()) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        for (std::unordered_map<std::string, Scene*>::const_iterator it = SceneManager::getInstance()->scenes->begin(); it != SceneManager::getInstance()->scenes->end(); ++it) {
+            it->second->render();
+        }
+        for( std::unordered_map<std::string, GLFWwindow*>::const_iterator it = this->windows->begin(); it != this->windows->end(); ++it ) {
+            glfwSwapBuffers(it->second);
+        }
+        glfwPollEvents();
+    }
+}
+
+
 GLFWwindow * System::addWindow(WindowConfig * config) {
     GLFWwindow * window = glfwCreateWindow(config->width, config->height, config->title.c_str(), config->fullScreen ? this->primaryMonitor : NULL, NULL);
     this->windows->insert({config->name, window});

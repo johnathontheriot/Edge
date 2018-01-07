@@ -16,30 +16,15 @@
 #include "engine/object/GLObject.hpp"
 #include "engine/shader/ShaderManager.hpp"
 #include "engine/object/Scene.hpp"
-
+#include "engine/object/SceneManager.hpp"
 
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
     System::configPath = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/taco.config.json";
     
-    if (!glfwInit()) {
-    
-    }
-    // can add to config but probably not a great idea - should set this
-    glfwWindowHint(GLFW_SAMPLES, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // initialize system with single window
     System * system = System::getInstance();
-    glfwMakeContextCurrent(system->windows->at("main"));
-    glewExperimental = GL_TRUE;
-    if (!glewInit()) {
-        
-    }
-    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    
     Scene * scene = new Scene();
     scene->objects->insert({"Triange1", new GLObject(new GLfloat [9] {
         -0.5f, -0.5f, 0.0f,
@@ -48,17 +33,6 @@ int main(int argc, const char * argv[]) {
     }, 9)});
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
     scene->objects->at("Triange1")->setProgram(shader);
-    // can set bindVars event on shader here to change active camera, bind new vars, etc.
-    while(!system->shouldClose()) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        scene->render();
-        glfwSwapBuffers(system->windows->at("main"));
-        glfwPollEvents();
-    }
+    SceneManager::getInstance()->scenes->insert({"main", scene});
+    system->start();
 }
-
-
-
-
-
-
