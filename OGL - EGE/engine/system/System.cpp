@@ -14,8 +14,8 @@
 #include "../../vendor/json.hpp"
 #include "System.hpp"
 #include "WindowConfig.hpp"
-#include "../object/Scene.hpp"
-#include "../object/SceneManager.hpp"
+#include "../object/scene/Scene.hpp"
+#include "../object/scene/SceneManager.hpp"
 
 using json = nlohmann::json;
 
@@ -63,6 +63,9 @@ System * System::getInstance() {
     return System::Instance;
 }
 
+/*
+    Will get more complicated later
+ */
 bool System::shouldClose() {
     return this->monitorCount == 0;
 }
@@ -76,6 +79,10 @@ void System::start() {
         for( std::unordered_map<std::string, GLFWwindow*>::const_iterator it = this->windows->begin(); it != this->windows->end(); ++it ) {
             glfwSwapBuffers(it->second);
         }
+        for (std::unordered_map<std::string, Scene*>::const_iterator it = SceneManager::getInstance()->scenes->begin(); it != SceneManager::getInstance()->scenes->end(); ++it) {
+            it->second->tick();
+        }
+
         glfwPollEvents();
     }
 }

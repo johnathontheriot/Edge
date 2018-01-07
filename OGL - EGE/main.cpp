@@ -15,9 +15,9 @@
 #include "engine/system/System.hpp"
 #include "engine/object/GLObject.hpp"
 #include "engine/shader/ShaderManager.hpp"
-#include "engine/object/Scene.hpp"
-#include "engine/object/SceneManager.hpp"
-
+#include "engine/object/scene/Scene.hpp"
+#include "engine/object/scene/SceneManager.hpp"
+#include "Spin.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -33,6 +33,7 @@ int main(int argc, const char * argv[]) {
     }, 9)});
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
     scene->objects->at("Triange1")->setProgram(shader);
+    scene->objects->at("Triange1")->attachScript<Spin>("spinner");
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();
 }

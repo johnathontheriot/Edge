@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include "WindowConfig.hpp"
 #include "../../vendor/json.hpp"
-#include "../object/Scene.hpp"
+#include "../object/scene/Scene.hpp"
 
 using json = nlohmann::json;
 
