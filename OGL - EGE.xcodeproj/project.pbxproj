@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE7805922002ED0F000F0035 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805902002ED0F000F0035 /* Cube.cpp */; };
 		AE7998DB2002667800936CF5 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998C52002667700936CF5 /* Camera.cpp */; };
 		AE7998DC2002667800936CF5 /* GLObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998C72002667700936CF5 /* GLObject.cpp */; };
 		AE7998DD2002667800936CF5 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998CA2002667800936CF5 /* Scene.cpp */; };
@@ -18,6 +19,7 @@
 		AE7998E32002667800936CF5 /* WindowConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998D92002667800936CF5 /* WindowConfig.cpp */; };
 		AE7998E620026BB400936CF5 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998E420026BB400936CF5 /* RigidBody.cpp */; };
 		AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998EA20027E8700936CF5 /* Spin.cpp */; };
+		AE7998F52002E38A00936CF5 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998F32002E38A00936CF5 /* Geometry.cpp */; };
 		AEA1785E2000176C00653C66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1785D2000176C00653C66 /* main.cpp */; };
 		AEA17866200017C200653C66 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA17865200017C200653C66 /* OpenGL.framework */; };
 		AEA178682000182A00653C66 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */; };
@@ -45,6 +47,8 @@
 /* Begin PBXFileReference section */
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
+		AE7805902002ED0F000F0035 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
+		AE7805912002ED0F000F0035 /* Cube.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Cube.hpp; sourceTree = "<group>"; };
 		AE7998C52002667700936CF5 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		AE7998C62002667700936CF5 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		AE7998C72002667700936CF5 /* GLObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLObject.cpp; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		AE7998EA20027E8700936CF5 /* Spin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spin.cpp; sourceTree = "<group>"; };
 		AE7998EB20027E8700936CF5 /* Spin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spin.hpp; sourceTree = "<group>"; };
 		AE7998F120028FE000936CF5 /* Script.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Script.hpp; sourceTree = "<group>"; };
+		AE7998F32002E38A00936CF5 /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		AE7998F42002E38A00936CF5 /* Geometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Geometry.hpp; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -373,6 +379,10 @@
 				AE7998C72002667700936CF5 /* GLObject.cpp */,
 				AE7998C82002667700936CF5 /* GLObject.hpp */,
 				AE7998C92002667800936CF5 /* scene */,
+				AE7998F32002E38A00936CF5 /* Geometry.cpp */,
+				AE7998F42002E38A00936CF5 /* Geometry.hpp */,
+				AE7805902002ED0F000F0035 /* Cube.cpp */,
+				AE7805912002ED0F000F0035 /* Cube.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -845,10 +855,12 @@
 				AE7998E12002667800936CF5 /* ShaderProgram.cpp in Sources */,
 				AE7998DD2002667800936CF5 /* Scene.cpp in Sources */,
 				AE7998E32002667800936CF5 /* WindowConfig.cpp in Sources */,
+				AE7998F52002E38A00936CF5 /* Geometry.cpp in Sources */,
 				AE7998E22002667800936CF5 /* System.cpp in Sources */,
 				AE7998DB2002667800936CF5 /* Camera.cpp in Sources */,
 				AE7998DC2002667800936CF5 /* GLObject.cpp in Sources */,
 				AEA1785E2000176C00653C66 /* main.cpp in Sources */,
+				AE7805922002ED0F000F0035 /* Cube.cpp in Sources */,
 				AE7998E02002667800936CF5 /* ShaderManager.cpp in Sources */,
 				AE7998DE2002667800936CF5 /* SceneManager.cpp in Sources */,
 				AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */,

@@ -16,14 +16,14 @@
 #include <glm/mat4x4.hpp>
 #include "Scene.hpp"
 #include "../physics/Script.hpp"
+#include "Geometry.hpp"
 
 class ShaderProgram;
 class Scene;
+class Geometry;
 
 class GLObject {
 private:
-    GLuint VAOid;
-    GLuint VBOid;
     glm::mat4x4 modelMatrix;
     glm::mat4x4 localScale;
     glm::mat4x4 localTranslation;
@@ -31,13 +31,8 @@ private:
     glm::mat4x4 globalScale;
     glm::mat4x4 globalTranslation;
     glm::mat4x4 globalRotation;
-    GLfloat * vertexBuffer;
-    int vertexBufferSize;
-    void createVAO(GLuint &);
-    void createBuffer(GLuint &);
-    void bindVAO(GLuint &);
-    void bindVertices(GLuint &);
-    
+    Geometry * geometry;
+    int dimension = 3;
 public:
     ShaderProgram * shader;
     void tick();
@@ -55,8 +50,8 @@ public:
     void translateGlobal(GLfloat x, GLfloat y, GLfloat z);
     void scaleGlobal(GLfloat x, GLfloat y, GLfloat z);
     void rotateGlobal(GLfloat x, GLfloat y, GLfloat z);
-    GLObject(GLfloat *, int);
-    void render(Scene*, GLenum = GL_TRIANGLES);
+    GLObject(Geometry * mesh);
+    void render(Scene*);
     void setProgram(ShaderProgram *);
 };
 

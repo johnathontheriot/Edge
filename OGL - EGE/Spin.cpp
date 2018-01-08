@@ -10,5 +10,5 @@
 #include "GLObject.hpp"
 
 void Spin::tick(GLObject * target) {
-    target->rotateLocal(0, (179 * M_PI) / 180, 0);
+    target->rotateLocal((179 * M_PI) / 180, (179 * M_PI) / 180, -(179 * M_PI) / 180);
 }

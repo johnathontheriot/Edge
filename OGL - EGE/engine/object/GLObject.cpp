@@ -13,17 +13,9 @@
 
 class GLObject;
 
-void GLObject::createVAO(GLuint & id) {
-    glGenVertexArrays(1, &id);
-}
 
-
-void GLObject::bindVAO(GLuint & id) {
-    glBindVertexArray(id);
-}
-
-
-GLObject::GLObject(GLfloat * vertexBuffer, int vertexBufferSize) {
+GLObject::GLObject(Geometry * mesh) {
+    this->geometry = mesh;
     this->modelMatrix = glm::mat4x4(1.0f);
     this->localScale = glm::mat4x4(1.0f);
     this->localTranslation = glm::mat4x4(1.0f);
@@ -31,12 +23,6 @@ GLObject::GLObject(GLfloat * vertexBuffer, int vertexBufferSize) {
     this->globalScale = glm::mat4x4(1.0f);
     this->globalTranslation = glm::mat4x4(1.0f);
     this->globalRotation = glm::mat4x4(1.0f);
-    this->vertexBuffer = vertexBuffer;
-    this->vertexBufferSize = vertexBufferSize;
-    this->createVAO(this->VAOid);
-    this->bindVAO(this->VAOid);
-    this->createBuffer(this->VBOid);
-    this->bindVertices(this->VBOid);
     this->scripts = new std::unordered_map<std::string, Script<GLObject>*>();
 }
 
@@ -46,27 +32,18 @@ void GLObject::tick() {
     }
 }
 
-void GLObject::createBuffer(GLuint & id) {
-    glGenBuffers(1, &id);
-}
-
-void GLObject::bindVertices(GLuint & bufferID) {
-    glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->vertexBufferSize, this->vertexBuffer, GL_STATIC_DRAW);
-}
-
 void GLObject::setProgram(ShaderProgram * shader) {
     this->shader = shader;
 }
 
 
-void GLObject::render(Scene * scene, GLenum drawType) {
+void GLObject::render(Scene * scene) {
     glUseProgram(this->shader->id);
     this->shader->bind(this, scene);
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, this->VBOid);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    glDrawArrays(GL_TRIANGLES, 0, this->vertexBufferSize / 3);
+    glBindBuffer(GL_ARRAY_BUFFER, this->geometry->VBOid);
+    glVertexAttribPointer(0, this->dimension, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glDrawArrays(this->geometry->drawType, 0, this->geometry->vertexBufferSize / this->dimension);
     glDisableVertexAttribArray(0);
 }
 

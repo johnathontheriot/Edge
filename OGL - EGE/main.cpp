@@ -18,6 +18,8 @@
 #include "engine/object/scene/Scene.hpp"
 #include "engine/object/scene/SceneManager.hpp"
 #include "Spin.hpp"
+#include "Geometry.hpp"
+#include "Cube.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -26,13 +28,10 @@ int main(int argc, const char * argv[]) {
     System * system = System::getInstance();
     
     Scene * scene = new Scene();
-    scene->objects->insert({"Triange1", new GLObject(new GLfloat [9] {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    }, 9)});
+    scene->objects->insert({"Triange1", new GLObject(Cube::getInstance())});
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
     scene->objects->at("Triange1")->setProgram(shader);
+    scene->objects->at("Triange1")->scaleLocal(.5, .5, .5);
     scene->objects->at("Triange1")->attachScript<Spin>("spinner");
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();
