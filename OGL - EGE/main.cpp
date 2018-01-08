@@ -20,6 +20,7 @@
 #include "Spin.hpp"
 #include "Geometry.hpp"
 #include "Cube.hpp"
+#include "TextureManager.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -30,6 +31,14 @@ int main(int argc, const char * argv[]) {
     Scene * scene = new Scene();
     scene->objects->insert({"Triange1", new GLObject(Cube::getInstance())});
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
+
+    shader->bindVars = [](GLObject* obj, Scene* scene) {
+        obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
+        obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->viewMatrix);
+        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+    };
+    
+    scene->objects->at("Triange1")->textures->push_back(TextureManager::getInstance()->loadTexture("pattern", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/color.bmp"));
     scene->objects->at("Triange1")->setProgram(shader);
     scene->objects->at("Triange1")->scaleLocal(.5, .5, .5);
     scene->objects->at("Triange1")->attachScript<Spin>("spinner");

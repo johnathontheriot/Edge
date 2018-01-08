@@ -56,12 +56,53 @@ Cube::Cube(): Geometry(){
         1, -1, 1,
         1, -1, -1
     };
+    
+    this->uvBuffer = new GLfloat[72] {
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+        0, 0,
+        1, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1
+    };
     this->vertexBufferSize = 108;
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
     this->createBuffer(this->VBOid);
-    this->bindVertices(this->VBOid);
+    this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
+    this->createBuffer(this->UVOid);
+    this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
 }
 
 Cube * Cube::getInstance() {

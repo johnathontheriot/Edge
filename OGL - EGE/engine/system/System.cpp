@@ -43,7 +43,7 @@ System::System() {
     if (!glewInit()) {
         
     }
-    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 std::string System::readFile(std::string path) {
