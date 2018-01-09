@@ -43,6 +43,7 @@ System::System() {
     if (!glewInit()) {
         
     }
+    glEnable(GL_DEPTH_TEST);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
@@ -74,6 +75,7 @@ void System::start() {
     while(!this->shouldClose()) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for (std::unordered_map<std::string, Scene*>::const_iterator it = SceneManager::getInstance()->scenes->begin(); it != SceneManager::getInstance()->scenes->end(); ++it) {
+            
             it->second->render();
         }
         for( std::unordered_map<std::string, GLFWwindow*>::const_iterator it = this->windows->begin(); it != this->windows->end(); ++it ) {
@@ -93,3 +95,18 @@ GLFWwindow * System::addWindow(WindowConfig * config) {
     this->windows->insert({config->name, window});
     return window;
 }
+
+Dimensions System::getWindowDimenions(std::string name) {
+    int width;
+    int height;
+    glfwGetWindowSize(this->windows->at(name), &width, &height);
+    return Dimensions(width, height);
+}
+
+Dimensions System::getWindowDimenions(GLFWwindow * window) {
+    int width;
+    int height;
+    glfwGetWindowSize(window, &width, &height);
+    return Dimensions(width, height);
+}
+

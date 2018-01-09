@@ -11,14 +11,18 @@
 #include "../Camera.hpp"
 #include "../GLObject.hpp"
 #include "Script.hpp"
+#include "System.hpp"
 
 
-Scene::Scene() {
+Scene::Scene(GLFWwindow * window) {
+    Dimensions d = System::getInstance()->getWindowDimenions(window);
     this->cameras = new std::unordered_map<std::string, Camera*>();
     this->objects = new std::unordered_map<std::string, GLObject*>();
     this->scripts = new std::unordered_map<std::string, Script<Scene>*>();
-    this->cameras->insert({"main", new Camera()});
+    this->cameras->insert({"main", new Camera(45.0f, d.width / d.height, 0.1f, 1000.0f)});
 }
+
+
 
 void Scene::render() {
     for( std::unordered_map<std::string, GLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {

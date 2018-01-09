@@ -23,12 +23,14 @@ public:
     Geometry(GLfloat *, int, GLfloat *);
 protected:
     GLfloat * vertexBuffer;
+    GLfloat * colorBuffer;
     GLfloat * uvBuffer;
     int vertexBufferSize;
     GLenum drawType;
     GLuint VAOid;
     GLuint VBOid;
     GLuint UVOid;
+    GLuint CBOid;
     void createVAO(GLuint &);
     void createBuffer(GLuint &);
     void bindVAO(GLuint &);

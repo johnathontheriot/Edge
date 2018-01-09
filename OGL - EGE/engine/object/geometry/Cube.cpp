@@ -56,6 +56,8 @@ Cube::Cube(): Geometry(){
         1, -1, 1,
         1, -1, -1
     };
+    this->colorBuffer =  vertexBuffer;
+
     
     this->uvBuffer = new GLfloat[72] {
         0, 0,
@@ -103,6 +105,8 @@ Cube::Cube(): Geometry(){
     this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
     this->createBuffer(this->UVOid);
     this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
+    this->createBuffer(this->CBOid);
+    this->bindBuffer<GLfloat>(this->CBOid, this->colorBuffer, this->vertexBufferSize);
 }
 
 Cube * Cube::getInstance() {

@@ -21,6 +21,8 @@
 		AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805DE200302ED000F0035 /* WindowConfig.cpp */; };
 		AE7805EE20030386000F0035 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805EC20030386000F0035 /* Texture.cpp */; };
 		AE7805F12003042C000F0035 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805EF2003042C000F0035 /* TextureManager.cpp */; };
+		AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805F220046F39000F0035 /* BasicMovement.cpp */; };
+		AE7805F720047384000F0035 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805F520047384000F0035 /* InputManager.cpp */; };
 		AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998EA20027E8700936CF5 /* Spin.cpp */; };
 		AEA1785E2000176C00653C66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1785D2000176C00653C66 /* main.cpp */; };
 		AEA17866200017C200653C66 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA17865200017C200653C66 /* OpenGL.framework */; };
@@ -78,6 +80,10 @@
 		AE7805ED20030386000F0035 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Texture.hpp; sourceTree = "<group>"; };
 		AE7805EF2003042C000F0035 /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
 		AE7805F02003042C000F0035 /* TextureManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
+		AE7805F220046F39000F0035 /* BasicMovement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMovement.cpp; sourceTree = "<group>"; };
+		AE7805F320046F39000F0035 /* BasicMovement.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicMovement.hpp; sourceTree = "<group>"; };
+		AE7805F520047384000F0035 /* InputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
+		AE7805F620047384000F0035 /* InputManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputManager.hpp; sourceTree = "<group>"; };
 		AE7998EA20027E8700936CF5 /* Spin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spin.cpp; sourceTree = "<group>"; };
 		AE7998EB20027E8700936CF5 /* Spin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spin.hpp; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -454,6 +460,8 @@
 				AE7805DD200302ED000F0035 /* System.hpp */,
 				AE7805DE200302ED000F0035 /* WindowConfig.cpp */,
 				AE7805DF200302ED000F0035 /* WindowConfig.hpp */,
+				AE7805F520047384000F0035 /* InputManager.cpp */,
+				AE7805F620047384000F0035 /* InputManager.hpp */,
 			);
 			path = system;
 			sourceTree = "<group>";
@@ -486,6 +494,8 @@
 				AECD89A32001833100B2B9F2 /* solid.fragment.glsl */,
 				AE7998EA20027E8700936CF5 /* Spin.cpp */,
 				AE7998EB20027E8700936CF5 /* Spin.hpp */,
+				AE7805F220046F39000F0035 /* BasicMovement.cpp */,
+				AE7805F320046F39000F0035 /* BasicMovement.hpp */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";
@@ -878,6 +888,7 @@
 			files = (
 				AE7805EE20030386000F0035 /* Texture.cpp in Sources */,
 				AE7805E8200302ED000F0035 /* ShaderManager.cpp in Sources */,
+				AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */,
 				AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */,
 				AE7805E1200302ED000F0035 /* Cube.cpp in Sources */,
 				AE7805E4200302ED000F0035 /* Scene.cpp in Sources */,
@@ -889,6 +900,7 @@
 				AEA1785E2000176C00653C66 /* main.cpp in Sources */,
 				AE7805E2200302ED000F0035 /* Geometry.cpp in Sources */,
 				AE7805E9200302ED000F0035 /* ShaderProgram.cpp in Sources */,
+				AE7805F720047384000F0035 /* InputManager.cpp in Sources */,
 				AE7805E0200302ED000F0035 /* Camera.cpp in Sources */,
 				AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */,
 				AE7805F12003042C000F0035 /* TextureManager.cpp in Sources */,

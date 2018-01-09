@@ -2,6 +2,7 @@
 
 out vec4 color;
 in vec2 UV;
+in vec3 col;
 uniform sampler2D tex;
 
 void main(){

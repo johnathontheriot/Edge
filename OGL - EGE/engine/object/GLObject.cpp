@@ -47,6 +47,9 @@ void GLObject::render(Scene * scene) {
     glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, this->geometry->UVOid);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, this->geometry->CBOid);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glDrawArrays(this->geometry->drawType, 0, this->geometry->vertexBufferSize / this->dimension);
     glDisableVertexAttribArray(0);
 }
