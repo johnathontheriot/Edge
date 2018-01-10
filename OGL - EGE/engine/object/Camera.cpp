@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "Script.hpp"
 
 Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far) {
     this->localScale = glm::mat4x4(1.0f);
@@ -26,11 +27,18 @@ Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far) {
     this->aspect = aspect;
     this->near = near;
     this->far = far;
+    this->scripts = new std::unordered_map<std::string, Script<Camera>*>();
 }
 
 void Camera::changeFOV(float delta) {
     if ((delta < 0 && this->fov > 0) || (delta > 0 && this->fov < 360)) {
         this->fov += delta;
+    }
+}
+
+void Camera::tick() {
+    for (std::unordered_map<std::string, Script<Camera>*>::const_iterator it = this->scripts->begin(); it != this->scripts->end(); ++it) {
+        it->second->tick(this);
     }
 }
 

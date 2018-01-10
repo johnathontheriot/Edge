@@ -14,6 +14,7 @@
 #include "Camera.hpp"
 class BasicMovement : public Script<Camera> {
 public:
+    BasicMovement(Camera *);
     virtual void tick(Camera * target);
 };
 

@@ -9,10 +9,14 @@
 #ifndef Camera_hpp
 #define Camera_hpp
 
-#include <stdio.h>
+#include <string>
+#include <sstream>
+#include <iostream>
 #include <glm/mat4x4.hpp>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <unordered_map>
+#include "Script.hpp"
 
 class Camera {
 private:
@@ -24,6 +28,12 @@ private:
     GLfloat far;
 public:
     friend class Scene;
+    std::unordered_map<std::string, Script<Camera>*> * scripts;
+    template <class ScriptType> void attachScript(std::string name) {
+        ScriptType * script = new ScriptType(this);
+        this->scripts->insert({name, script});
+    }
+    void tick();
     glm::mat4x4 viewMatrix;
     glm::mat4x4 localScale;
     glm::mat4x4 localTranslation;

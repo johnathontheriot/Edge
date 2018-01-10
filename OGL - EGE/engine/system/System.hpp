@@ -30,6 +30,7 @@ private:
     int monitorCount = 0;
     GLFWmonitor * primaryMonitor;
     GLFWmonitor ** monitors;
+    GLFWwindow * activeWindow;
     System();
 public:
     static System * Instance;
@@ -38,6 +39,9 @@ public:
     static System * getInstance();
     bool shouldClose();
     GLFWwindow * addWindow(WindowConfig * config);
+    GLFWwindow * getActiveWindow();
+    void setActiveWindow(std::string name);
+    void setActiveWindow(GLFWwindow * window);
     std::unordered_map<std::string, GLFWwindow*> * windows;
     Dimensions getWindowDimenions(std::string name);
     Dimensions getWindowDimenions(GLFWwindow * window);

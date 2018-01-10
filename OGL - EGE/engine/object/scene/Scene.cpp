@@ -42,4 +42,7 @@ void Scene::tick() {
     for (std::unordered_map<std::string, GLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it) {
         it->second->tick();
     }
+    for (std::unordered_map<std::string, Camera*>::const_iterator it = this->cameras->begin(); it != this->cameras->end(); ++it) {
+        it->second->tick();
+    }
 }

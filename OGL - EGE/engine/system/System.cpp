@@ -39,6 +39,7 @@ System::System() {
     this->windows = new std::unordered_map<std::string, GLFWwindow*>();
     this->addWindow(new WindowConfig(systemConfig));
     glfwMakeContextCurrent(this->windows->at("main"));
+    this->activeWindow = this->windows->at("main");
     glewExperimental = GL_TRUE;
     if (!glewInit()) {
         
@@ -87,6 +88,18 @@ void System::start() {
 
         glfwPollEvents();
     }
+}
+
+GLFWwindow * System::getActiveWindow() {
+    return this->activeWindow;
+}
+
+void System::setActiveWindow(std::string name) {
+    this->activeWindow = this->windows->at(name);
+}
+
+void System::setActiveWindow(GLFWwindow * window) {
+    this->activeWindow = window;
 }
 
 
