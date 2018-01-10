@@ -17,6 +17,8 @@
 #include "Scene.hpp"
 #include "../physics/Script.hpp"
 #include "Geometry.hpp"
+#include "Texture.hpp"
+#include <vector>
 
 class ShaderProgram;
 class Scene;
@@ -35,6 +37,7 @@ private:
     int dimension = 3;
 public:
     ShaderProgram * shader;
+    std::vector<Texture*> * textures;
     void tick();
     std::unordered_map<std::string, Script<GLObject>*> * scripts;
     template <class ScriptType> void attachScript(std::string name) {

@@ -26,7 +26,7 @@ public:
     std::unordered_map<std::string, GLObject*> * objects;
     void render();
     void tick();
-    Scene();
+    Scene(GLFWwindow * window);
 };
 
 #endif /* Scene_hpp */

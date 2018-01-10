@@ -24,6 +24,7 @@ GLObject::GLObject(Geometry * mesh) {
     this->globalTranslation = glm::mat4x4(1.0f);
     this->globalRotation = glm::mat4x4(1.0f);
     this->scripts = new std::unordered_map<std::string, Script<GLObject>*>();
+    this->textures = new std::vector<Texture*>();
 }
 
 void GLObject::tick() {
@@ -43,6 +44,12 @@ void GLObject::render(Scene * scene) {
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, this->geometry->VBOid);
     glVertexAttribPointer(0, this->dimension, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, this->geometry->UVOid);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, this->geometry->CBOid);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glDrawArrays(this->geometry->drawType, 0, this->geometry->vertexBufferSize / this->dimension);
     glDisableVertexAttribArray(0);
 }

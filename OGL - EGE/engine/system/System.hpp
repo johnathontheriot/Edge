@@ -16,12 +16,21 @@
 
 using json = nlohmann::json;
 
+struct Dimensions{
+    float width;
+    float height;
+    Dimensions(int width, int height) {
+        this->width = 1.0 * width;
+        this->height = 1.0 * height;
+    }
+};
 
 class System {
 private:
     int monitorCount = 0;
     GLFWmonitor * primaryMonitor;
     GLFWmonitor ** monitors;
+    GLFWwindow * activeWindow;
     System();
 public:
     static System * Instance;
@@ -30,8 +39,12 @@ public:
     static System * getInstance();
     bool shouldClose();
     GLFWwindow * addWindow(WindowConfig * config);
+    GLFWwindow * getActiveWindow();
+    void setActiveWindow(std::string name);
+    void setActiveWindow(GLFWwindow * window);
     std::unordered_map<std::string, GLFWwindow*> * windows;
-    
+    Dimensions getWindowDimenions(std::string name);
+    Dimensions getWindowDimenions(GLFWwindow * window);
     void start();
 
 };
