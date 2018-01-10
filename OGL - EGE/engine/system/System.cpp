@@ -39,11 +39,13 @@ System::System() {
     this->windows = new std::unordered_map<std::string, GLFWwindow*>();
     this->addWindow(new WindowConfig(systemConfig));
     glfwMakeContextCurrent(this->windows->at("main"));
+    this->activeWindow = this->windows->at("main");
     glewExperimental = GL_TRUE;
     if (!glewInit()) {
         
     }
-    glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 std::string System::readFile(std::string path) {
@@ -74,6 +76,7 @@ void System::start() {
     while(!this->shouldClose()) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for (std::unordered_map<std::string, Scene*>::const_iterator it = SceneManager::getInstance()->scenes->begin(); it != SceneManager::getInstance()->scenes->end(); ++it) {
+            
             it->second->render();
         }
         for( std::unordered_map<std::string, GLFWwindow*>::const_iterator it = this->windows->begin(); it != this->windows->end(); ++it ) {
@@ -87,9 +90,36 @@ void System::start() {
     }
 }
 
+GLFWwindow * System::getActiveWindow() {
+    return this->activeWindow;
+}
+
+void System::setActiveWindow(std::string name) {
+    this->activeWindow = this->windows->at(name);
+}
+
+void System::setActiveWindow(GLFWwindow * window) {
+    this->activeWindow = window;
+}
+
 
 GLFWwindow * System::addWindow(WindowConfig * config) {
     GLFWwindow * window = glfwCreateWindow(config->width, config->height, config->title.c_str(), config->fullScreen ? this->primaryMonitor : NULL, NULL);
     this->windows->insert({config->name, window});
     return window;
 }
+
+Dimensions System::getWindowDimenions(std::string name) {
+    int width;
+    int height;
+    glfwGetWindowSize(this->windows->at(name), &width, &height);
+    return Dimensions(width, height);
+}
+
+Dimensions System::getWindowDimenions(GLFWwindow * window) {
+    int width;
+    int height;
+    glfwGetWindowSize(window, &width, &height);
+    return Dimensions(width, height);
+}
+

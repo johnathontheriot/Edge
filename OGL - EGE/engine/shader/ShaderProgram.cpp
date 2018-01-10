@@ -13,6 +13,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include "GLObject.hpp"
+#include "Texture.hpp"
 
 ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentShader) {
     GLint result = GL_FALSE;
@@ -33,10 +34,7 @@ ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentSha
     }
 }
 
-void ShaderProgram::bind(GLObject* obj, Scene * scene) {
-    obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
-    obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->viewMatrix);
-
+void ShaderProgram::bind(GLObject* obj, Scene * scene) {    
     if (this->bindVars) {
         bindVars(obj, scene);
     }
@@ -45,4 +43,11 @@ void ShaderProgram::bind(GLObject* obj, Scene * scene) {
 void ShaderProgram::bind4fMatrix(std::string name, glm::mat4x4 mat) {
     GLuint matrixID = glGetUniformLocation(this->id, name.c_str());
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
+}
+
+void ShaderProgram::bindTexture(std::string name, Texture * texture, GLenum texNum, int texInd) {
+    GLuint textureID = glGetUniformLocation(this->id, name.c_str());
+    glActiveTexture(texNum);
+    glBindTexture(GL_TEXTURE_2D, texture->id);
+    glUniform1i(textureID, texInd);
 }

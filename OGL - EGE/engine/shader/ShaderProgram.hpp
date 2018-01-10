@@ -17,6 +17,7 @@
 #include "../object/GLObject.hpp"
 #include <glm/mat4x4.hpp>
 #include "../object/scene/Scene.hpp"
+#include "Texture.hpp"
 
 class GLObject;
 class Scene;
@@ -28,6 +29,8 @@ private:
 public:
     void (*bindVars)(GLObject*, Scene*) = NULL;
     void bind4fMatrix(std::string, glm::mat4x4);
+    void bindTexture(std::string name, Texture * texture, GLenum texNum, int texInd);
+
     GLuint id;
     void bind(GLObject*, Scene *);
     ShaderProgram(GLSLShader *, GLSLShader *);
