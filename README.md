@@ -52,3 +52,26 @@ Some `Geometry` objects allow access to their constructors. This allows the user
 ```
 
 This will divide the plane into 2 rows and 2 columns.
+
+### Add a Shader to an Object
+
+Now that you have an object, let's add some color to it with a shader
+
+```
+    ShaderProgram * shader = ShaderManager::createShaderProgram("solid_red.vertex.glsl", "solid_red.fragment.glsl");
+```
+
+The `ShaderProgram` constructor takes in two paths. The path order is the same as the order shaders appear in the pipeline (we currently only support the vertex and fragment shader, but geometry and tesselation are coming in the future). So in this case the first path is to our vertex shader and the second is to our fragment.
+
+### Bind Variables to Shaders
+
+Variable bindings in shaders are necessary with every draw, so we give access to that stage in the pipeline through a lambda function. This lambda will give you access to the `GLObject` that the `Shader` is bound to as well as the `Scene` that the object sits in
+
+```c++
+    shader->bindVars = [](GLObject* obj, Scene* scene) {
+        obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
+        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+    };
+```
+
+This example shows how to bind both a `Matrix` and `Texture` to the shader - nothing too complicated but this is likely to become more automated in the future. Speaking of `Texture`s...
