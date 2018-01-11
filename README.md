@@ -30,3 +30,25 @@ __Note:__ This will change in the future to something like:
 ```c++
   Scene * mainScene = SceneManager::getInstance()->createScene("main");
 ```
+
+### Add an Object to the Scene
+
+Easiest peasiest (this will change to `scene->addObject`)
+
+```c++
+    scene->objects->insert({"myTextBox", new TextBox("Hey, you can add text now!")});
+```
+
+`TextBox` is a bit of a special case. Most of the time, you'll want to create a new `GLObject`. The constructor of `GLObject` accepts a `Geometry`, which is a sharable mesh definition. You can create a `Cube` or `RectangularPlane` like so:
+
+```c++
+    scene->objects->insert({"myCube", Cube::getInstance()})
+```
+
+Some `Geometry` objects allow access to their constructors. This allows the user to define certain properties of the mesh that mark it as unsharable. This is the case for `RectangularPlane`. Let's say you wanted a grid like mesh rather than a giant 2-triangle plane:
+
+```c++
+    scene=>objects->insert({"myTesPlane", new RectangularPlane(2, 2)});
+```
+
+This will divide the plane into 2 rows and 2 columns.
