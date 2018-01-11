@@ -102,11 +102,9 @@ Cube::Cube(): Geometry(){
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
     this->createBuffer(this->VBOid);
-    this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
     this->createBuffer(this->UVOid);
-    this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
     this->createBuffer(this->CBOid);
-    this->bindBuffer<GLfloat>(this->CBOid, this->colorBuffer, this->vertexBufferSize);
+    this->bindBuffers();
 }
 
 Cube * Cube::getInstance() {

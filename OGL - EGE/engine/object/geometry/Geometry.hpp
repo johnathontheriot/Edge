@@ -34,6 +34,7 @@ protected:
     void createVAO(GLuint &);
     void createBuffer(GLuint &);
     void bindVAO(GLuint &);
+    void bindBuffers();
     template <class BufferType> void bindBuffer(GLuint & bufferID, BufferType * data, int size) {
         glBindBuffer(GL_ARRAY_BUFFER, bufferID);
         glBufferData(GL_ARRAY_BUFFER, sizeof(BufferType) * size, data, GL_STATIC_DRAW);

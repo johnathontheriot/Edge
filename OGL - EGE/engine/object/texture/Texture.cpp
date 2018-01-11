@@ -8,11 +8,16 @@
 
 #include "Texture.hpp"
 
-Texture::Texture(GLuint id, ImageData * imageProperties) {
-    this->id = id;
-    this->imageProperties = imageProperties;
+Texture::Texture(int width, int height, unsigned char * data) {
+    this->width = width;
+    this->height = height;
+    this->data = data;
 }
 
 Texture::Texture() {
+    
+}
+
+void Texture::bind() {
     
 }

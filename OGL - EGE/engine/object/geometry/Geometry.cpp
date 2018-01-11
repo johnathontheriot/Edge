@@ -26,17 +26,29 @@ Geometry::Geometry(GLfloat * vertexBuffer, int vertexBufferSize, GLfloat * uvBuf
     this->bindVAO(this->VAOid);
     if (vertexBuffer) {
         this->createBuffer(this->VBOid);
-        this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
     }
     if (uvBuffer) {
         this->createBuffer(this->UVOid);
-        this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
     }
+    this->bindBuffers();
 }
 
 void Geometry::createBuffer(GLuint & id) {
     glGenBuffers(1, &id);
 }
+
+void Geometry::bindBuffers() {
+    if (this->VBOid) {
+        this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
+    }
+    if (this->UVOid) {
+        this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
+    }
+    if (this->CBOid) {
+        this->bindBuffer<GLfloat>(this->CBOid, this->colorBuffer, this->vertexBufferSize);
+    }
+}
+
 
 
 Geometry::Geometry() {

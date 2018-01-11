@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE648F0C2006C8BD00331965 /* RectangularPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */; };
+		AE648F0F2006F5A000331965 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F0D2006F5A000331965 /* TextBox.cpp */; };
+		AE648F122007136700331965 /* BMPTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F102007136700331965 /* BMPTexture.cpp */; };
+		AE648F1520071B7D00331965 /* DDSTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F1320071B7D00331965 /* DDSTexture.cpp */; };
 		AE7805E0200302ED000F0035 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805C1200302ED000F0035 /* Camera.cpp */; };
 		AE7805E1200302ED000F0035 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805C4200302ED000F0035 /* Cube.cpp */; };
 		AE7805E2200302ED000F0035 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805C6200302ED000F0035 /* Geometry.cpp */; };
@@ -51,6 +55,14 @@
 /* Begin PBXFileReference section */
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
+		AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangularPlane.cpp; sourceTree = "<group>"; };
+		AE648F0B2006C8BD00331965 /* RectangularPlane.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangularPlane.hpp; sourceTree = "<group>"; };
+		AE648F0D2006F5A000331965 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
+		AE648F0E2006F5A000331965 /* TextBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBox.hpp; sourceTree = "<group>"; };
+		AE648F102007136700331965 /* BMPTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BMPTexture.cpp; sourceTree = "<group>"; };
+		AE648F112007136700331965 /* BMPTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BMPTexture.hpp; sourceTree = "<group>"; };
+		AE648F1320071B7D00331965 /* DDSTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DDSTexture.cpp; sourceTree = "<group>"; };
+		AE648F1420071B7D00331965 /* DDSTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DDSTexture.hpp; sourceTree = "<group>"; };
 		AE7805C1200302ED000F0035 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		AE7805C2200302ED000F0035 /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		AE7805C4200302ED000F0035 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
@@ -393,6 +405,8 @@
 				AE7805C9200302ED000F0035 /* GLObject.hpp */,
 				AE7805CA200302ED000F0035 /* scene */,
 				AE7805CF200302ED000F0035 /* texture */,
+				AE648F0D2006F5A000331965 /* TextBox.cpp */,
+				AE648F0E2006F5A000331965 /* TextBox.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -404,6 +418,8 @@
 				AE7805C5200302ED000F0035 /* Cube.hpp */,
 				AE7805C6200302ED000F0035 /* Geometry.cpp */,
 				AE7805C7200302ED000F0035 /* Geometry.hpp */,
+				AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */,
+				AE648F0B2006C8BD00331965 /* RectangularPlane.hpp */,
 			);
 			path = geometry;
 			sourceTree = "<group>";
@@ -426,6 +442,10 @@
 				AE7805ED20030386000F0035 /* Texture.hpp */,
 				AE7805EF2003042C000F0035 /* TextureManager.cpp */,
 				AE7805F02003042C000F0035 /* TextureManager.hpp */,
+				AE648F102007136700331965 /* BMPTexture.cpp */,
+				AE648F112007136700331965 /* BMPTexture.hpp */,
+				AE648F1320071B7D00331965 /* DDSTexture.cpp */,
+				AE648F1420071B7D00331965 /* DDSTexture.hpp */,
 			);
 			path = texture;
 			sourceTree = "<group>";
@@ -887,7 +907,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE7805EE20030386000F0035 /* Texture.cpp in Sources */,
+				AE648F1520071B7D00331965 /* DDSTexture.cpp in Sources */,
 				AE7805E8200302ED000F0035 /* ShaderManager.cpp in Sources */,
+				AE648F0F2006F5A000331965 /* TextBox.cpp in Sources */,
+				AE648F0C2006C8BD00331965 /* RectangularPlane.cpp in Sources */,
 				AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */,
 				AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */,
 				AE7805E1200302ED000F0035 /* Cube.cpp in Sources */,
@@ -901,6 +924,7 @@
 				AE7805E2200302ED000F0035 /* Geometry.cpp in Sources */,
 				AE7805E9200302ED000F0035 /* ShaderProgram.cpp in Sources */,
 				AE7805F720047384000F0035 /* InputManager.cpp in Sources */,
+				AE648F122007136700331965 /* BMPTexture.cpp in Sources */,
 				AE7805E0200302ED000F0035 /* Camera.cpp in Sources */,
 				AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */,
 				AE7805F12003042C000F0035 /* TextureManager.cpp in Sources */,

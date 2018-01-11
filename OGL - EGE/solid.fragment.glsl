@@ -2,9 +2,9 @@
 
 out vec4 color;
 in vec2 UV;
-in vec3 col;
+in vec4 col;
 uniform sampler2D tex;
 
 void main(){
-    color = vec4(texture(tex, UV).rgb, 1.0);
+    color = texture(tex, vec2(UV.r, - UV.g));
 }

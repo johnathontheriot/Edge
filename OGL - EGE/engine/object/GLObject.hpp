@@ -33,7 +33,6 @@ private:
     glm::mat4x4 globalScale;
     glm::mat4x4 globalTranslation;
     glm::mat4x4 globalRotation;
-    Geometry * geometry;
     int dimension = 3;
 public:
     ShaderProgram * shader;
@@ -54,8 +53,12 @@ public:
     void scaleGlobal(GLfloat x, GLfloat y, GLfloat z);
     void rotateGlobal(GLfloat x, GLfloat y, GLfloat z);
     GLObject(Geometry * mesh);
-    void render(Scene*);
+    GLObject();
+    virtual void render(Scene*);
     void setProgram(ShaderProgram *);
+protected:
+    Geometry * geometry;
+
 };
 
 #endif /* GLObject_hpp */

@@ -2,6 +2,8 @@
 *.d
 OGL - EGE/glm/*
 OGL - EGE.xcodeproj/*
+OGL - EGE/*.DDS
+OGL - EGE/*.bmp
 # Compiled Object files
 *.slo
 *.lo

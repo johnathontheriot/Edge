@@ -11,6 +11,7 @@
 
 #include <unordered_map>
 #include "Texture.hpp"
+#include "BMPTexture.hpp"
 
 class TextureManager {
 private:
@@ -19,9 +20,15 @@ public:
     std::unordered_map<std::string, Texture *> * textures;
     static TextureManager * Instance;
     static TextureManager * getInstance();
-    static ImageData loadBMP(const char * path);
-    Texture * loadTexture(std::string, std::string);
-    Texture * loadTexture(std::string, ImageData);
+    template<typename T, typename std::enable_if<std::is_base_of<Texture, T>::value>::type* = nullptr>
+    T * loadImage(const char * path);
+    template<typename T, typename std::enable_if<std::is_base_of<Texture, T>::value>::type* = nullptr>
+    T * loadTexture(std::string name, std::string path) {
+        T * texture = TextureManager::loadImage<T>(path.c_str());
+        texture->bind();
+        this->textures->insert({name, texture});
+        return texture;
+    }
 protected:
 };
 

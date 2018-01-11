@@ -12,26 +12,16 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-struct ImageData {
+class Texture {
+private:
+public:
     int width;
     int height;
     unsigned char * data;
-    char * extension;
-    ImageData(int width, int height, unsigned char * data, char * extension) {
-        this->width = width;
-        this->height = height;
-        this->data = data;
-        this->extension = extension;
-    }
-};
-
-class Texture {
-private:
-    ImageData * imageProperties;
-public:
     GLuint id;
-    Texture(GLuint, ImageData*);
+    Texture(int width, int height, unsigned char * data);
     Texture();
+    virtual void bind();
 protected:
 };
 
