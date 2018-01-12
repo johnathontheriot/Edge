@@ -49,6 +49,13 @@ void Geometry::bindBuffers() {
     }
 }
 
+void Geometry::updateUVs(GLfloat * uvs) {
+    if (this->UVOid) {
+        this->uvBuffer = uvs;
+        this->bindVAO(this->VAOid);
+        this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
+    }
+}
 
 
 Geometry::Geometry() {

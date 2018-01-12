@@ -80,6 +80,10 @@ glm::mat4x4 Camera::getViewMatrix() {
     return this->globalTranslation * this->globalElevation * this->globalAzumith * this->globalScale * this->localTranslation * this->localRotation * this->localScale  * this->viewMatrix;
 }
 
+glm::mat4x4 Camera::getScaleRotationMatrix() {
+    return  this->globalElevation * this->globalAzumith * this->globalScale  * this->localRotation * this->localScale  * this->viewMatrix;
+}
+
 void Camera::zoom(float delta){
     this->globalTranslation = this->globalTranslation * glm::mat4x4(1.0f, 0, 0, 0,
                                                                   0, 1.0f, 0, 0,

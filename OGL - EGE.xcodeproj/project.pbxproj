@@ -28,6 +28,7 @@
 		AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805F220046F39000F0035 /* BasicMovement.cpp */; };
 		AE7805F720047384000F0035 /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7805F520047384000F0035 /* InputManager.cpp */; };
 		AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998EA20027E8700936CF5 /* Spin.cpp */; };
+		AE9775FD20084033005DCEC0 /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE9775FB20084033005DCEC0 /* SkyBox.cpp */; };
 		AEA1785E2000176C00653C66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1785D2000176C00653C66 /* main.cpp */; };
 		AEA17866200017C200653C66 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA17865200017C200653C66 /* OpenGL.framework */; };
 		AEA178682000182A00653C66 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */; };
@@ -98,6 +99,10 @@
 		AE7805F620047384000F0035 /* InputManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputManager.hpp; sourceTree = "<group>"; };
 		AE7998EA20027E8700936CF5 /* Spin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spin.cpp; sourceTree = "<group>"; };
 		AE7998EB20027E8700936CF5 /* Spin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spin.hpp; sourceTree = "<group>"; };
+		AE9775FB20084033005DCEC0 /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
+		AE9775FC20084033005DCEC0 /* SkyBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SkyBox.hpp; sourceTree = "<group>"; };
+		AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.vertex.glsl; sourceTree = "<group>"; };
+		AE9775FF20084633005DCEC0 /* skybox.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.fragment.glsl; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -407,6 +412,8 @@
 				AE7805CF200302ED000F0035 /* texture */,
 				AE648F0D2006F5A000331965 /* TextBox.cpp */,
 				AE648F0E2006F5A000331965 /* TextBox.hpp */,
+				AE9775FB20084033005DCEC0 /* SkyBox.cpp */,
+				AE9775FC20084033005DCEC0 /* SkyBox.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -516,6 +523,8 @@
 				AE7998EB20027E8700936CF5 /* Spin.hpp */,
 				AE7805F220046F39000F0035 /* BasicMovement.cpp */,
 				AE7805F320046F39000F0035 /* BasicMovement.hpp */,
+				AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */,
+				AE9775FF20084633005DCEC0 /* skybox.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";
@@ -910,6 +919,7 @@
 				AE648F1520071B7D00331965 /* DDSTexture.cpp in Sources */,
 				AE7805E8200302ED000F0035 /* ShaderManager.cpp in Sources */,
 				AE648F0F2006F5A000331965 /* TextBox.cpp in Sources */,
+				AE9775FD20084033005DCEC0 /* SkyBox.cpp in Sources */,
 				AE648F0C2006C8BD00331965 /* RectangularPlane.cpp in Sources */,
 				AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */,
 				AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */,

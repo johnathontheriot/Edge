@@ -113,3 +113,4 @@ Cube * Cube::getInstance() {
     }
     return Cube::Instance;
 }
+

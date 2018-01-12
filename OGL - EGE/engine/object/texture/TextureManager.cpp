@@ -41,7 +41,7 @@ template<> BMPTexture * TextureManager::loadImage<BMPTexture>(const char * path)
         dataPos = 54;
     }
     unsigned char * data = new unsigned char [imageSize];
-    fread(data, 1, imageSize, file);
+    int a = fread(data, 1, imageSize, file);
     fclose(file);
     return new BMPTexture(width, height, data);
 }

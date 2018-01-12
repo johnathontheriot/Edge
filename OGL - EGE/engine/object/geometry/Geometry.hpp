@@ -19,6 +19,7 @@ class Geometry {
 private:
     friend class GLObject;
 public:
+    void updateUVs(GLfloat * uvs);
     Geometry();
     Geometry(GLfloat *, int, GLfloat *);
 protected:

@@ -55,6 +55,8 @@ public:
     void scaleGlobal(GLfloat x, GLfloat y, GLfloat z);
     glm::mat4x4 getViewMatrix();
     glm::mat4x4 getProjectionMatrix();
+    glm::mat4x4 getScaleRotationMatrix();
+
 };
 
 #endif /* Camera_hpp */
