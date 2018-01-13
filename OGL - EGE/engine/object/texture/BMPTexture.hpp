@@ -16,7 +16,7 @@ class BMPTexture : public Texture {
 private:
 public:
     BMPTexture(int width, int height, unsigned char * data);
-    virtual void bind();
+    virtual void bind(int txEnum, int txIdx);
 protected:
 };
 

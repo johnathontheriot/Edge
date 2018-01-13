@@ -18,6 +18,6 @@ Texture::Texture() {
     
 }
 
-void Texture::bind() {
+void Texture::bind(int txEnum, int txIdx) {
     
 }

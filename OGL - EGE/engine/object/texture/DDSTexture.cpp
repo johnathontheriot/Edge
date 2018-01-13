@@ -12,8 +12,12 @@
 #include <sstream>
 #include <iostream>
 
-void DDSTexture::bind() {
+
+void DDSTexture::bind(int txEnum, int txIdx) {
     GLuint textureID;
+    this->texEnum = txEnum;
+    this->texIndex = txIdx;
+    glActiveTexture(this->texEnum);
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glPixelStorei(GL_UNPACK_ALIGNMENT,1);

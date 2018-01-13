@@ -15,13 +15,15 @@
 class Texture {
 private:
 public:
+    int texIndex;
+    int texEnum;
     int width;
     int height;
     unsigned char * data;
     GLuint id;
     Texture(int width, int height, unsigned char * data);
     Texture();
-    virtual void bind();
+    virtual void bind(int txEnum, int txIdx);
 protected:
 };
 

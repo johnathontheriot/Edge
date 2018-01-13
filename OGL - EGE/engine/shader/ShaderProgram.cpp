@@ -45,9 +45,16 @@ void ShaderProgram::bind4fMatrix(std::string name, glm::mat4x4 mat) {
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
 }
 
-void ShaderProgram::bindTexture(std::string name, Texture * texture, GLenum texNum, int texInd) {
+void ShaderProgram::bindTexture(std::string name, Texture * texture) {
     GLuint textureID = glGetUniformLocation(this->id, name.c_str());
-    glActiveTexture(texNum);
+    glActiveTexture(texture->texEnum);
     glBindTexture(GL_TEXTURE_2D, texture->id);
-    glUniform1i(textureID, texInd);
+    glUniform1i(textureID, texture->texIndex);
+}
+
+void ShaderProgram::bindCubeMap(std::string name, Texture * texture) {
+    GLuint textureID = glGetUniformLocation(this->id, name.c_str());
+    glActiveTexture(texture->texEnum);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, texture->id);
+    glUniform1i(textureID, texture->texIndex);
 }

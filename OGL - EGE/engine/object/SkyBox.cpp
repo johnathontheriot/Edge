@@ -11,6 +11,7 @@
 #include "TextureManager.hpp"
 #include "BMPTexture.hpp"
 #include "ShaderManager.hpp"
+#include "CubeMap.hpp"
 
 SkyBox::SkyBox(std::string path): GLObject() {
     this->geometry = new Cube();
@@ -59,6 +60,67 @@ SkyBox::SkyBox(std::string path): GLObject() {
         0.5, 1.0 / 3.0
     });
     this->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("sky", path));
+    ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.fragment.glsl");
+    
+    shader->bindVars = [](GLObject* obj, Scene* scene) {
+        obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
+        // add bind camera function
+        obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
+        obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        obj->shader->bindTexture("tex", obj->textures->at(0));
+    };
+    this->setProgram(shader);
+    this->scaleLocal(100, 100, 100);
+}
+
+static int skyBoxCount = 0;
+
+SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::string t, std::string btm) {
+    this->textures->push_back(TextureManager::getInstance()->loadCubeMap("skybox_" + std::to_string(skyBoxCount++), l, f, r, b, t, btm));
+    this->geometry = new Cube();
+    this->geometry->updateVertices(new GLfloat[108] {
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+        
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+        
+        -1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+        
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f
+    });
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.fragment.glsl");
     
     shader->bindVars = [](GLObject* obj, Scene* scene) {
@@ -66,8 +128,18 @@ SkyBox::SkyBox(std::string path): GLObject() {
         // add bind camera function
         obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
         obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+        obj->shader->bindTexture("tex", obj->textures->at(0));
     };
     this->setProgram(shader);
     this->scaleLocal(100, 100, 100);
+
 }
+
+void SkyBox::render(Scene* scene) {
+    glDepthMask(GL_FALSE);
+    GLObject::render(scene);
+    glDepthMask(GL_TRUE);
+
+}
+
+

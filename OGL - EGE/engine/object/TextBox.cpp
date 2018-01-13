@@ -27,7 +27,7 @@ TextBox::TextBox(std::string text): GLObject() {
         // add bind camera function
         obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getViewMatrix());
         obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+        obj->shader->bindTexture("tex", obj->textures->at(0));
     };
     this->setProgram(shader);
     // End changes

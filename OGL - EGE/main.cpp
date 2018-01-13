@@ -42,10 +42,10 @@ int main(int argc, const char * argv[]) {
         // add bind camera function
         obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getViewMatrix());
         obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+        obj->shader->bindTexture("tex", obj->textures->at(0));
     };
-    
-    scene->objects->insert({"title1", new TextBox("This is a cube!")});
+
+    scene->objects->insert({"title1", new TextBox("dqypgjb")});
     scene->objects->at("title1")->scaleLocal(.1, .1, .1);
     scene->objects->at("title1")->translateGlobal(0, .65f, 0);
     
@@ -54,6 +54,10 @@ int main(int argc, const char * argv[]) {
     scene->objects->at("Cube1")->setProgram(shader);
     scene->objects->at("Cube1")->scaleLocal(.5, .5, .5);
     scene->objects->at("Cube1")->translateGlobal(0, 0, -.53f);
+    
+    std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
+    scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
+    scene->objects->at("skyBox")->rotateGlobal(M_PI, 0, 0);
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->objects->at("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
@@ -64,8 +68,7 @@ int main(int argc, const char * argv[]) {
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    
-    scene->objects->insert({"brick", new SkyBox("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/cloud.bmp")});
+
     
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();

@@ -29,7 +29,8 @@ private:
 public:
     void (*bindVars)(GLObject*, Scene*) = NULL;
     void bind4fMatrix(std::string, glm::mat4x4);
-    void bindTexture(std::string name, Texture * texture, GLenum texNum, int texInd);
+    void bindTexture(std::string name, Texture * texture);
+    void bindCubeMap(std::string name, Texture * texture);
 
     GLuint id;
     void bind(GLObject*, Scene *);

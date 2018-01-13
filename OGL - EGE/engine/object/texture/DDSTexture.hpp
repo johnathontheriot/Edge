@@ -12,13 +12,15 @@
 #include <stdio.h>
 #include "Texture.hpp"
 
+class TextureManager;
+
 class DDSTexture: public Texture {
 private:
     int format;
     int mipMapCount;
 public:
     DDSTexture(int width, int height, int format, int mipMapCount, unsigned char * data);
-    virtual void bind();
+    virtual void bind(int txEnum, int txIdx);
 protected:
     
 };

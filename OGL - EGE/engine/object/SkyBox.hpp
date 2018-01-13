@@ -15,7 +15,8 @@
 class SkyBox: public GLObject {
 private:
 public:
-    
+    virtual void render(Scene*);
     SkyBox(std::string texturePath);
+    SkyBox(std::string, std::string, std::string, std::string, std::string, std::string);
 };
 #endif /* SkyBox_hpp */

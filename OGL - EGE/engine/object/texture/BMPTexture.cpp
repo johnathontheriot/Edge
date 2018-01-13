@@ -9,8 +9,11 @@
 #include "BMPTexture.hpp"
 
 
-void BMPTexture::bind() {
+void BMPTexture::bind(int txEnum, int txIdx) {
     GLuint textureID;
+    this->texEnum = txEnum;
+    this->texIndex = txIdx;
+    glActiveTexture(this->texEnum);
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, this->width, this->height, 0, GL_BGR, GL_UNSIGNED_BYTE, this->data);

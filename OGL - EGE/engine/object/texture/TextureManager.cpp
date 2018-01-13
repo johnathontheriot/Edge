@@ -12,10 +12,10 @@
 #include "TextureManager.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "DDSTexture.hpp"
 
 TextureManager * TextureManager::Instance;
-
+int TextureManager::textureNumber = 0;
+int TextureManager::textureEnum = GL_TEXTURE0;
 
 TextureManager * TextureManager::getInstance() {
     if (!TextureManager::Instance) {
@@ -41,7 +41,7 @@ template<> BMPTexture * TextureManager::loadImage<BMPTexture>(const char * path)
         dataPos = 54;
     }
     unsigned char * data = new unsigned char [imageSize];
-    int a = fread(data, 1, imageSize, file);
+    fread(data, 1, imageSize, file);
     fclose(file);
     return new BMPTexture(width, height, data);
 }
@@ -95,6 +95,28 @@ template<> DDSTexture * TextureManager::loadImage<DDSTexture>(const char * path)
     return new DDSTexture(width, height, format, mipMapCount, buffer);
 }
 
+Texture * TextureManager::loadTexture(std::string name, std::string path) {
+    if (path.substr(path.find_last_of(".") + 1) == "bmp") {
+        return this->loadTexture<BMPTexture>(name, path);
+    }
+    else if (path.substr(path.find_last_of(".") + 1) == "DDS") {
+        return this->loadTexture<DDSTexture>(name, path);
+    }
+    return NULL;
+}
+
+Texture * TextureManager::loadCubeMap(std::string name, std::string l, std::string f, std::string r, std::string b, std::string t, std::string bm) {
+    Texture * lt = TextureManager::loadTexture(name + " left", l);
+    Texture * ft = TextureManager::loadTexture(name + " front", f);
+    Texture * rt = TextureManager::loadTexture(name + " right", r);
+    Texture * bt = TextureManager::loadTexture(name + " back", b);
+    Texture * tt = TextureManager::loadTexture(name + " top", t);
+    Texture * bmt = TextureManager::loadTexture(name + " bottom", bm);
+    CubeMap * texture = new CubeMap(lt, ft, rt, bt, tt, bmt);
+    texture->bind(TextureManager::textureEnum++, TextureManager::textureNumber++);
+    this->textures->insert({name, texture});
+    return texture;
+}
 
 
 
