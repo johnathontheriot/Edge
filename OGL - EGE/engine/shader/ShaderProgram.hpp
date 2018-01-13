@@ -26,6 +26,7 @@ class ShaderProgram {
 private:
     GLSLShader * vertexShader;
     GLSLShader * fragmentShader;
+    GLSLShader * geometryShader;
 public:
     void (*bindVars)(GLObject*, Scene*) = NULL;
     void bind4fMatrix(std::string, glm::mat4x4);
@@ -34,6 +35,7 @@ public:
 
     GLuint id;
     void bind(GLObject*, Scene *);
+    ShaderProgram(GLSLShader *, GLSLShader *, GLSLShader *);
     ShaderProgram(GLSLShader *, GLSLShader *);
 };
 

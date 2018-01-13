@@ -15,14 +15,21 @@
 #include "GLObject.hpp"
 #include "Texture.hpp"
 
-ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentShader) {
+ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentShader): ShaderProgram(vertexShader, NULL, fragmentShader) {
+    
+}
+
+ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * geometryShader, GLSLShader * fragmentShader) {
     GLint result = GL_FALSE;
     int resLength;
-    this -> vertexShader = vertexShader;
+    this->vertexShader = vertexShader;
     this->fragmentShader = fragmentShader;
-    
+    this->geometryShader = geometryShader;
     this->id = glCreateProgram();
     glAttachShader(this->id, vertexShader->shaderID);
+    if (this->geometryShader) {
+        glAttachShader(this->id, geometryShader->shaderID);
+    }
     glAttachShader(this->id, fragmentShader->shaderID);
     glLinkProgram(this->id);
     glGetProgramiv(this->id, GL_LINK_STATUS, &result);

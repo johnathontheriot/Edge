@@ -35,7 +35,7 @@ int main(int argc, const char * argv[]) {
     System * system = System::getInstance();
     Scene * scene = new Scene(system->getActiveWindow());
     
-    ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
+    ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.geometry.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
 
     shader->bindVars = [](GLObject* obj, Scene* scene) {
         obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());

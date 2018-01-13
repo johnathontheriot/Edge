@@ -40,15 +40,18 @@ GLSLShader * ShaderManager::loadShader(std::string filePath, GLenum shaderType) 
 
 
 
-ShaderProgram * ShaderManager::createShaderProgram(std::string vpath, std::string fpath) {
+ShaderProgram * ShaderManager::createShaderProgram(std::string vpath, std::string gpath, std::string fpath) {
+    return new ShaderProgram(ShaderManager::loadShader(vpath, GL_VERTEX_SHADER), ShaderManager::loadShader(gpath, GL_GEOMETRY_SHADER), ShaderManager::loadShader(fpath, GL_FRAGMENT_SHADER));
+}
+
+ShaderProgram * ShaderManager::createShaderProgram(GLSLShader* vShader, GLSLShader* gShader, GLSLShader* fShader) {
+    return new ShaderProgram(vShader, gShader, fShader);
+}
+
+ShaderProgram * ShaderManager::createShaderProgram(std::string vpath,std::string fpath) {
     return new ShaderProgram(ShaderManager::loadShader(vpath, GL_VERTEX_SHADER), ShaderManager::loadShader(fpath, GL_FRAGMENT_SHADER));
 }
-ShaderProgram * ShaderManager::createShaderProgram(std::string vPath, GLSLShader* fShader) {
-    return new ShaderProgram(ShaderManager::loadShader(vPath, GL_VERTEX_SHADER), fShader);
-}
-ShaderProgram * ShaderManager::createShaderProgram(GLSLShader* vShader, std::string fPath) {
-    return new ShaderProgram(vShader, ShaderManager::loadShader(fPath, GL_FRAGMENT_SHADER));
-}
+
 ShaderProgram * ShaderManager::createShaderProgram(GLSLShader* vShader, GLSLShader* fShader) {
     return new ShaderProgram(vShader, fShader);
 }

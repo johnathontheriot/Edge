@@ -20,9 +20,9 @@ class ShaderManager {
 public:
     static GLSLShader * loadShader(std::string filePath, GLenum shaderType);
     static ShaderProgram * createShaderProgram(std::string, std::string);
-    static ShaderProgram * createShaderProgram(std::string, GLSLShader*);
-    static ShaderProgram * createShaderProgram(GLSLShader*, std::string);
     static ShaderProgram * createShaderProgram(GLSLShader*, GLSLShader*);
+    static ShaderProgram * createShaderProgram(std::string, std::string, std::string);
+    static ShaderProgram * createShaderProgram(GLSLShader*, GLSLShader*, GLSLShader*);
 };
 
 #endif /* ShaderManager_hpp */

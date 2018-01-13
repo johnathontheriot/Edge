@@ -106,6 +106,9 @@
 		AE9775FF20084633005DCEC0 /* skybox.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.fragment.glsl; sourceTree = "<group>"; };
 		AE9776002009567C005DCEC0 /* CubeMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CubeMap.cpp; sourceTree = "<group>"; };
 		AE9776012009567C005DCEC0 /* CubeMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CubeMap.hpp; sourceTree = "<group>"; };
+		AE977603200A7ABC005DCEC0 /* solid.geometry.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.geometry.glsl; sourceTree = "<group>"; };
+		AE977604200A957D005DCEC0 /* basic_text.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.vertex.glsl; sourceTree = "<group>"; };
+		AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.fragment.glsl; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -523,6 +526,7 @@
 				AEA1785D2000176C00653C66 /* main.cpp */,
 				AE11205B200027FF00946E26 /* taco.config.json */,
 				AECD89A22001832200B2B9F2 /* solid.vertex.glsl */,
+				AE977603200A7ABC005DCEC0 /* solid.geometry.glsl */,
 				AECD89A32001833100B2B9F2 /* solid.fragment.glsl */,
 				AE7998EA20027E8700936CF5 /* Spin.cpp */,
 				AE7998EB20027E8700936CF5 /* Spin.hpp */,
@@ -530,6 +534,8 @@
 				AE7805F320046F39000F0035 /* BasicMovement.hpp */,
 				AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */,
 				AE9775FF20084633005DCEC0 /* skybox.fragment.glsl */,
+				AE977604200A957D005DCEC0 /* basic_text.vertex.glsl */,
+				AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";
