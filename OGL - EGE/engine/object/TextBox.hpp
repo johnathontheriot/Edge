@@ -11,14 +11,15 @@
 
 #include <stdio.h>
 #include "GLObject.hpp"
-
+#include <glm/vec4.hpp>
 
 class TextBox: public GLObject {
 private:
     std::string text;
+    glm::vec4 color;
 public:
     void changeText(std::string);
-    TextBox(std::string);
+    TextBox(std::string, int = 0xFFFFFFFF);
     void getCharacter(int, GLfloat*);
     void render(Scene* scene) {
         glEnable(GL_BLEND);

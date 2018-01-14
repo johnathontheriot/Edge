@@ -22,17 +22,18 @@
 class GLObject;
 class Scene;
 
+
 class ShaderProgram {
 private:
     GLSLShader * vertexShader;
     GLSLShader * fragmentShader;
     GLSLShader * geometryShader;
 public:
-    void (*bindVars)(GLObject*, Scene*) = NULL;
+    std::function<void(GLObject*, Scene*)> bindVars = NULL;
     void bind4fMatrix(std::string, glm::mat4x4);
     void bindTexture(std::string name, Texture * texture);
     void bindCubeMap(std::string name, Texture * texture);
-
+    void bind4fVector(std::string, glm::vec4);
     GLuint id;
     void bind(GLObject*, Scene *);
     ShaderProgram(GLSLShader *, GLSLShader *, GLSLShader *);

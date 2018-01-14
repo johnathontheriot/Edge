@@ -47,6 +47,11 @@ void ShaderProgram::bind(GLObject* obj, Scene * scene) {
     }
 }
 
+void ShaderProgram::bind4fVector(std::string name, glm::vec4 vec) {
+    GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
+    glUniform4f(vectorID, vec.r, vec.g, vec.b, vec.a);
+}
+
 void ShaderProgram::bind4fMatrix(std::string name, glm::mat4x4 mat) {
     GLuint matrixID = glGetUniformLocation(this->id, name.c_str());
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);

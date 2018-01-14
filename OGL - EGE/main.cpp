@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
         obj->shader->bindTexture("tex", obj->textures->at(0));
     };
 
-    scene->objects->insert({"title1", new TextBox("dqypgjb")});
+    scene->objects->insert({"title1", new TextBox("This is a cube!", 0x20437CFF)});
     scene->objects->at("title1")->scaleLocal(.1, .1, .1);
     scene->objects->at("title1")->translateGlobal(0, .65f, 0);
     
@@ -66,7 +66,6 @@ int main(int argc, const char * argv[]) {
     scene->objects->at("Plane1")->rotateLocal(M_PI / 2, 0, 0);
     scene->objects->at("Plane1")->translateGlobal(0, -.501, -.53f);
     
-    scene->cameras->at("main")->makeOrthographic();
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
 

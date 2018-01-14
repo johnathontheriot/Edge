@@ -109,6 +109,7 @@
 		AE977603200A7ABC005DCEC0 /* solid.geometry.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.geometry.glsl; sourceTree = "<group>"; };
 		AE977604200A957D005DCEC0 /* basic_text.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.vertex.glsl; sourceTree = "<group>"; };
 		AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.fragment.glsl; sourceTree = "<group>"; };
+		AE977607200AF2CD005DCEC0 /* Utilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -497,6 +498,7 @@
 				AE7805DF200302ED000F0035 /* WindowConfig.hpp */,
 				AE7805F520047384000F0035 /* InputManager.cpp */,
 				AE7805F620047384000F0035 /* InputManager.hpp */,
+				AE977607200AF2CD005DCEC0 /* Utilities.hpp */,
 			);
 			path = system;
 			sourceTree = "<group>";

@@ -12,22 +12,25 @@
 #include "DDSTexture.hpp"
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
+#include "Utilities.hpp"
 
 void TextBox::changeText(std::string newText) {
     //todo
 }
 
-TextBox::TextBox(std::string text): GLObject() {
+
+TextBox::TextBox(std::string text, int color): GLObject() {
     // this will be parameterized - need to create a a devoted shader for text
     this->textures->push_back(TextureManager::getInstance()->loadTexture<DDSTexture>("glyph1", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/Holstein.DDS"));
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.fragment.glsl");
     
-    shader->bindVars = [](GLObject* obj, Scene* scene) {
+    shader->bindVars = [this](GLObject* obj, Scene* scene) {
         obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
         // add bind camera function
         obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getViewMatrix());
         obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
         obj->shader->bindTexture("tex", obj->textures->at(0));
+        obj->shader->bind4fVector("textColor", this->color);
     };
     this->setProgram(shader);
     // End changes
@@ -38,6 +41,7 @@ TextBox::TextBox(std::string text): GLObject() {
     }
     this->geometry = new RectangularPlane(1, (int)text.length(), uvs);
     this->scaleLocal(text.length(), 1, 1);
+    this->color = Utilities::toColor(color);
 }
 
 void TextBox::getCharacter(int character, GLfloat* uvs) {
