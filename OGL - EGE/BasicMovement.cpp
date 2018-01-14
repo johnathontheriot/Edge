@@ -41,7 +41,14 @@ void BasicMovement::tick(Camera * target) {
         GLfloat deltaY;
         inputManager->mouseDelta(deltaX, deltaY);
         target->moveCamera(deltaX * (.006f), deltaY * (.006f));
-
+    }
+    if (inputManager->keyDown("space")) {
+        if (target->projection == ProjectionType::PERSPECTIVE) {
+            target->makeOrthographic();
+        }
+        else {
+            target->makePerspective();
+        }
     }
     
 }

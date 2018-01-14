@@ -66,6 +66,7 @@ int main(int argc, const char * argv[]) {
     scene->objects->at("Plane1")->rotateLocal(M_PI / 2, 0, 0);
     scene->objects->at("Plane1")->translateGlobal(0, -.501, -.53f);
     
+    scene->cameras->at("main")->makeOrthographic();
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
 

@@ -14,7 +14,7 @@
 #include <GLFW/glfw3.h>
 #include "Script.hpp"
 
-Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far) {
+Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far, GLfloat left, GLfloat right, GLfloat top, GLfloat bottom) {
     this->localScale = glm::mat4x4(1.0f);
     this->localTranslation = glm::mat4x4(1.0f);
     this->localRotation = glm::mat4x4(1.0f);
@@ -27,6 +27,10 @@ Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far) {
     this->aspect = aspect;
     this->near = near;
     this->far = far;
+    this->left = left;
+    this->right = right;
+    this->top = top;
+    this->bottom = bottom;
     this->scripts = new std::unordered_map<std::string, Script<Camera>*>();
 }
 
@@ -42,12 +46,35 @@ void Camera::tick() {
     }
 }
 
+void Camera::makeOrthographic() {
+    this->projection = ProjectionType::ORTHOGRAPHIC;
+}
+
+void Camera::makePerspective() {
+    this->projection = ProjectionType::PERSPECTIVE;
+}
+
 glm::mat4x4 Camera::getProjectionMatrix() {
-    GLfloat s = 1.0f / (tan((fov / 2.0f) * (M_PI / 180.0f)));
-    return glm::mat4x4(s / (aspect), 0, 0, 0,
+    float l = this->orthographicVal * this->left;
+    float r = this->orthographicVal * this->right;
+    float t = this->orthographicVal * this->top;
+    float b = this->orthographicVal * this->bottom;
+    float n = this->orthographicVal * this->near;
+    float f = this->orthographicVal * this->far;
+    switch (this->projection) {
+        case ProjectionType::ORTHOGRAPHIC:
+            return glm::transpose(glm::mat4x4(2.0f / (r - l), 0, 0, -(r + l) / (r - l),
+                               0, 2.0f / (t - b), 0, -(t + b) / (t - b),
+                               0, 0, - 2.0f / (f - n), -(f + n) / (f - n),
+                               0, 0, 0, 1.0f));
+        case ProjectionType::PERSPECTIVE:
+        default:
+            GLfloat s = 1.0f / (tan((fov / 2.0f) * (M_PI / 180.0f)));
+            return glm::mat4x4(s / (aspect), 0, 0, 0,
                        0, s, 0, 0,
                        0, 0, -(far + near) / (far - near), -1.0f,
                        0, 0, -(2.0f * far * near) / (far - near), 0);
+    }
 }
 
 void Camera::moveCamera(float azumith, float elevation) {
@@ -85,10 +112,11 @@ glm::mat4x4 Camera::getScaleRotationMatrix() {
 }
 
 void Camera::zoom(float delta){
+    this->orthographicVal -= delta;
     this->globalTranslation = this->globalTranslation * glm::mat4x4(1.0f, 0, 0, 0,
-                                                                  0, 1.0f, 0, 0,
-                                                                  0, 0, 1.0f, 0,
-                                                                  0, 0, delta, 1);
+                                                                            0, 1.0f, 0, 0,
+                                                                            0, 0, 1.0f, 0,
+                                                                            0, 0, delta, 1);
 }
 
 void Camera::translateLocal(GLfloat x, GLfloat y, GLfloat z) {

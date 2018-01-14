@@ -22,6 +22,8 @@ class InputManager {
 private:
     InputManager();
 public:
+    std::unordered_map<std::string, char> * pressed;
+    bool keyDown(std::string key);
     std::unordered_map<std::string, std::function<void(double, double)>> * scrollCallbacks;
     glm::dvec2 * lastPolledMousePosition;
     static InputManager * Instance;

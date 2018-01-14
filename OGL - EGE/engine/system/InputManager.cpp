@@ -37,9 +37,21 @@ void mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
 
 
 InputManager::InputManager() {
+    this->pressed = new std::unordered_map<std::string, char>();
     glfwSetMouseButtonCallback(System::getInstance()->getActiveWindow(), mouseClickCallback);
     glfwSetScrollCallback(System::getInstance()->getActiveWindow(), scrollWheelCallback);
     this->scrollCallbacks = new std::unordered_map<std::string, std::function<void(double, double)>>;
+}
+
+bool InputManager::keyDown(std::string key) {
+    if (!this->pressed->count(key) && this->isKeyPressed(key)) {
+        this->pressed->insert({key, NULL});
+        return true;
+    }
+    else if (this->pressed->count(key) && !this->isKeyPressed(key)) {
+        this->pressed->erase(key);
+    }
+    return false;
 }
 
 

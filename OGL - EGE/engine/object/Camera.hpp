@@ -18,15 +18,27 @@
 #include <unordered_map>
 #include "Script.hpp"
 
+
+typedef enum  {
+    ORTHOGRAPHIC,
+    PERSPECTIVE
+} ProjectionType;
+
 class Camera {
 private:
     float azumith;
     float elevation;
+    float orthographicVal = 1.0f;
     GLfloat fov;
     GLfloat aspect;
     GLfloat near;
     GLfloat far;
+    GLfloat left;
+    GLfloat right;
+    GLfloat top;
+    GLfloat bottom;
 public:
+    ProjectionType projection = ProjectionType::PERSPECTIVE;
     friend class Scene;
     std::unordered_map<std::string, Script<Camera>*> * scripts;
     template <class ScriptType> void attachScript(std::string name) {
@@ -43,11 +55,13 @@ public:
     glm::mat4x4 globalAzumith;
     glm::mat4x4 globalElevation;
     void changeFOV(float delta);
-    Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far);
+    Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far, GLfloat, GLfloat, GLfloat, GLfloat);
     void moveCamera(float azumith, float elevation);
     void alterAzumith(float azumith);
     void alterElevation(float elevation);
     void zoom(float delta);
+    void makeOrthographic();
+    void makePerspective();
     void translateLocal(GLfloat x, GLfloat y, GLfloat z);
     void scaleLocal(GLfloat x, GLfloat y, GLfloat z);
     void rotateLocal(GLfloat x, GLfloat y, GLfloat z);

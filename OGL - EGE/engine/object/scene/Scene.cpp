@@ -19,7 +19,7 @@ Scene::Scene(GLFWwindow * window) {
     this->cameras = new std::unordered_map<std::string, Camera*>();
     this->objects = new std::unordered_map<std::string, GLObject*>();
     this->scripts = new std::unordered_map<std::string, Script<Scene>*>();
-    this->cameras->insert({"main", new Camera(45.0f, d.width / d.height, 0.1f, 1000.0f)});
+    this->cameras->insert({"main", new Camera(45.0f, d.width / d.height, 0.1f, 1000.0f, - (d.width / d.width), (d.width / d.width), (d.height / d.width), - (d.height / d.width))});
 }
 
 
