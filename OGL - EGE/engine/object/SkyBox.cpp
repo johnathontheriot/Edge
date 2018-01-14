@@ -58,7 +58,7 @@ SkyBox::SkyBox(std::string path): GLObject() {
         0.25, 0,
         0.5, 0,
         0.5, 1.0 / 3.0
-    });
+    }, 72);
     this->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("sky", path));
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.fragment.glsl");
     
@@ -120,7 +120,7 @@ SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::
         1.0f, -1.0f, -1.0f,
         -1.0f, -1.0f,  1.0f,
         1.0f, -1.0f,  1.0f
-    });
+    }, 108);
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.fragment.glsl");
     
     shader->bindVars = [](GLObject* obj, Scene* scene) {

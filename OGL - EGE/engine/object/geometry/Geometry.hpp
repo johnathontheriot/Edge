@@ -14,33 +14,26 @@
 #include <GLFW/glfw3.h>
 #include "ShaderProgram.hpp"
 #include <glm/mat4x4.hpp>
+#include "BufferObject.hpp"
+#include <unordered_map>
 
 class Geometry {
 private:
     friend class GLObject;
 public:
-    void updateUVs(GLfloat * uvs);
-    void updateVertices(GLfloat * uvs);
+    void updateUVs(GLfloat * uvs, int size);
+    void updateVertices(GLfloat * uvs, int size);
     Geometry();
     Geometry(GLfloat *, int, GLfloat *);
 protected:
-    GLfloat * vertexBuffer;
-    GLfloat * colorBuffer;
-    GLfloat * uvBuffer;
-    int vertexBufferSize;
+    std::unordered_map<std::string, BufferObject*> * buffers;
     GLenum drawType;
     GLuint VAOid;
-    GLuint VBOid;
-    GLuint UVOid;
-    GLuint CBOid;
     void createVAO(GLuint &);
-    void createBuffer(GLuint &);
     void bindVAO(GLuint &);
     void bindBuffers();
-    template <class BufferType> void bindBuffer(GLuint & bufferID, BufferType * data, int size) {
-        glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(BufferType) * size, data, GL_STATIC_DRAW);
-    }
+    int bufferListSize = 0;
+    int getVertexBufferSize(std::string key);
 };
 
 #endif

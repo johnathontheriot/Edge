@@ -12,7 +12,7 @@ Cube * Cube::Instance;
 
 
 Cube::Cube(): Geometry(){
-    this->vertexBuffer = new GLfloat[108] {
+    GLfloat * vertices = new GLfloat[108] {
         //front
         -1, -1, 1,
         1, 1, 1,
@@ -56,10 +56,12 @@ Cube::Cube(): Geometry(){
         1, -1, 1,
         1, -1, -1
     };
-    this->colorBuffer =  vertexBuffer;
+
+    this->buffers = new std::unordered_map<std::string, BufferObject*>();
+
 
     
-    this->uvBuffer = new GLfloat[72] {
+    GLfloat * uvs = new GLfloat[72] {
         0, 0,
         1, 1,
         0, 1,
@@ -97,13 +99,13 @@ Cube::Cube(): Geometry(){
         1, 0,
         1, 1
     };
-    this->vertexBufferSize = 108;
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
-    this->createBuffer(this->VBOid);
-    this->createBuffer(this->UVOid);
-    this->createBuffer(this->CBOid);
+    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 108, vertices)});
+    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, 72, uvs)});
+    //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 108, vertices)});
+
     this->bindBuffers();
 }
 
