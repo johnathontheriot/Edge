@@ -56,8 +56,8 @@ public:
     GLObject();
     virtual void render(Scene*);
     void setProgram(ShaderProgram *);
-protected:
     Geometry * geometry;
+protected:
 
 };
 

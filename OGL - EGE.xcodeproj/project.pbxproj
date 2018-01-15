@@ -30,6 +30,7 @@
 		AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE7998EA20027E8700936CF5 /* Spin.cpp */; };
 		AE9775FD20084033005DCEC0 /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE9775FB20084033005DCEC0 /* SkyBox.cpp */; };
 		AE9776022009567C005DCEC0 /* CubeMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE9776002009567C005DCEC0 /* CubeMap.cpp */; };
+		AE9B6A33200CFD9600EED3B2 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE9B6A31200CFD9600EED3B2 /* Light.cpp */; };
 		AEA1785E2000176C00653C66 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEA1785D2000176C00653C66 /* main.cpp */; };
 		AEA17866200017C200653C66 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA17865200017C200653C66 /* OpenGL.framework */; };
 		AEA178682000182A00653C66 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */; };
@@ -111,6 +112,10 @@
 		AE977604200A957D005DCEC0 /* basic_text.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.vertex.glsl; sourceTree = "<group>"; };
 		AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_text.fragment.glsl; sourceTree = "<group>"; };
 		AE977607200AF2CD005DCEC0 /* Utilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
+		AE9B6A2F200C423200EED3B2 /* phong_lighting.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = phong_lighting.vertex.glsl; sourceTree = "<group>"; };
+		AE9B6A30200C425000EED3B2 /* phong_lighting.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = phong_lighting.fragment.glsl; sourceTree = "<group>"; };
+		AE9B6A31200CFD9600EED3B2 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		AE9B6A32200CFD9600EED3B2 /* Light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Light.hpp; sourceTree = "<group>"; };
 		AEA1785A2000176C00653C66 /* OGL - EGE */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "OGL - EGE"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1785D2000176C00653C66 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -422,6 +427,8 @@
 				AE648F0E2006F5A000331965 /* TextBox.hpp */,
 				AE9775FB20084033005DCEC0 /* SkyBox.cpp */,
 				AE9775FC20084033005DCEC0 /* SkyBox.hpp */,
+				AE9B6A31200CFD9600EED3B2 /* Light.cpp */,
+				AE9B6A32200CFD9600EED3B2 /* Light.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -540,6 +547,8 @@
 				AE9775FF20084633005DCEC0 /* skybox.fragment.glsl */,
 				AE977604200A957D005DCEC0 /* basic_text.vertex.glsl */,
 				AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */,
+				AE9B6A2F200C423200EED3B2 /* phong_lighting.vertex.glsl */,
+				AE9B6A30200C425000EED3B2 /* phong_lighting.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";
@@ -940,6 +949,7 @@
 				AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */,
 				AE7805E1200302ED000F0035 /* Cube.cpp in Sources */,
 				AE7805E4200302ED000F0035 /* Scene.cpp in Sources */,
+				AE9B6A33200CFD9600EED3B2 /* Light.cpp in Sources */,
 				AE7805E5200302ED000F0035 /* SceneManager.cpp in Sources */,
 				AE7805EA200302ED000F0035 /* System.cpp in Sources */,
 				AE7805E3200302ED000F0035 /* GLObject.cpp in Sources */,

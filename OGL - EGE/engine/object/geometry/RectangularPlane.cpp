@@ -83,6 +83,7 @@ RectangularPlane::RectangularPlane(int rows, int cols) {
     this->bindVAO(this->VAOid);
     this->generateVertices(NULL);
     this->bindBuffers();
+    this->generateFaceNormals();
 }
 
 RectangularPlane::RectangularPlane(int rows, int cols, GLfloat* uvs) {
@@ -94,6 +95,7 @@ RectangularPlane::RectangularPlane(int rows, int cols, GLfloat* uvs) {
     this->bindVAO(this->VAOid);
     this->generateVertices(uvs);
     this->bindBuffers();
+    this->generateFaceNormals();
 }
 
 
@@ -103,32 +105,47 @@ RectangularPlane * RectangularPlane::Instance;
 RectangularPlane::RectangularPlane(): Geometry(){
     this->buffers = new std::unordered_map<std::string, BufferObject*>();
 
-    GLfloat * vertices = new GLfloat[18] {
+    GLfloat * vertices = new GLfloat[36] {
         //front
-        -1, -1, 0,
-        1, 1, 0,
         -1, 1, 0,
         -1, -1, 0,
         1, -1, 0,
-        1, 1, 0
+        1, -1, 0,
+        1, 1, 0,
+        -1, 1, 0,
+        
+        -1, 1, 0.0001f,
+        1, 1, 0.0001f,
+        1, -1, 0.0001f,
+        1, -1, 0.0001f,
+        -1, -1, 0.0001f,
+        -1, 1, 0.0001f
     };
     
-    GLfloat * uvBuffer = new GLfloat[12] {
-        0, 0,
-        1, 1,
+    GLfloat * uvBuffer = new GLfloat[24] {
         0, 1,
         0, 0,
         1, 0,
-        1, 1
+        1, 0,
+        1, 1,
+        0, 1,
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 0,
+        1, 1,
+        0, 1
     };
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
-    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 18, vertices)});
-    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, 12, uvBuffer)});
+    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 36, vertices)});
+    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, 24, uvBuffer)});
     //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 18, vertices)});
 
     this->bindBuffers();
+    this->generateFaceNormals();
+
 }
 
 RectangularPlane * RectangularPlane::getInstance() {

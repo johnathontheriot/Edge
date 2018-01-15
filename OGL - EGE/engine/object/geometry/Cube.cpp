@@ -13,48 +13,53 @@ Cube * Cube::Instance;
 
 Cube::Cube(): Geometry(){
     GLfloat * vertices = new GLfloat[108] {
-        //front
-        -1, -1, 1,
-        1, 1, 1,
-        -1, 1, 1,
-        -1, -1, 1,
-        1, -1, 1,
-        1, 1, 1,
-        //back
-        -1, -1, -1,
-        1, 1, -1,
-        -1, 1, -1,
-        -1, -1, -1,
-        1, -1, -1,
-        1, 1, -1,
-        //left
-        -1, -1, -1,
-        -1, 1, 1,
-        -1, 1, -1,
-        -1, -1, -1,
-        -1, -1, 1,
-        -1, 1, 1,
+        // front
+        -1.0f,  1.0f, 1.0f,
+        -1.0f, -1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,
+        1.0f,  1.0f, 1.0f,
+        -1.0f,  1.0f, 1.0f,
+        
+        // left
+        1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        
         //right
-        1, -1, -1,
-        1, 1, 1,
-        1, 1, -1,
-        1, -1, -1,
-        1, -1, 1,
-        1, 1, 1,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        
+        // back
+        -1.0f, -1.0f,  -1.0f,
+        -1.0f,  1.0f,  -1.0f,
+        1.0f,  1.0f,  -1.0f,
+        1.0f,  1.0f,  -1.0f,
+        1.0f, -1.0f,  -1.0f,
+        -1.0f, -1.0f,  -1.0f,
+        
         //top
-        -1, 1, 1,
-        1, 1, -1,
-        -1, 1, -1,
-        -1, 1, 1,
-        1, 1, 1,
-        1, 1, -1,
+        -1.0f,  -1.0f, -1.0f,
+        1.0f,  -1.0f, -1.0f,
+        1.0f,  -1.0f,  1.0f,
+        1.0f,  -1.0f,  1.0f,
+        -1.0f,  -1.0f,  1.0f,
+        -1.0f,  -1.0f, -1.0f,
+        
         //bottom
-        -1, -1, 1,
-        1, -1, -1,
-        -1, -1, -1,
-        -1, -1, 1,
-        1, -1, 1,
-        1, -1, -1
+        -1.0f, 1.0f, -1.0f,
+        -1.0f, 1.0f,  1.0f,
+        1.0f, 1.0f, -1.0f,
+        1.0f, 1.0f, -1.0f,
+        -1.0f, 1.0f,  1.0f,
+        1.0f, 1.0f,  1.0f
     };
 
     this->buffers = new std::unordered_map<std::string, BufferObject*>();
@@ -62,41 +67,46 @@ Cube::Cube(): Geometry(){
 
     
     GLfloat * uvs = new GLfloat[72] {
-        0, 0,
-        1, 1,
         0, 1,
         0, 0,
         1, 0,
+        1, 0,
         1, 1,
+        0, 1,
+        
+        0, 1,
+        1, 1,
+        1, 0,
+        1, 0,
         0, 0,
+        0, 1,
+        
+        0, 1,
         1, 1,
+        1, 0,
+        1, 0,
+        0, 0,
+        0, 1,
+        
         0, 1,
         0, 0,
         1, 0,
+        1, 0,
         1, 1,
-        0, 0,
-        1, 1,
+        0, 1,
+        
         0, 1,
         0, 0,
         1, 0,
-        1, 1,
-        0, 0,
-        1, 1,
-        0, 1,
-        0, 0,
         1, 0,
         1, 1,
-        0, 0,
-        1, 1,
         0, 1,
+        
         0, 0,
-        1, 0,
-        1, 1,
-        0, 0,
-        1, 1,
         0, 1,
-        0, 0,
         1, 0,
+        1, 0,
+        0, 1,
         1, 1
     };
     this->drawType = GL_TRIANGLES;
@@ -105,6 +115,7 @@ Cube::Cube(): Geometry(){
     this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 108, vertices)});
     this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, 72, uvs)});
     //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 108, vertices)});
+    this->generateVertexNormals();
 
     this->bindBuffers();
 }

@@ -64,6 +64,25 @@ void ShaderProgram::bindTexture(std::string name, Texture * texture) {
     glUniform1i(textureID, texture->texIndex);
 }
 
+/*void ShaderProgram::bindLight(std::string name, Light * light) {
+    this->bind3fVector(name, light->getPosition());
+    this->bindFloat(name + "_intensity", light->getInensity());
+    this->bind3fVector(name + "_color", light->getColor());
+}
+*/
+
+
+void ShaderProgram::bind3fVector(std::string name, glm::vec3 vec) {
+    GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
+    glUniform3f(vectorID, vec.r, vec.g, vec.b);
+}
+
+
+void ShaderProgram::bindFloat(std::string name, GLfloat flt) {
+    GLuint floatID = glGetUniformLocation(this->id, name.c_str());
+    glUniform1f(floatID, flt);
+}
+
 void ShaderProgram::bindCubeMap(std::string name, Texture * texture) {
     GLuint textureID = glGetUniformLocation(this->id, name.c_str());
     glActiveTexture(texture->texEnum);

@@ -78,49 +78,7 @@ static int skyBoxCount = 0;
 SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::string t, std::string btm) {
     this->textures->push_back(TextureManager::getInstance()->loadCubeMap("skybox_" + std::to_string(skyBoxCount++), l, f, r, b, t, btm));
     this->geometry = new Cube();
-    this->geometry->updateVertices(new GLfloat[108] {
-        -1.0f,  1.0f, -1.0f,
-        -1.0f, -1.0f, -1.0f,
-        1.0f, -1.0f, -1.0f,
-        1.0f, -1.0f, -1.0f,
-        1.0f,  1.0f, -1.0f,
-        -1.0f,  1.0f, -1.0f,
-        
-        -1.0f, -1.0f,  1.0f,
-        -1.0f, -1.0f, -1.0f,
-        -1.0f,  1.0f, -1.0f,
-        -1.0f,  1.0f, -1.0f,
-        -1.0f,  1.0f,  1.0f,
-        -1.0f, -1.0f,  1.0f,
-        
-        1.0f, -1.0f, -1.0f,
-        1.0f, -1.0f,  1.0f,
-        1.0f,  1.0f,  1.0f,
-        1.0f,  1.0f,  1.0f,
-        1.0f,  1.0f, -1.0f,
-        1.0f, -1.0f, -1.0f,
-        
-        -1.0f, -1.0f,  1.0f,
-        -1.0f,  1.0f,  1.0f,
-        1.0f,  1.0f,  1.0f,
-        1.0f,  1.0f,  1.0f,
-        1.0f, -1.0f,  1.0f,
-        -1.0f, -1.0f,  1.0f,
-        
-        -1.0f,  1.0f, -1.0f,
-        1.0f,  1.0f, -1.0f,
-        1.0f,  1.0f,  1.0f,
-        1.0f,  1.0f,  1.0f,
-        -1.0f,  1.0f,  1.0f,
-        -1.0f,  1.0f, -1.0f,
-        
-        -1.0f, -1.0f, -1.0f,
-        -1.0f, -1.0f,  1.0f,
-        1.0f, -1.0f, -1.0f,
-        1.0f, -1.0f, -1.0f,
-        -1.0f, -1.0f,  1.0f,
-        1.0f, -1.0f,  1.0f
-    }, 108);
+
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.fragment.glsl");
     
     shader->bindVars = [](GLObject* obj, Scene* scene) {
@@ -137,7 +95,9 @@ SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::
 
 void SkyBox::render(Scene* scene) {
     glDepthMask(GL_FALSE);
+    glDisable(GL_CULL_FACE);
     GLObject::render(scene);
+    glEnable(GL_CULL_FACE);
     glDepthMask(GL_TRUE);
 
 }

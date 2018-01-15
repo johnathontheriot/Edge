@@ -28,6 +28,8 @@ public:
 template <class BufferType>
 class GLBufferObject: public BufferObject {
 private:
+    friend class Geometry;
+    friend class GLObject;
     BufferType * data;
 public:
     GLBufferObject(GLuint location, int dimension, GLenum type, int size, BufferType * data) {

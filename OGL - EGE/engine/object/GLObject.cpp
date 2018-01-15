@@ -9,7 +9,6 @@
 #include "GLObject.hpp"
 #include <iostream>
 #include <cmath>
-#include "Scene.hpp"
 
 class GLObject;
 
