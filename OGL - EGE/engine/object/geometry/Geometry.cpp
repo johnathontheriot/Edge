@@ -17,53 +17,49 @@ void Geometry::bindVAO(GLuint & id) {
     glBindVertexArray(id);
 }
 
+
+
 Geometry::Geometry(GLfloat * vertexBuffer, int vertexBufferSize, GLfloat * uvBuffer) {
-    this->vertexBuffer = vertexBuffer;
-    this->uvBuffer = uvBuffer;
-    this->vertexBufferSize = vertexBufferSize;
+    this->buffers = new std::unordered_map<std::string, BufferObject*>();
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
-    if (vertexBuffer) {
-        this->createBuffer(this->VBOid);
-    }
-    if (uvBuffer) {
-        this->createBuffer(this->UVOid);
-    }
+    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
+    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, (vertexBufferSize / 3) * 2, uvBuffer)});
+    //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
+
     this->bindBuffers();
 }
 
-void Geometry::createBuffer(GLuint & id) {
-    glGenBuffers(1, &id);
-}
-
 void Geometry::bindBuffers() {
-    if (this->VBOid) {
-        this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
-    }
-    if (this->UVOid) {
-        this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
-    }
-    if (this->CBOid) {
-        this->bindBuffer<GLfloat>(this->CBOid, this->colorBuffer, this->vertexBufferSize);
+    for( std::unordered_map<std::string, BufferObject*>::const_iterator it = this->buffers->begin(); it != this->buffers->end(); ++it ) {
+        it->second->bind();
     }
 }
 
-void Geometry::updateUVs(GLfloat * uvs) {
-    if (this->UVOid) {
-        this->uvBuffer = uvs;
+void Geometry::updateUVs(GLfloat * uvs, int size) {
+    if (this->buffers->find("uvs") !=  this->buffers->end()) {
         this->bindVAO(this->VAOid);
-        this->bindBuffer<GLfloat>(this->UVOid, this->uvBuffer, (this->vertexBufferSize / 3) * 2);
+        this->buffers->at("uvs")->update(uvs, size);
     }
 }
 
-void Geometry::updateVertices(GLfloat * vertices) {
-    if (this->VBOid) {
-        this->vertexBuffer = vertices;
+void Geometry::updateVertices(GLfloat * vertices, int size) {
+    if (this->buffers->find("vertex") !=  this->buffers->end()) {
         this->bindVAO(this->VAOid);
-        this->bindBuffer<GLfloat>(this->VBOid, this->vertexBuffer, this->vertexBufferSize);
+        this->buffers->at("vertex")->update(vertices, size);
     }
 }
+
+int Geometry::getVertexBufferSize(std::string key) {
+    if (this->buffers->find(key) !=  this->buffers->end()) {
+        return this->buffers->at(key)->size / this->buffers->at(key)->dimension;
+    }
+    else {
+        return 0;
+    }
+}
+
 
 
 Geometry::Geometry() {

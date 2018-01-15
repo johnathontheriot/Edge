@@ -57,6 +57,7 @@
 /* Begin PBXFileReference section */
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
+		AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferObject.hpp; sourceTree = "<group>"; };
 		AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangularPlane.cpp; sourceTree = "<group>"; };
 		AE648F0B2006C8BD00331965 /* RectangularPlane.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangularPlane.hpp; sourceTree = "<group>"; };
 		AE648F0D2006F5A000331965 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
@@ -499,6 +500,7 @@
 				AE7805F520047384000F0035 /* InputManager.cpp */,
 				AE7805F620047384000F0035 /* InputManager.hpp */,
 				AE977607200AF2CD005DCEC0 /* Utilities.hpp */,
+				AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */,
 			);
 			path = system;
 			sourceTree = "<group>";
