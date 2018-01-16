@@ -15,6 +15,7 @@
 #include "../GLObject.hpp"
 #include "Script.hpp"
 
+
 class GLObject;
 
 class Scene {
@@ -27,6 +28,15 @@ public:
     void render();
     void tick();
     Scene(GLFWwindow * window);
+    template<class ObjectType, typename std::enable_if<std::is_base_of<GLObject, ObjectType>::value>::type* = nullptr>
+    ObjectType * get(std::string key) {
+        try {
+            return (ObjectType*)(this->objects->at(key));
+        }
+        catch (std::string & s) {
+            return NULL;
+        }
+    }
 };
 
 #endif /* Scene_hpp */

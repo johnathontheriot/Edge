@@ -19,13 +19,13 @@ BasicMovement::BasicMovement(Camera * target) {
 void BasicMovement::tick(Camera * target) {
     InputManager * inputManager = InputManager::getInstance();
     if (inputManager->isKeyPressed("w")) {
-        target->translateGlobal(0, 0, .01);
+        target->translateGlobal(0, 0, -.01);
     }
     if (inputManager->isKeyPressed("a")) {
         target->translateGlobal(-.01, 0, 0);
     }
     if (inputManager->isKeyPressed("s")) {
-        target->translateGlobal(0, 0, -.01);
+        target->translateGlobal(0, 0, .01);
     }
     if (inputManager->isKeyPressed("d")) {
         target->translateGlobal(.01, 0, 0);

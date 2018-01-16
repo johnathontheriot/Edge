@@ -24,7 +24,7 @@ class ShaderProgram;
 class Scene;
 class Geometry;
 
-class GLObject {
+class GLObject: public IShaderVariable  {
 private:
     glm::mat4x4 modelMatrix;
     glm::mat4x4 localScale;
@@ -35,12 +35,14 @@ private:
     glm::mat4x4 globalRotation;
     int dimension = 3;
 public:
+    void (*toShaderVariable)(std::string, ShaderProgram*) = NULL;
     ShaderProgram * shader;
     std::vector<Texture*> * textures;
     void tick();
     std::unordered_map<std::string, Script<GLObject>*> * scripts;
-    template <class ScriptType> void attachScript(std::string name) {
-        ScriptType * script = new ScriptType();
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        ScriptType * script = new ScriptType(this);
         this->scripts->insert({name, script});
     }
     glm::mat4x4 getModelMatrix();
@@ -56,8 +58,14 @@ public:
     GLObject();
     virtual void render(Scene*);
     void setProgram(ShaderProgram *);
-protected:
     Geometry * geometry;
+    virtual void bind(std::string name, ShaderProgram * shader) {
+        if (this->toShaderVariable) {
+            this->toShaderVariable(name, shader);
+        }
+    }
+protected:
+    
 
 };
 

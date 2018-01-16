@@ -25,6 +25,9 @@ public:
     void updateVertices(GLfloat * uvs, int size);
     Geometry();
     Geometry(GLfloat *, int, GLfloat *);
+    void generateFaceNormals();
+    void generateVertexNormals();
+
 protected:
     std::unordered_map<std::string, BufferObject*> * buffers;
     GLenum drawType;
@@ -34,6 +37,8 @@ protected:
     void bindBuffers();
     int bufferListSize = 0;
     int getVertexBufferSize(std::string key);
+    void updateBuffer(std::string key, GLfloat * vertices, int size);
+
 };
 
 #endif

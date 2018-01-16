@@ -9,7 +9,6 @@
 #include "TextBox.hpp"
 #include "RectangularPlane.hpp"
 #include <regex>
-#include "DDSTexture.hpp"
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
 #include "Utilities.hpp"
@@ -25,12 +24,12 @@ TextBox::TextBox(std::string text, int color): GLObject() {
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.fragment.glsl");
     
     shader->bindVars = [this](GLObject* obj, Scene* scene) {
-        obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
+        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
         // add bind camera function
-        obj->shader->bind4fMatrix("viewTransform", scene->cameras->at("main")->getViewMatrix());
-        obj->shader->bind4fMatrix("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindTexture("tex", obj->textures->at(0));
-        obj->shader->bind4fVector("textColor", this->color);
+        obj->shader->bindVariable("viewTransform", scene->cameras->at("main")->getViewMatrix());
+        obj->shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        obj->shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        obj->shader->bindVariable("textColor", this->color);
     };
     this->setProgram(shader);
     // End changes

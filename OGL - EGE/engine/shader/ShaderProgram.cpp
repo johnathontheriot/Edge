@@ -12,8 +12,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <vector>
-#include "GLObject.hpp"
-#include "Texture.hpp"
 
 ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * fragmentShader): ShaderProgram(vertexShader, NULL, fragmentShader) {
     
@@ -47,26 +45,22 @@ void ShaderProgram::bind(GLObject* obj, Scene * scene) {
     }
 }
 
-void ShaderProgram::bind4fVector(std::string name, glm::vec4 vec) {
-    GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
-    glUniform4f(vectorID, vec.r, vec.g, vec.b, vec.a);
+void ShaderProgram::bindVariable(std::string name,  GLfloat flt) {
+    GLuint floatID = glGetUniformLocation(this->id, name.c_str());
+    glUniform1f(floatID, flt);
 }
 
-void ShaderProgram::bind4fMatrix(std::string name, glm::mat4x4 mat) {
+void ShaderProgram::bindVariable(std::string name, glm::mat4x4 mat) {
     GLuint matrixID = glGetUniformLocation(this->id, name.c_str());
     glUniformMatrix4fv(matrixID, 1, GL_FALSE, &mat[0][0]);
 }
 
-void ShaderProgram::bindTexture(std::string name, Texture * texture) {
-    GLuint textureID = glGetUniformLocation(this->id, name.c_str());
-    glActiveTexture(texture->texEnum);
-    glBindTexture(GL_TEXTURE_2D, texture->id);
-    glUniform1i(textureID, texture->texIndex);
+void ShaderProgram::bindVariable(std::string name, glm::vec4 vec) {
+    GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
+    glUniform4f(vectorID, vec.r, vec.g, vec.b, vec.a);
 }
 
-void ShaderProgram::bindCubeMap(std::string name, Texture * texture) {
-    GLuint textureID = glGetUniformLocation(this->id, name.c_str());
-    glActiveTexture(texture->texEnum);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, texture->id);
-    glUniform1i(textureID, texture->texIndex);
+void ShaderProgram::bindVariable(std::string name, glm::vec3 vec) {
+    GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
+    glUniform3f(vectorID, vec.r, vec.g, vec.b);
 }

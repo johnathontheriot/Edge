@@ -23,8 +23,10 @@ public:
     void getCharacter(int, GLfloat*);
     void render(Scene* scene) {
         glEnable(GL_BLEND);
+        glDisable(GL_CULL_FACE);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         GLObject::render(scene);
+        glEnable(GL_CULL_FACE);
         glDisable(GL_BLEND);
     }
 };

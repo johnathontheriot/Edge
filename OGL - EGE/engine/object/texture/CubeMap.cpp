@@ -47,5 +47,6 @@ void CubeMap::bind(int txEnum, int txIdx) {
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, this->back->width, this->back->height, 0, GL_BGR, GL_UNSIGNED_BYTE, this->back->data);
     
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, this->front->width, this->front->height, 0, GL_BGR, GL_UNSIGNED_BYTE, this->front->data);
+    this->id = textureID;
 
 }

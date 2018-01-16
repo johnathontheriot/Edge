@@ -14,14 +14,24 @@
 #include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../object/GLObject.hpp"
 #include <glm/mat4x4.hpp>
-#include "../object/scene/Scene.hpp"
-#include "Texture.hpp"
 
 class GLObject;
 class Scene;
+class ShaderProgram;
 
+class IShaderVariable {
+private:
+    friend class ShaderProgram;
+protected:
+    virtual void bind(std::string varName, ShaderProgram * shader) = 0;
+    
+    template<class VariableType>
+    void bind(std::string varName, ShaderProgram * shader) {
+        VariableType * c = ((VariableType*)this);
+        c->bind(varName, shader);
+    }
+};
 
 class ShaderProgram {
 private:
@@ -30,14 +40,21 @@ private:
     GLSLShader * geometryShader;
 public:
     std::function<void(GLObject*, Scene*)> bindVars = NULL;
-    void bind4fMatrix(std::string, glm::mat4x4);
-    void bindTexture(std::string name, Texture * texture);
-    void bindCubeMap(std::string name, Texture * texture);
-    void bind4fVector(std::string, glm::vec4);
+    void bindVariable(std::string, glm::mat4x4);
+    void bindVariable(std::string, glm::vec4);
+    void bindVariable(std::string, glm::vec3);
+    void bindVariable(std::string, GLfloat);
     GLuint id;
     void bind(GLObject*, Scene *);
     ShaderProgram(GLSLShader *, GLSLShader *, GLSLShader *);
     ShaderProgram(GLSLShader *, GLSLShader *);
+    void bindVariable(std::string name, IShaderVariable * var);
+    template<class VariableType, typename std::enable_if<std::is_base_of<IShaderVariable, VariableType>::value>::type* = nullptr>
+    void bindVariable(std::string name, IShaderVariable * var) {
+        var->bind<VariableType>(name, this);
+    }
+
+
 };
 
 #endif /* ShaderProgram_hpp */

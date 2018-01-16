@@ -26,6 +26,12 @@ public:
     GLuint id;
     CubeMap(Texture*, Texture*, Texture*, Texture*, Texture*, Texture*);
     virtual void bind(int txEnum, int txIdx);
+    virtual void bind(std::string name, ShaderProgram * shader) {
+        GLuint textureID = glGetUniformLocation(shader->id, name.c_str());
+        glActiveTexture(this->texEnum);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, this->id);
+        glUniform1i(textureID, this->texIndex);
+    }
 protected:
 };
 
