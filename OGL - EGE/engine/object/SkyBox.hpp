@@ -12,8 +12,6 @@
 #include <stdio.h>
 #include "GLObject.hpp"
 
-class GLObject;
-
 class SkyBox: public GLObject {
 private:
 public:

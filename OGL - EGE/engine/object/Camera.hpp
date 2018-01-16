@@ -17,6 +17,7 @@
 #include <GLFW/glfw3.h>
 #include <unordered_map>
 #include "Script.hpp"
+#include "ShaderProgram.hpp"
 
 
 typedef enum  {
@@ -24,7 +25,7 @@ typedef enum  {
     PERSPECTIVE
 } ProjectionType;
 
-class Camera {
+class Camera: public IShaderVariable {
 private:
     float azumith;
     float elevation;
@@ -70,6 +71,10 @@ public:
     glm::mat4x4 getViewMatrix();
     glm::mat4x4 getProjectionMatrix();
     glm::mat4x4 getScaleRotationMatrix();
+    virtual void bind(std::string name, ShaderProgram * shader) {
+        shader->bindVariable(name + "_viewTransform", this->getViewMatrix());
+        shader->bindVariable(name + "_projectionTransform", this->getProjectionMatrix());
+    }
 
 };
 

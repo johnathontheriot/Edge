@@ -12,10 +12,12 @@
 #include <stdio.h>
 #include "Script.hpp"
 #include "GLObject.hpp"
+#include "Light.hpp"
 
 
 class Spin: public Script<GLObject> {
 public:
+    Spin(GLObject * target);
     virtual void tick(GLObject * target);
 };
 

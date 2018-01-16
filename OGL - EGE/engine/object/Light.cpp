@@ -25,3 +25,19 @@ GLfloat Light::getInensity() {
 glm::vec3 Light::getColor() {
     return this->color;
 }
+
+void Light::getInensity(GLfloat i) {
+    this->intensity = i;
+}
+
+void Light::getColor(glm::vec3 c) {
+    this->color = c;
+}
+
+void Light::changeInensity(GLfloat i) {
+    this->intensity += i;
+}
+
+void Light::gchangeColor(glm::vec3 c) {
+    this->color += c;
+}
