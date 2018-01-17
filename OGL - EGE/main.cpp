@@ -80,11 +80,11 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
-    scene->cameras->at("main")->attachScript<BasicMovement, Camera>("movement");
+    scene->cameras->at("main")->attachScript<BasicMovement>("movement");
     
     scene->objects->insert({"light1", new Light()});
     scene->get<Light>("light1")->translateGlobal(0, 0, 2.1);
-    scene->get<Light>("light1")->attachScript<Spin, Light>("lightMvmnt");
+    scene->get<Light>("light1")->attachScript<Spin>("lightMvmnt");
 
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();

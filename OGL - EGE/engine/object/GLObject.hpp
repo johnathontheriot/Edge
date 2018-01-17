@@ -45,7 +45,10 @@ public:
     void (*toShaderVariable)(std::string, ShaderProgram*) = NULL;
     ShaderProgram * shader;
     std::vector<Texture*> * textures;
-
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        IScriptable::attachScript<ScriptType, GLObject>(name);
+    }
     glm::mat4x4 getModelMatrix();
     glm::mat4x4 getLocalModelMatrix();
     glm::mat4x4 getGlobalModelMatrix();

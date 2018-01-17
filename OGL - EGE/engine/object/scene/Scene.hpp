@@ -18,12 +18,10 @@
 class IGLObject;
 class GLObject;
 
-class Scene {
+class Scene: public IScriptable {
 private:
 public:
     std::unordered_map<std::string, Camera*> * cameras;
-    std::unordered_map<std::string, Script<Scene>*> * scripts;
-    template <class ScriptType> void attachScript(std::string name);
     std::unordered_map<std::string, IGLObject*> * objects;
     void render();
     void tick();

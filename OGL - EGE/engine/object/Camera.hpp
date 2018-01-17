@@ -39,6 +39,10 @@ private:
     GLfloat top;
     GLfloat bottom;
 public:
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        IScriptable::attachScript<ScriptType, Camera>(name);
+    }
     ProjectionType projection = ProjectionType::PERSPECTIVE;
     friend class Scene;
     glm::mat4x4 viewMatrix;

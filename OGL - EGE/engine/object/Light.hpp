@@ -23,6 +23,10 @@ private:
     glm::vec3 color;
     GLfloat intensity;
 public:
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        IScriptable::attachScript<ScriptType, Light>(name);
+    }
     glm::vec3 getPosition();
     Light(GLfloat intensity = 60, glm::vec3 color = glm::vec3(1.0, 1.0, 1.0));
     GLfloat getInensity();
