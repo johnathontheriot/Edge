@@ -31,18 +31,11 @@ Camera::Camera(GLfloat fov, GLfloat aspect, GLfloat near, GLfloat far, GLfloat l
     this->right = right;
     this->top = top;
     this->bottom = bottom;
-    this->scripts = new std::unordered_map<std::string, Script<Camera>*>();
 }
 
 void Camera::changeFOV(float delta) {
     if ((delta < 0 && this->fov > 0) || (delta > 0 && this->fov < 360)) {
         this->fov += delta;
-    }
-}
-
-void Camera::tick() {
-    for (std::unordered_map<std::string, Script<Camera>*>::const_iterator it = this->scripts->begin(); it != this->scripts->end(); ++it) {
-        it->second->tick(this);
     }
 }
 

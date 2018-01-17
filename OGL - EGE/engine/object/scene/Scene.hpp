@@ -12,10 +12,10 @@
 #include <stdio.h>
 #include "../Camera.hpp"
 #include <unordered_map>
-#include "../GLObject.hpp"
+#include "GLObject.hpp"
 #include "Script.hpp"
 
-
+class IGLObject;
 class GLObject;
 
 class Scene {
@@ -24,7 +24,7 @@ public:
     std::unordered_map<std::string, Camera*> * cameras;
     std::unordered_map<std::string, Script<Scene>*> * scripts;
     template <class ScriptType> void attachScript(std::string name);
-    std::unordered_map<std::string, GLObject*> * objects;
+    std::unordered_map<std::string, IGLObject*> * objects;
     void render();
     void tick();
     Scene(GLFWwindow * window);

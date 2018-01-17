@@ -58,32 +58,33 @@ int main(int argc, const char * argv[]) {
     };
 
     scene->objects->insert({"title1", new TextBox("This is a cube!", 0x20437CFF)});
-    scene->objects->at("title1")->scaleLocal(.1, .1, .1);
-    scene->objects->at("title1")->translateGlobal(0, .65f, 0);
+    
+    scene->get<TextBox>("title1")->scaleLocal(.1, .1, .1);
+    scene->get<TextBox>("title1")->translateGlobal(0, .65f, 0);
     
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
-    scene->objects->at("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
-    scene->objects->at("Cube1")->setProgram(lightingShader);
-    scene->objects->at("Cube1")->scaleLocal(.5, .5, .5);
+    scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
+    scene->get<GLObject>("Cube1")->setProgram(lightingShader);
+    scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     //scene->objects->at("Cube1")->geometry->generateFaceNormals();
     
     std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
     scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
-    scene->objects->at("skyBox")->rotateGlobal(M_PI, 0, 0);
+    scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
-    scene->objects->at("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
-    scene->objects->at("Plane1")->setProgram(lightingShader);
-    scene->objects->at("Plane1")->scaleLocal(5, 5, 5);
-    scene->objects->at("Plane1")->rotateLocal(M_PI / 2, 0, 0);
-    scene->objects->at("Plane1")->translateGlobal(0, -.501, -.53f);
+    scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
+    scene->get<GLObject>("Plane1")->setProgram(lightingShader);
+    scene->get<GLObject>("Plane1")->scaleLocal(5, 5, 5);
+    scene->get<GLObject>("Plane1")->rotateLocal(M_PI / 2, 0, 0);
+    scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
-    scene->cameras->at("main")->attachScript<BasicMovement>("movement");
+    scene->cameras->at("main")->attachScript<BasicMovement, Camera>("movement");
     
     scene->objects->insert({"light1", new Light()});
-    scene->objects->at("light1")->translateGlobal(0, 0, 2.1);
-    scene->objects->at("light1")->attachScript<Spin>("lightMvmnt");
+    scene->get<Light>("light1")->translateGlobal(0, 0, 2.1);
+    scene->get<Light>("light1")->attachScript<Spin, Light>("lightMvmnt");
 
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();

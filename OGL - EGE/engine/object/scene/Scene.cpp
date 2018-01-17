@@ -17,7 +17,7 @@
 Scene::Scene(GLFWwindow * window) {
     Dimensions d = System::getInstance()->getWindowDimenions(window);
     this->cameras = new std::unordered_map<std::string, Camera*>();
-    this->objects = new std::unordered_map<std::string, GLObject*>();
+    this->objects = new std::unordered_map<std::string, IGLObject*>();
     this->scripts = new std::unordered_map<std::string, Script<Scene>*>();
     this->cameras->insert({"main", new Camera(45.0f, d.width / d.height, 0.1f, 1000.0f, - (d.width / d.width), (d.width / d.width), (d.height / d.width), - (d.height / d.width))});
 }
@@ -25,7 +25,7 @@ Scene::Scene(GLFWwindow * window) {
 
 
 void Scene::render() {
-    for( std::unordered_map<std::string, GLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {
+    for( std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {
         it->second->render(this);
     }
 }
@@ -37,10 +37,10 @@ template <class ScriptType> void Scene::attachScript(std::string name) {
 
 void Scene::tick() {
     for (std::unordered_map<std::string, Script<Scene>*>::const_iterator it = this->scripts->begin(); it != this->scripts->end(); ++it) {
-        it->second->tick(this);
-    }
-    for (std::unordered_map<std::string, GLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it) {
         it->second->tick();
+    }
+    for (std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it) {
+        ((IScriptable*)it->second)->tick();
     }
     for (std::unordered_map<std::string, Camera*>::const_iterator it = this->cameras->begin(); it != this->cameras->end(); ++it) {
         it->second->tick();

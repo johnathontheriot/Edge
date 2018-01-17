@@ -25,7 +25,7 @@ typedef enum  {
     PERSPECTIVE
 } ProjectionType;
 
-class Camera: public IShaderVariable {
+class Camera: public IShaderVariable, public IScriptable {
 private:
     float azumith;
     float elevation;
@@ -41,12 +41,6 @@ private:
 public:
     ProjectionType projection = ProjectionType::PERSPECTIVE;
     friend class Scene;
-    std::unordered_map<std::string, Script<Camera>*> * scripts;
-    template <class ScriptType> void attachScript(std::string name) {
-        ScriptType * script = new ScriptType(this);
-        this->scripts->insert({name, script});
-    }
-    void tick();
     glm::mat4x4 viewMatrix;
     glm::mat4x4 localScale;
     glm::mat4x4 localTranslation;
