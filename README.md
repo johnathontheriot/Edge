@@ -69,9 +69,40 @@ Variable bindings in shaders are necessary with every draw, so we give access to
 
 ```c++
     shader->bindVars = [](GLObject* obj, Scene* scene) {
-        obj->shader->bind4fMatrix("modelTransform", obj->getModelMatrix());
-        obj->shader->bindTexture("tex", obj->textures->at(0), GL_TEXTURE0, 0);
+        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
+        obj->shader->bindVariable<Texture>("tex", obj->textures->at(0));
     };
 ```
 
 This example shows how to bind both a `Matrix` and `Texture` to the shader - nothing too complicated but this is likely to become more automated in the future. Speaking of `Texture`s...
+
+### Adding Textures to an Object
+
+All built in models come with some pre calculated UV coordinates, but you are allowed to create and attach your own - just make sure that if you do this on a shared object, you know that all instances of that object will share those UVs. This may be changes in the future, but for now, UVs are bound to a `Geometry` and not a `GLObject`.
+
+```c++
+    scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "crate.bmp"));
+```
+
+That's it really - you can get the texture by name and access its texture ID if necessary. This can be done off of the object itself or through the `TextureManager`.
+
+### Scripting
+
+You can create your own `Script` class pretty simply by extending the `Script<TargetType>` class, where `TargetType` is the type of the object the script is bound to. So if you want to write a Script that can only be bound to a `Light`, try:
+
+```c++
+    class LightMovement: public Script<Light> {
+        Light(Light * target): Script(target) {}
+        public tick(){
+            //do stuff to your light
+        }
+    }
+```
+
+Then you can bind the script to a `Light` like so:
+
+```c++
+    scene->get<Light>("light1")->attachScript<LightMovement>("lightMvmnt");
+```
+
+You can probably see a convention here - everything is named for now. Also, Scripts are not singletons, so feel free to add any public member variables you want per object's script - no need to define bindings.
