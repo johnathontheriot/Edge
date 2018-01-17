@@ -15,10 +15,10 @@
 #include "Light.hpp"
 
 
-class Spin: public Script<GLObject> {
+class Spin: public Script<Light> {
 public:
-    Spin(GLObject * target);
-    virtual void tick(GLObject * target);
+    Spin(Light * target);
+    virtual void tick();
 };
 
 #endif /* Spin_hpp */

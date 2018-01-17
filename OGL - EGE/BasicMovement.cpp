@@ -10,13 +10,13 @@
 #include "System.hpp"
 #include "InputManager.hpp"
 
-BasicMovement::BasicMovement(Camera * target) {
+BasicMovement::BasicMovement(Camera * target): Script(target) {
     InputManager::getInstance()->addScrollEvent("zoomCamera", [this, target](double xOffset, double yOffset){
         target->zoom(yOffset * .06);
     });
 }
 
-void BasicMovement::tick(Camera * target) {
+void BasicMovement::tick() {
     InputManager * inputManager = InputManager::getInstance();
     if (inputManager->isKeyPressed("w")) {
         target->translateGlobal(0, 0, -.01);

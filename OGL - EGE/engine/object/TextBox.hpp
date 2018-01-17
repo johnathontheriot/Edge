@@ -18,6 +18,10 @@ private:
     std::string text;
     glm::vec4 color;
 public:
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        IScriptable::attachScript<ScriptType, TextBox>(name);
+    }
     void changeText(std::string);
     TextBox(std::string, int = 0xFFFFFFFF);
     void getCharacter(int, GLfloat*);

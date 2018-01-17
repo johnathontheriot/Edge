@@ -9,12 +9,13 @@
 #include "Spin.hpp"
 #include "GLObject.hpp"
 #include "InputManager.hpp"
+#include "Light.hpp"
 
-Spin::Spin(GLObject * target) {
+Spin::Spin(Light * target): Script(target) {
 }
 
 
-void Spin::tick(GLObject * target) {
+void Spin::tick() {
     InputManager * inputManager = InputManager::getInstance();
     if (inputManager->isKeyPressed("i")) {
         target->translateGlobal(0, 0, -.1);
@@ -29,10 +30,10 @@ void Spin::tick(GLObject * target) {
         target->translateGlobal(.1, 0, 0);
     }
     if (inputManager->isKeyPressed("[")) {
-        ((Light*)target)->changeInensity(1.0);
+        target->changeInensity(1.0);
     }
     if (inputManager->isKeyPressed("]")) {
-        ((Light*)target)->changeInensity(-1.0);
+        target->changeInensity(-1.0);
     }
     if (inputManager->isKeyPressed("u")) {
         target->translateGlobal(0, .1, 0);

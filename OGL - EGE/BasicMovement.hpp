@@ -15,7 +15,7 @@
 class BasicMovement : public Script<Camera> {
 public:
     BasicMovement(Camera *);
-    virtual void tick(Camera * target);
+    virtual void tick();
 };
 
 #endif /* BasicMovement_hpp */

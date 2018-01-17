@@ -75,7 +75,6 @@ template<> DDSTexture * TextureManager::loadImage<DDSTexture>(const char * path)
     fread(buffer, 1, bufsize, fp);
     fclose(fp);
     
-    unsigned int components  = (fourCC == 0x31545844) ? 3 : 4;
     unsigned int format;
     switch(fourCC)
     {

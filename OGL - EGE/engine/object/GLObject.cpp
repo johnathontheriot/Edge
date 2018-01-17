@@ -22,7 +22,6 @@ GLObject::GLObject(Geometry * mesh) {
     this->globalScale = glm::mat4x4(1.0f);
     this->globalTranslation = glm::mat4x4(1.0f);
     this->globalRotation = glm::mat4x4(1.0f);
-    this->scripts = new std::unordered_map<std::string, Script<GLObject>*>();
     this->textures = new std::vector<Texture*>();
 }
 
@@ -34,16 +33,11 @@ GLObject::GLObject() {
     this->globalScale = glm::mat4x4(1.0f);
     this->globalTranslation = glm::mat4x4(1.0f);
     this->globalRotation = glm::mat4x4(1.0f);
-    this->scripts = new std::unordered_map<std::string, Script<GLObject>*>();
     this->textures = new std::vector<Texture*>();
 
 }
 
-void GLObject::tick() {
-    for (std::unordered_map<std::string, Script<GLObject>*>::const_iterator it = this->scripts->begin(); it != this->scripts->end(); ++it) {
-        it->second->tick(this);
-    }
-}
+
 
 void GLObject::setProgram(ShaderProgram * shader) {
     this->shader = shader;
