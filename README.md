@@ -1,4 +1,5 @@
-# Edge
+![alt text](https://github.com/johnathontheriot/Edge/blob/master/OGL%20-%20EGE/logo.png?raw=true)
+
 An experimental game engine written in C++.
 
 # What is it?
