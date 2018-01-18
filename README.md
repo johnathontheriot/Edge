@@ -3,7 +3,7 @@
 An experimental game engine written in C++.
 
 # What is it?
-Edge is an experimental game engine designed with developers in mind. One of the common complaints I hear about graphics developement is that setting up an environment and wiring up boiler plate code takes too much time, and in the end results in a spaghetti mess for anyone who hasnt seen a structured example before. This engine will aim to ease some of these conserns, attempting to provide modern design examples, but also keeping code readable for newcomers.
+Edge is an experimental game engine designed with developers in mind. One of the common complaints I hear about graphics developement is that setting up an environment and wiring up boiler plate code takes too much time, and in the end, results in a spaghetti mess for anyone who hasnt seen a structured example before. This engine will aim to ease some of these concerns, attempting to provide modern design examples, but also keeping code readable for newcomers.
 
 # But...why?
 Short answer, why not? The idea for this engine spawned from my experience using Berkeley's [NachOS](https://homes.cs.washington.edu/~tom/nachos/) as an undergrad. I thought, "Now imagine if there were an environment like this for graphics...a place where I can break things without any consequences." Thus, the idea was born.
