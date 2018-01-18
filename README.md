@@ -49,7 +49,7 @@ Easiest peasiest (this will change to `scene->addObject`)
 Some `Geometry` objects allow access to their constructors. This allows the user to define certain properties of the mesh that mark it as unsharable. This is the case for `RectangularPlane`. Let's say you wanted a grid like mesh rather than a giant 2-triangle plane:
 
 ```c++
-    scene=>objects->insert({"myTesPlane", new RectangularPlane(2, 2)});
+    scene->objects->insert({"myTesPlane", new RectangularPlane(2, 2)});
 ```
 
 This will divide the plane into 2 rows and 2 columns.
