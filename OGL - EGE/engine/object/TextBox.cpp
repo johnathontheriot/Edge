@@ -12,6 +12,7 @@
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
 #include "Utilities.hpp"
+#include "Scene.hpp"
 
 void TextBox::changeText(std::string newText) {
     //todo

@@ -13,17 +13,9 @@
 #include "WindowConfig.hpp"
 #include "../../vendor/json.hpp"
 #include "../object/scene/Scene.hpp"
+#include "Dimensions.hpp"
 
 using json = nlohmann::json;
-
-struct Dimensions{
-    float width;
-    float height;
-    Dimensions(int width, int height) {
-        this->width = 1.0 * width;
-        this->height = 1.0 * height;
-    }
-};
 
 class System {
 private:

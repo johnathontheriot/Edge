@@ -13,11 +13,12 @@
 #include "Script.hpp"
 #include "System.hpp"
 
-
 Scene::Scene(GLFWwindow * window) {
+    this->effectsPipeline = new std::list<PostProcessor*>;
     Dimensions d = System::getInstance()->getWindowDimenions(window);
     this->cameras = new std::unordered_map<std::string, Camera*>();
     this->objects = new std::unordered_map<std::string, IGLObject*>();
+    this->viewPort = new Dimensions(d.width, d.height);
     this->cameras->insert({"main", new Camera(45.0f, d.width / d.height, 0.1f, 1000.0f, - (d.width / d.width), (d.width / d.width), (d.height / d.width), - (d.height / d.width))});
 }
 
@@ -31,6 +32,9 @@ void Scene::render() {
 
 
 void Scene::tick() {
+    for (std::list<PostProcessor*>::iterator it = this->effectsPipeline->begin(); it != this->effectsPipeline->end(); ++it) {
+        (*it)->render(this, this->viewPort, this->objects);
+    }
     IScriptable::tick();
     for (std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it) {
         ((IScriptable*)it->second)->tick();

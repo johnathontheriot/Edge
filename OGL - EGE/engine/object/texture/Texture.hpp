@@ -34,4 +34,5 @@ public:
 protected:
 };
 
+
 #endif /* Texture_hpp */

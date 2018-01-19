@@ -36,6 +36,9 @@
 		AEA178682000182A00653C66 /* libGLEW.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */; };
 		AEA1786A2000184800653C66 /* libglfw3.3.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA178692000184800653C66 /* libglfw3.3.1.dylib */; };
 		AEB338BF20006DCA002795B6 /* taco.config.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = AE11205B200027FF00946E26 /* taco.config.json */; };
+		AEB8D5FE201026AA00649109 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D5FC201026AA00649109 /* FrameBuffer.cpp */; };
+		AEB8D60420115ADD00649109 /* PostProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D60220115ADD00649109 /* PostProcessor.cpp */; };
+		AEB8D60720115FEA00649109 /* StorageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D60520115FEA00649109 /* StorageBuffer.cpp */; };
 		AECD89A42001846100B2B9F2 /* solid.vertex.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = AECD89A22001832200B2B9F2 /* solid.vertex.glsl */; };
 		AECD89A52001846100B2B9F2 /* solid.fragment.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = AECD89A32001833100B2B9F2 /* solid.fragment.glsl */; };
 /* End PBXBuildFile section */
@@ -121,6 +124,14 @@
 		AEA17865200017C200653C66 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		AEA178672000182A00653C66 /* libGLEW.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.1.0.dylib; path = ../../../../usr/local/lib/libGLEW.2.1.0.dylib; sourceTree = "<group>"; };
 		AEA178692000184800653C66 /* libglfw3.3.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw3.3.1.dylib; path = ../../../../usr/local/Cellar/glfw3/3.1.2/lib/libglfw3.3.1.dylib; sourceTree = "<group>"; };
+		AEB8D5FC201026AA00649109 /* FrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBuffer.cpp; sourceTree = "<group>"; };
+		AEB8D5FD201026AA00649109 /* FrameBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FrameBuffer.hpp; sourceTree = "<group>"; };
+		AEB8D60220115ADD00649109 /* PostProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcessor.cpp; sourceTree = "<group>"; };
+		AEB8D60320115ADD00649109 /* PostProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PostProcessor.hpp; sourceTree = "<group>"; };
+		AEB8D60520115FEA00649109 /* StorageBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StorageBuffer.cpp; sourceTree = "<group>"; };
+		AEB8D60620115FEA00649109 /* StorageBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StorageBuffer.hpp; sourceTree = "<group>"; };
+		AEB8D6092011908600649109 /* Dimensions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dimensions.hpp; sourceTree = "<group>"; };
+		AEB8D60F20119E4200649109 /* RenderTextureProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderTextureProcessor.hpp; sourceTree = "<group>"; };
 		AECD89A22001832200B2B9F2 /* solid.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.vertex.glsl; sourceTree = "<group>"; };
 		AECD89A32001833100B2B9F2 /* solid.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.fragment.glsl; sourceTree = "<group>"; };
 		AED9F13E2001A16D006BB437 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -470,6 +481,8 @@
 				AE648F1420071B7D00331965 /* DDSTexture.hpp */,
 				AE9776002009567C005DCEC0 /* CubeMap.cpp */,
 				AE9776012009567C005DCEC0 /* CubeMap.hpp */,
+				AEB8D60520115FEA00649109 /* StorageBuffer.cpp */,
+				AEB8D60620115FEA00649109 /* StorageBuffer.hpp */,
 			);
 			path = texture;
 			sourceTree = "<group>";
@@ -493,6 +506,9 @@
 				AE7805D8200302ED000F0035 /* ShaderManager.hpp */,
 				AE7805D9200302ED000F0035 /* ShaderProgram.cpp */,
 				AE7805DA200302ED000F0035 /* ShaderProgram.hpp */,
+				AEB8D60220115ADD00649109 /* PostProcessor.cpp */,
+				AEB8D60320115ADD00649109 /* PostProcessor.hpp */,
+				AEB8D60F20119E4200649109 /* RenderTextureProcessor.hpp */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -508,6 +524,9 @@
 				AE7805F620047384000F0035 /* InputManager.hpp */,
 				AE977607200AF2CD005DCEC0 /* Utilities.hpp */,
 				AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */,
+				AEB8D5FC201026AA00649109 /* FrameBuffer.cpp */,
+				AEB8D5FD201026AA00649109 /* FrameBuffer.hpp */,
+				AEB8D6092011908600649109 /* Dimensions.hpp */,
 			);
 			path = system;
 			sourceTree = "<group>";
@@ -946,7 +965,9 @@
 				AE9775FD20084033005DCEC0 /* SkyBox.cpp in Sources */,
 				AE648F0C2006C8BD00331965 /* RectangularPlane.cpp in Sources */,
 				AE7805F420046F39000F0035 /* BasicMovement.cpp in Sources */,
+				AEB8D5FE201026AA00649109 /* FrameBuffer.cpp in Sources */,
 				AE7805EB200302ED000F0035 /* WindowConfig.cpp in Sources */,
+				AEB8D60720115FEA00649109 /* StorageBuffer.cpp in Sources */,
 				AE7805E1200302ED000F0035 /* Cube.cpp in Sources */,
 				AE7805E4200302ED000F0035 /* Scene.cpp in Sources */,
 				AE9B6A33200CFD9600EED3B2 /* Light.cpp in Sources */,
@@ -962,6 +983,7 @@
 				AE7805F720047384000F0035 /* InputManager.cpp in Sources */,
 				AE648F122007136700331965 /* BMPTexture.cpp in Sources */,
 				AE7805E0200302ED000F0035 /* Camera.cpp in Sources */,
+				AEB8D60420115ADD00649109 /* PostProcessor.cpp in Sources */,
 				AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */,
 				AE7805F12003042C000F0035 /* TextureManager.cpp in Sources */,
 			);

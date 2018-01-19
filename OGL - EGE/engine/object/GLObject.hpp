@@ -14,7 +14,6 @@
 #include <GLFW/glfw3.h>
 #include "ShaderProgram.hpp"
 #include <glm/mat4x4.hpp>
-#include "Scene.hpp"
 #include "../physics/Script.hpp"
 #include "Geometry.hpp"
 #include "Texture.hpp"
@@ -26,7 +25,7 @@ class Geometry;
 
 class IGLObject: public IShaderVariable, public IScriptable {
 public:
-    virtual void render(Scene * scene) {
+    virtual void render(Scene * scene, ShaderProgram* program = NULL) {
         
     }
 };
@@ -60,7 +59,7 @@ public:
     void rotateGlobal(GLfloat x, GLfloat y, GLfloat z);
     GLObject(Geometry * mesh);
     GLObject();
-    virtual void render(Scene*);
+    virtual void render(Scene*, ShaderProgram* program = NULL);
     void setProgram(ShaderProgram *);
     Geometry * geometry;
     virtual void bind(std::string name, ShaderProgram * shader) {

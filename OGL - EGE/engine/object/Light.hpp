@@ -17,7 +17,7 @@ class Scene;
 class Light: public GLObject {
 private:
     friend class Scene;
-    void render(Scene* scene) {
+    void render(Scene* scene, ShaderProgram* program = NULL) {
         
     }
     glm::vec3 color;

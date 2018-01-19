@@ -44,9 +44,13 @@ void GLObject::setProgram(ShaderProgram * shader) {
 }
 
 
-void GLObject::render(Scene * scene) {
-    glUseProgram(this->shader->id);
-    this->shader->bind(this, scene);
+void GLObject::render(Scene * scene, ShaderProgram* program) {
+    ShaderProgram * s = program;
+    if (program == NULL) {
+        s = this->shader;
+    }
+    glUseProgram(s->id);
+    s->bind(this, scene);
     for( std::unordered_map<std::string, BufferObject*>::const_iterator it = this->geometry->buffers->begin(); it != this->geometry->buffers->end(); ++it ) {
         glEnableVertexAttribArray(it->second->location);
         glBindBuffer(GL_ARRAY_BUFFER, it->second->id);

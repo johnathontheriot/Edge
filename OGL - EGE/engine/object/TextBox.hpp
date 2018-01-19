@@ -25,7 +25,7 @@ public:
     void changeText(std::string);
     TextBox(std::string, int = 0xFFFFFFFF);
     void getCharacter(int, GLfloat*);
-    void render(Scene* scene) {
+    void render(Scene* scene, ShaderProgram* program = NULL) {
         glEnable(GL_BLEND);
         glDisable(GL_CULL_FACE);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

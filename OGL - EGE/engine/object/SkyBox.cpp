@@ -10,6 +10,7 @@
 #include "Cube.hpp"
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
+#include "Scene.hpp"
 
 static int skyBoxCount = 0;
 
@@ -93,7 +94,7 @@ SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::
 
 }
 
-void SkyBox::render(Scene* scene) {
+void SkyBox::render(Scene* scene, ShaderProgram* program) {
     glDepthMask(GL_FALSE);
     glDisable(GL_CULL_FACE);
     GLObject::render(scene);
