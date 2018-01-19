@@ -28,7 +28,6 @@ public:
         this->texEnum = TextureManager::textureEnum++;
         this->texIndex = TextureManager::textureNumber++;
         glGenTextures(1, &this->id);
-        glActiveTexture(this->texEnum);
         glBindTexture(GL_TEXTURE_2D, this->id);
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, this->width, this->height);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

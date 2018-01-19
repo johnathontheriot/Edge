@@ -41,12 +41,13 @@ public:
     
     std::unordered_map<std::string, StorageBuffer*> * render(Scene * scene, Dimensions * viewPort, std::unordered_map<std::string, IGLObject*> * objects) {
         this->frame->bind();
-        //glViewport(0, 0, 512, 512);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glViewport(0, 0, 512, 512);
         for (std::unordered_map<std::string, IGLObject*>::const_iterator it = objects->begin(); it != objects->end(); ++it) {
             it->second->render(scene, this->shader);
         }
         this->frame->unbind();
-        //glViewport(0, 0, viewPort->width , viewPort->height);
+        glViewport(0, 0, viewPort->width * 2 , viewPort->height * 2);
         return this->buffers;
     }
     

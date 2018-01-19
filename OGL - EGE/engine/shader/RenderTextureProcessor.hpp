@@ -19,7 +19,7 @@ public:
     RenderTextureProcessor(ShaderProgram * shader) : PostProcessor(shader) {
         this->frame->bind();
         this->addBuffer<TextureBuffer>("texBuffer", new TextureBuffer(512, 512));
-        //this->addBuffer<DepthBuffer>("depthBuffer", new DepthBuffer(512, 512));
+        this->addBuffer<DepthBuffer>("depthBuffer", new DepthBuffer(512, 512));
         this->draw();
         this->frame->unbind();
     }

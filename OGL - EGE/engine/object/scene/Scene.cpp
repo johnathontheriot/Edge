@@ -25,6 +25,7 @@ Scene::Scene(GLFWwindow * window) {
 
 
 void Scene::render() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for( std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {
         it->second->render(this);
     }
