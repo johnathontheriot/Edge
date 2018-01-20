@@ -13,13 +13,14 @@
 #include "PostProcessor.hpp"
 #include "ShaderProgram.hpp"
 #include "StorageBuffer.hpp"
+#include "System.hpp"
 
 class RenderTextureProcessor: public PostProcessor {
 public:
-    RenderTextureProcessor(ShaderProgram * shader) : PostProcessor(shader) {
+    RenderTextureProcessor(ShaderProgram * shader, Dimensions * d) : PostProcessor(shader, d) {
         this->frame->bind();
-        this->addBuffer<TextureBuffer>("texBuffer", new TextureBuffer(512, 512));
-        this->addBuffer<DepthBuffer>("depthBuffer", new DepthBuffer(512, 512));
+        this->addBuffer<TextureBuffer>("texBuffer", new TextureBuffer(d->width, d->height));
+        this->addBuffer<DepthBuffer>("depthBuffer", new DepthBuffer(d->width, d->height));
         this->draw();
         this->frame->unbind();
     }

@@ -18,6 +18,7 @@
 #include <unordered_map>
 #include "Script.hpp"
 #include "ShaderProgram.hpp"
+#include "Dimensions.hpp"
 
 
 typedef enum  {
@@ -66,8 +67,9 @@ public:
     void rotateLocal(GLfloat x, GLfloat y, GLfloat z);
     void translateGlobal(GLfloat x, GLfloat y, GLfloat z);
     void scaleGlobal(GLfloat x, GLfloat y, GLfloat z);
+    Dimensions setAspect(GLfloat width, GLfloat height);
     glm::mat4x4 getViewMatrix();
-    glm::mat4x4 getProjectionMatrix();
+    glm::mat4x4 getProjectionMatrix(int width = 0, int height = 0);
     glm::mat4x4 getScaleRotationMatrix();
     virtual void bind(std::string name, ShaderProgram * shader) {
         shader->bindVariable(name + "_viewTransform", this->getViewMatrix());

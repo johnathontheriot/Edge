@@ -40,15 +40,15 @@ int main(int argc, const char * argv[]) {
 
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.geometry.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
     
-    RenderTextureProcessor * r = new RenderTextureProcessor(NULL);
+    RenderTextureProcessor * r = new RenderTextureProcessor(shader, new Dimensions(512, 512));
 
     
-    shader->bindVars = [r](GLObject* obj, Scene* scene) {
-        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
+    shader->bindVars = [r](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
         // add bind camera function
-        obj->shader->bindVariable("viewTransform", scene->cameras->at("main")->getViewMatrix());
-        obj->shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindVariable<Texture>("tex", r->buffers->at("texBuffer"));
+        shader->bindVariable("viewTransform", scene->cameras->at("main")->getViewMatrix());
+        shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix(r->viewPort->width, r->viewPort->height));
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
     };
 
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
@@ -56,13 +56,12 @@ int main(int argc, const char * argv[]) {
     
     scene->effectsPipeline->insert(scene->effectsPipeline->begin(), r);
     
-    lightingShader->bindVars = [r](GLObject* obj, Scene* scene) {
-        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
-        // add bind camera function
-        obj->shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
-        obj->shader->bindVariable<Camera>("main", scene->cameras->at("main"));
-        obj->shader->bindVariable<Texture>("tex", r->buffers->at("texBuffer"));
-        obj->shader->bindVariable<Light>("light", scene->objects->at("light1"));
+    lightingShader->bindVars = [r](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
+        shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
+        shader->bindVariable<Camera>("main", scene->cameras->at("main"));
+        shader->bindVariable<Texture>("tex", r->buffers->at("texBuffer"));
+        shader->bindVariable<Light>("light", scene->objects->at("light1"));
     };
 
     scene->objects->insert({"title1", new TextBox("This is a cube!", 0x20437CFF)});
@@ -72,7 +71,7 @@ int main(int argc, const char * argv[]) {
     
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
     scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
-    scene->get<GLObject>("Cube1")->setProgram(shader);
+    scene->get<GLObject>("Cube1")->setProgram(lightingShader);
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
     std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
@@ -81,7 +80,7 @@ int main(int argc, const char * argv[]) {
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
-    scene->get<GLObject>("Plane1")->setProgram(shader);
+    scene->get<GLObject>("Plane1")->setProgram(lightingShader);
     scene->get<GLObject>("Plane1")->scaleLocal(5, 5, 5);
     scene->get<GLObject>("Plane1")->rotateLocal(M_PI / 2, 0, 0);
     scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);

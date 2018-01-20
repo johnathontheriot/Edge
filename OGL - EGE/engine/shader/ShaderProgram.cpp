@@ -41,7 +41,7 @@ ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * geometrySha
 
 void ShaderProgram::bind(GLObject* obj, Scene * scene) {    
     if (this->bindVars) {
-        bindVars(obj, scene);
+        bindVars(this, obj, scene);
     }
 }
 

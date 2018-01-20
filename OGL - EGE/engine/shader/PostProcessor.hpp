@@ -22,12 +22,13 @@ class ShaderProgram;
 class PostProcessor {
 private:
 public:
-
+    Dimensions * viewPort;
     GLenum colorAttachment = GL_COLOR_ATTACHMENT0;
     ShaderProgram * shader;
     std::unordered_map<std::string, StorageBuffer*> * buffers;
     FrameBuffer * frame;
-    PostProcessor(ShaderProgram * shader) {
+    PostProcessor(ShaderProgram * shader, Dimensions * d) {
+        this->viewPort = d;
         this->frame = new FrameBuffer();
         this->buffers = new std::unordered_map<std::string, StorageBuffer*>();
         this->shader = shader;
@@ -42,7 +43,7 @@ public:
     std::unordered_map<std::string, StorageBuffer*> * render(Scene * scene, Dimensions * viewPort, std::unordered_map<std::string, IGLObject*> * objects) {
         this->frame->bind();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glViewport(0, 0, 512, 512);
+        glViewport(0, 0, this->viewPort->width, this->viewPort->height);
         for (std::unordered_map<std::string, IGLObject*>::const_iterator it = objects->begin(); it != objects->end(); ++it) {
             it->second->render(scene, this->shader);
         }
