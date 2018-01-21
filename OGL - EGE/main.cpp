@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
     
     System * system = System::getInstance();
     Scene * scene = new Scene(system->getActiveWindow());
-    /*
+    
 
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.geometry.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/solid.fragment.glsl");
     
@@ -89,21 +89,25 @@ int main(int argc, const char * argv[]) {
     scene->objects->insert({"light1", new Light()});
     scene->get<Light>("light1")->translateGlobal(0, 0, 2.1);
     scene->get<Light>("light1")->attachScript<Spin>("lightMvmnt");
-    */
+    
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    ParticleSystem * ps = new ParticleSystem(3);
     
-    ps->addDimension("vertex", new GLfloat[9] {
-        .1, -.2, 0,
-        .1, .1, 0,
-        -.1, -.1, 0
-    }, 9);
+    int numParticles = 200;
+    GLfloat * particles = new GLfloat[numParticles * 3];
+    GLfloat * times = new GLfloat[numParticles] {0};
+
+    ParticleSystem * ps = new ParticleSystem(numParticles);
+    for (int i = 0; i < numParticles * 3; i += 3) {
+        particles[i] = ((rand() % 101) - 50.0) / 500.0;
+        particles[i + 1] = (rand() % 101) / 100.0;
+        particles[i + 2] = ((rand() % 101) - 50.0) / 500.0;
+        times[i / 3] = -1 * (rand() % 11);
+    }
     
-    ps->addDimension("times", new GLfloat[3] {
-        0, 0, 0,
-    }, 3);
+    ps->addDimension("vertex", particles, numParticles * 3);
+    ps->addDimension("times", times, numParticles);
     
     ps->bindBuffers();
 
