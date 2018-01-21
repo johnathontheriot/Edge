@@ -56,7 +56,7 @@ void RectangularPlane::generateVertices(GLfloat * uvs) {
         }
     }
     if (this->buffers->find("vertex") ==  this->buffers->end()) {
-        this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, numSections * 18, vertices)});
+        this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(0, 3, GL_FLOAT, numSections * 18, vertices)});
         //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, numSections * 18, vertices)});
 
     }
@@ -65,7 +65,7 @@ void RectangularPlane::generateVertices(GLfloat * uvs) {
     }
     
     if (this->buffers->find("uvs") ==  this->buffers->end()) {
-        this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, numSections * 12, uvBuffer)});
+        this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(1, 2, GL_FLOAT, numSections * 12, uvBuffer)});
     }
     else {
         this->updateUVs(uvBuffer, numSections * 12);
@@ -84,6 +84,7 @@ RectangularPlane::RectangularPlane(int rows, int cols) {
     this->generateVertices(NULL);
     this->bindBuffers();
     this->generateFaceNormals();
+    this->generateVertexNormals();
 }
 
 RectangularPlane::RectangularPlane(int rows, int cols, GLfloat* uvs) {
@@ -96,6 +97,7 @@ RectangularPlane::RectangularPlane(int rows, int cols, GLfloat* uvs) {
     this->generateVertices(uvs);
     this->bindBuffers();
     this->generateFaceNormals();
+    this->generateVertexNormals();
 }
 
 
@@ -139,12 +141,13 @@ RectangularPlane::RectangularPlane(): Geometry(){
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
-    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 36, vertices)});
-    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, 24, uvBuffer)});
+    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(0, 3, GL_FLOAT, 36, vertices)});
+    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(1, 2, GL_FLOAT, 24, uvBuffer)});
     //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, 18, vertices)});
 
     this->bindBuffers();
     this->generateFaceNormals();
+    this->generateVertexNormals();
 
 }
 

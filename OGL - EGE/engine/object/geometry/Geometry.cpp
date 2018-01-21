@@ -24,8 +24,8 @@ Geometry::Geometry(GLfloat * vertexBuffer, int vertexBufferSize, GLfloat * uvBuf
     this->drawType = GL_TRIANGLES;
     this->createVAO(this->VAOid);
     this->bindVAO(this->VAOid);
-    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
-    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(this->bufferListSize++, 2, GL_FLOAT, (vertexBufferSize / 3) * 2, uvBuffer)});
+    this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(0, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
+    this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(1, 2, GL_FLOAT, (vertexBufferSize / 3) * 2, uvBuffer)});
     //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
 
     this->bindBuffers();
@@ -85,9 +85,9 @@ void Geometry::generateFaceNormals() {
             normalBuffer[i + j + 2] = normal.b;
         }
     }
-    if (this->buffers->find("normals") ==  this->buffers->end()) {
-        this->buffers->insert({"normals", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
-        this->buffers->at("normals")->bind();
+    if (this->buffers->find("facenormals") ==  this->buffers->end()) {
+        this->buffers->insert({"facenormals", new GLBufferObject<GLfloat>(2, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
+        this->buffers->at("facenormals")->bind();
     }
     else {
         this->buffers->at("normals")->update(normalBuffer, vertexBuffer->size);
@@ -146,12 +146,12 @@ void Geometry::generateVertexNormals() {
             normalBuffer[i + 1] = n.g;
             normalBuffer[i + 2] = n.b;
         }
-        if (this->buffers->find("normals") ==  this->buffers->end()) {
-            this->buffers->insert({"normals", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
-            this->buffers->at("normals")->bind();
+        if (this->buffers->find("vertexnormals") ==  this->buffers->end()) {
+            this->buffers->insert({"vertexnormals", new GLBufferObject<GLfloat>(3, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
+            this->buffers->at("vertexnormals")->bind();
         }
         else {
-            this->buffers->at("normals")->update(normalBuffer, vertexBuffer->size);
+            this->buffers->at("vertexnormals")->update(normalBuffer, vertexBuffer->size);
         }
     }
 }

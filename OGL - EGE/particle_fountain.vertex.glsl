@@ -1,7 +1,7 @@
 #version 330 core
 
-layout (location = 0) in vec3 initialVelocity;
-layout (location = 1) in float initialTime;
+layout (location = 4) in vec3 initialVelocity;
+layout (location = 5) in float initialTime;
 
 uniform mat4 main_viewTransform;
 uniform mat4 modelTransform;
