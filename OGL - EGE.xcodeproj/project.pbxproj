@@ -39,6 +39,7 @@
 		AEB8D5FE201026AA00649109 /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D5FC201026AA00649109 /* FrameBuffer.cpp */; };
 		AEB8D60420115ADD00649109 /* PostProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D60220115ADD00649109 /* PostProcessor.cpp */; };
 		AEB8D60720115FEA00649109 /* StorageBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D60520115FEA00649109 /* StorageBuffer.cpp */; };
+		AEB8D61320142B4D00649109 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEB8D61120142B4D00649109 /* ParticleSystem.cpp */; };
 		AECD89A42001846100B2B9F2 /* solid.vertex.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = AECD89A22001832200B2B9F2 /* solid.vertex.glsl */; };
 		AECD89A52001846100B2B9F2 /* solid.fragment.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = AECD89A32001833100B2B9F2 /* solid.fragment.glsl */; };
 /* End PBXBuildFile section */
@@ -132,6 +133,10 @@
 		AEB8D60620115FEA00649109 /* StorageBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StorageBuffer.hpp; sourceTree = "<group>"; };
 		AEB8D6092011908600649109 /* Dimensions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dimensions.hpp; sourceTree = "<group>"; };
 		AEB8D60F20119E4200649109 /* RenderTextureProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RenderTextureProcessor.hpp; sourceTree = "<group>"; };
+		AEB8D61120142B4D00649109 /* ParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cpp; sourceTree = "<group>"; };
+		AEB8D61220142B4D00649109 /* ParticleSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParticleSystem.hpp; sourceTree = "<group>"; };
+		AEB8D61420143E3900649109 /* particle_fountain.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = particle_fountain.vertex.glsl; sourceTree = "<group>"; };
+		AEB8D61520143E6F00649109 /* particle_fountain.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = particle_fountain.fragment.glsl; sourceTree = "<group>"; };
 		AECD89A22001832200B2B9F2 /* solid.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.vertex.glsl; sourceTree = "<group>"; };
 		AECD89A32001833100B2B9F2 /* solid.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = solid.fragment.glsl; sourceTree = "<group>"; };
 		AED9F13E2001A16D006BB437 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -440,6 +445,8 @@
 				AE9775FC20084033005DCEC0 /* SkyBox.hpp */,
 				AE9B6A31200CFD9600EED3B2 /* Light.cpp */,
 				AE9B6A32200CFD9600EED3B2 /* Light.hpp */,
+				AEB8D61120142B4D00649109 /* ParticleSystem.cpp */,
+				AEB8D61220142B4D00649109 /* ParticleSystem.hpp */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -568,6 +575,8 @@
 				AE977605200A9590005DCEC0 /* basic_text.fragment.glsl */,
 				AE9B6A2F200C423200EED3B2 /* phong_lighting.vertex.glsl */,
 				AE9B6A30200C425000EED3B2 /* phong_lighting.fragment.glsl */,
+				AEB8D61420143E3900649109 /* particle_fountain.vertex.glsl */,
+				AEB8D61520143E6F00649109 /* particle_fountain.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";
@@ -979,6 +988,7 @@
 				AEA1785E2000176C00653C66 /* main.cpp in Sources */,
 				AE7805E2200302ED000F0035 /* Geometry.cpp in Sources */,
 				AE9776022009567C005DCEC0 /* CubeMap.cpp in Sources */,
+				AEB8D61320142B4D00649109 /* ParticleSystem.cpp in Sources */,
 				AE7805E9200302ED000F0035 /* ShaderProgram.cpp in Sources */,
 				AE7805F720047384000F0035 /* InputManager.cpp in Sources */,
 				AE648F122007136700331965 /* BMPTexture.cpp in Sources */,

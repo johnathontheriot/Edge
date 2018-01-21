@@ -16,8 +16,8 @@ class Cube : public Geometry {
 private:
     friend class SkyBox;
     static Cube * Instance;
-    Cube();
 public:
+    Cube();
     static Cube * getInstance();
 };
 
