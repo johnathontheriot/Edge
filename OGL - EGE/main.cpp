@@ -29,6 +29,7 @@
 #include "SkyBox.hpp"
 #include "Light.hpp"
 #include "RenderTextureProcessor.hpp"
+#include "ParticleSystem.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -85,12 +86,45 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Plane1")->rotateLocal(M_PI / 2, 0, 0);
     scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);
     
-    scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
-    scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    
     scene->objects->insert({"light1", new Light()});
     scene->get<Light>("light1")->translateGlobal(0, 0, 2.1);
     scene->get<Light>("light1")->attachScript<Spin>("lightMvmnt");
+    
+    
+    scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
+    scene->cameras->at("main")->attachScript<BasicMovement>("movement");
+    
+    int numParticles = 200;
+    GLfloat * particles = new GLfloat[numParticles * 3];
+    GLfloat * times = new GLfloat[numParticles] {0};
+
+    ParticleSystem * ps = new ParticleSystem(numParticles);
+    for (int i = 0; i < numParticles * 3; i += 3) {
+        particles[i] = ((rand() % 101) - 50.0) / 500.0;
+        particles[i + 1] = (rand() % 101) / 100.0;
+        particles[i + 2] = ((rand() % 101) - 50.0) / 500.0;
+        times[i / 3] = -1 * (rand() % 11);
+    }
+    
+    ps->addDimension("vertex", particles, numParticles * 3);
+    ps->addDimension("times", times, numParticles);
+    
+    ps->bindBuffers();
+
+
+    ShaderProgram * particleShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/particle_fountain.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/particle_fountain.fragment.glsl");
+    
+    particleShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
+        static GLfloat time = 0.0;
+        shader->bindVariable("time", time += 0.075);
+        shader->bindVariable("force", glm::vec3(0, 0.01, 0));
+        shader->bindVariable<Camera>("main", scene->cameras->at("main"));
+    };
+    ps->setProgram(particleShader);
+    ps->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
+    scene->objects->insert({"particels1", ps});
     
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();

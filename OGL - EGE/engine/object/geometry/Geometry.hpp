@@ -27,16 +27,15 @@ public:
     Geometry(GLfloat *, int, GLfloat *);
     void generateFaceNormals();
     void generateVertexNormals();
-
-protected:
     std::unordered_map<std::string, BufferObject*> * buffers;
+    int bufferListSize = 0;
+    void bindBuffers();
     GLenum drawType;
+    int getVertexBufferSize(std::string key);
+protected:
     GLuint VAOid;
     void createVAO(GLuint &);
     void bindVAO(GLuint &);
-    void bindBuffers();
-    int bufferListSize = 0;
-    int getVertexBufferSize(std::string key);
     void updateBuffer(std::string key, GLfloat * vertices, int size);
 
 };

@@ -32,6 +32,7 @@ Geometry::Geometry(GLfloat * vertexBuffer, int vertexBufferSize, GLfloat * uvBuf
 }
 
 void Geometry::bindBuffers() {
+    this->bindVAO(this->VAOid);
     for( std::unordered_map<std::string, BufferObject*>::const_iterator it = this->buffers->begin(); it != this->buffers->end(); ++it ) {
         it->second->bind();
     }
@@ -106,54 +107,59 @@ glm::vec3 keyToVector(char * key) {
 }
 
 void Geometry::generateVertexNormals() {
-    GLBufferObject<GLfloat> * vertexBuffer = (GLBufferObject<GLfloat>*)(this->buffers->at("vertex"));
-    GLfloat * normalBuffer = new GLfloat[vertexBuffer->size]{ 0.0f };
-    std::unordered_map<std::string, glm::vec3> * normals = new std::unordered_map<std::string, glm::vec3>();
-    for(int i = 0; i < vertexBuffer->size; i += 9) {
-        glm::vec3 p1 = glm::vec3(vertexBuffer->data[i], vertexBuffer->data[i + 1], vertexBuffer->data[i + 2]);
-        glm::vec3 p2 = glm::vec3(vertexBuffer->data[i + 3], vertexBuffer->data[i + 4], vertexBuffer->data[i + 5]);
-        glm::vec3 p3 = glm::vec3(vertexBuffer->data[i + 6], vertexBuffer->data[i + 7], vertexBuffer->data[i + 8]);
-        glm::vec3 s1 = p3 - p2;
-        glm::vec3 s2 = p1 - p2;
-        glm::vec3 normal = glm::cross(s1, s2);
-        if (normals->find(vecToString(p1)) == normals->end()) {
-            normals->insert({vecToString(p1), normal});
-        }
-        else {
-            normals->at(vecToString(p1)) = normals->at(vecToString(p1)) + normal;
-        }
+    if (this->drawType == GL_TRIANGLES) {
+        GLBufferObject<GLfloat> * vertexBuffer = (GLBufferObject<GLfloat>*)(this->buffers->at("vertex"));
+        GLfloat * normalBuffer = new GLfloat[vertexBuffer->size]{ 0.0f };
+        std::unordered_map<std::string, glm::vec3> * normals = new std::unordered_map<std::string, glm::vec3>();
+        for(int i = 0; i < vertexBuffer->size; i += 9) {
+            glm::vec3 p1 = glm::vec3(vertexBuffer->data[i], vertexBuffer->data[i + 1], vertexBuffer->data[i + 2]);
+            glm::vec3 p2 = glm::vec3(vertexBuffer->data[i + 3], vertexBuffer->data[i + 4], vertexBuffer->data[i + 5]);
+            glm::vec3 p3 = glm::vec3(vertexBuffer->data[i + 6], vertexBuffer->data[i + 7], vertexBuffer->data[i + 8]);
+            glm::vec3 s1 = p3 - p2;
+            glm::vec3 s2 = p1 - p2;
+            glm::vec3 normal = glm::cross(s1, s2);
+            if (normals->find(vecToString(p1)) == normals->end()) {
+                normals->insert({vecToString(p1), normal});
+            }
+            else {
+                normals->at(vecToString(p1)) = normals->at(vecToString(p1)) + normal;
+            }
         
-        if (normals->find(vecToString(p2)) == normals->end()) {
-            normals->insert({vecToString(p2), normal});
-        }
-        else {
-            normals->at(vecToString(p2)) = normals->at(vecToString(p2)) + normal;
-        }
+            if (normals->find(vecToString(p2)) == normals->end()) {
+                normals->insert({vecToString(p2), normal});
+            }
+            else {
+                normals->at(vecToString(p2)) = normals->at(vecToString(p2)) + normal;
+            }
         
-        if (normals->find(vecToString(p3)) == normals->end()) {
-            normals->insert({vecToString(p3), normal});
+            if (normals->find(vecToString(p3)) == normals->end()) {
+                normals->insert({vecToString(p3), normal});
+            }
+            else {
+                normals->at(vecToString(p3)) = normals->at(vecToString(p3)) + normal;
+            }
+        }
+        for(int i = 0; i < vertexBuffer->size; i += 3) {
+            glm::vec3 vertex = glm::vec3(vertexBuffer->data[i], vertexBuffer->data[i + 1], vertexBuffer->data[i + 2]);
+            glm::vec3 n = normals->at(vecToString(vertex));
+            normalBuffer[i] = n.r;
+            normalBuffer[i + 1] = n.g;
+            normalBuffer[i + 2] = n.b;
+        }
+        if (this->buffers->find("normals") ==  this->buffers->end()) {
+            this->buffers->insert({"normals", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
+            this->buffers->at("normals")->bind();
         }
         else {
-            normals->at(vecToString(p3)) = normals->at(vecToString(p3)) + normal;
+            this->buffers->at("normals")->update(normalBuffer, vertexBuffer->size);
         }
-    }
-    for(int i = 0; i < vertexBuffer->size; i += 3) {
-        glm::vec3 vertex = glm::vec3(vertexBuffer->data[i], vertexBuffer->data[i + 1], vertexBuffer->data[i + 2]);
-        glm::vec3 n = normals->at(vecToString(vertex));
-        normalBuffer[i] = n.r;
-        normalBuffer[i + 1] = n.g;
-        normalBuffer[i + 2] = n.b;
-    }
-    if (this->buffers->find("normals") ==  this->buffers->end()) {
-        this->buffers->insert({"normals", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBuffer->size, normalBuffer)});
-        this->buffers->at("normals")->bind();
-    }
-    else {
-        this->buffers->at("normals")->update(normalBuffer, vertexBuffer->size);
     }
 }
 
 
 Geometry::Geometry() {
-    
+    this->buffers = new std::unordered_map<std::string, BufferObject*>();
+    this->drawType = GL_POINTS;
+    this->createVAO(this->VAOid);
+    this->bindVAO(this->VAOid);
 }
