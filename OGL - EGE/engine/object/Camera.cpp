@@ -47,13 +47,31 @@ void Camera::makePerspective() {
     this->projection = ProjectionType::PERSPECTIVE;
 }
 
-glm::mat4x4 Camera::getProjectionMatrix() {
+Dimensions Camera::setAspect(GLfloat width, GLfloat height) {
+    Dimensions d(this->right, this->top);
+    this->left = - (width / width);
+    this->right = (width / width);
+    this->top = (height / width);
+    this->bottom = - (height / width);
+    this->aspect = width / height;
+    return d;
+}
+
+glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
     float l = this->orthographicVal * this->left;
     float r = this->orthographicVal * this->right;
     float t = this->orthographicVal * this->top;
     float b = this->orthographicVal * this->bottom;
     float n = this->orthographicVal * this->near;
     float f = this->orthographicVal * this->far;
+    if (width > 0) {
+        l = this->orthographicVal * - (width / width);
+        r = this->orthographicVal * (width / width);
+    }
+    if (height > 0) {
+        t = this->orthographicVal * (height / width);
+        b = this->orthographicVal * - (height / width);
+    }
     switch (this->projection) {
         case ProjectionType::ORTHOGRAPHIC:
             return glm::transpose(glm::mat4x4(2.0f / (r - l), 0, 0, -(r + l) / (r - l),
@@ -63,7 +81,11 @@ glm::mat4x4 Camera::getProjectionMatrix() {
         case ProjectionType::PERSPECTIVE:
         default:
             GLfloat s = 1.0f / (tan((fov / 2.0f) * (M_PI / 180.0f)));
-            return glm::mat4x4(s / (aspect), 0, 0, 0,
+            GLfloat a = this->aspect;
+            if (width > 0 && height > 0) {
+                a = width / height;
+            }
+            return glm::mat4x4(s / (a), 0, 0, 0,
                        0, s, 0, 0,
                        0, 0, -(far + near) / (far - near), -1.0f,
                        0, 0, -(2.0f * far * near) / (far - near), 0);

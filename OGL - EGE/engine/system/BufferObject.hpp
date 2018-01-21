@@ -18,6 +18,17 @@ public:
         glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->size, this->data, GL_STATIC_DRAW);
     }
     
+    virtual void attach() {
+        glEnableVertexAttribArray(this->location);
+        glBindBuffer(GL_ARRAY_BUFFER, this->id);
+        glVertexAttribPointer(this->location, this->dimension, this->type, GL_FALSE, 0, (void*)0);
+    }
+    
+    virtual void detach() {
+        glDisableVertexAttribArray(this->location);
+
+    }
+    
     virtual void update(GLfloat * vertices, int size) {
         this->data = vertices;
         this->size = size;
@@ -56,6 +67,23 @@ public:
         this->bind();
     }
 protected:
+};
+
+
+template <class BufferType>
+class DivisingBufferObject: public GLBufferObject<BufferType> {
+private:
+    int divisions;
+public:
+    DivisingBufferObject(int divisions, GLuint location, int dimension, GLenum type, int size, BufferType * data): GLBufferObject<BufferType>(location, dimension, type, size, data) {
+        this->divisions = divisions;
+    }
+    
+    virtual void attach() {
+        GLBufferObject<BufferType>::attach();
+        glVertexAttribDivisor(this->location, this->divisions);
+    }
+
 };
 
 #endif /* BufferObject_hpp */

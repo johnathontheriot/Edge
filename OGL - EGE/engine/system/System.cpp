@@ -75,7 +75,6 @@ bool System::shouldClose() {
 
 void System::start() {
     while(!this->shouldClose()) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         for (std::unordered_map<std::string, Scene*>::const_iterator it = SceneManager::getInstance()->scenes->begin(); it != SceneManager::getInstance()->scenes->end(); ++it) {
             
             it->second->render();

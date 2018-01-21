@@ -19,7 +19,7 @@ public:
     void attachScript(std::string name) {
         IScriptable::attachScript<ScriptType, SkyBox>(name);
     }
-    virtual void render(Scene*);
+    virtual void render(Scene*, ShaderProgram* program = NULL);
     SkyBox(std::string texturePath);
     SkyBox(std::string, std::string, std::string, std::string, std::string, std::string);
 };

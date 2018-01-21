@@ -10,6 +10,7 @@
 #include "Cube.hpp"
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
+#include "Scene.hpp"
 
 static int skyBoxCount = 0;
 
@@ -63,12 +64,12 @@ SkyBox::SkyBox(std::string path): GLObject() {
     this->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("skybox_" + std::to_string(skyBoxCount++), path));
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox_single.fragment.glsl");
     
-    shader->bindVars = [](GLObject* obj, Scene* scene) {
-        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
+    shader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
         // add bind camera function
-        obj->shader->bindVariable("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
-        obj->shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        shader->bindVariable("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
+        shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
     };
     this->setProgram(shader);
     this->scaleLocal(100, 100, 100);
@@ -81,22 +82,22 @@ SkyBox::SkyBox(std::string l, std::string f, std::string r, std::string b, std::
 
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/skybox.fragment.glsl");
     
-    shader->bindVars = [](GLObject* obj, Scene* scene) {
-        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
+    shader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
         // add bind camera function
-        obj->shader->bindVariable("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
-        obj->shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindVariable<CubeMap>("tex", obj->textures->at(0));
+        shader->bindVariable("viewTransform", scene->cameras->at("main")->getScaleRotationMatrix());
+        shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        shader->bindVariable<CubeMap>("tex", obj->textures->at(0));
     };
     this->setProgram(shader);
     this->scaleLocal(100, 100, 100);
 
 }
 
-void SkyBox::render(Scene* scene) {
+void SkyBox::render(Scene* scene, ShaderProgram* program) {
     glDepthMask(GL_FALSE);
     glDisable(GL_CULL_FACE);
-    GLObject::render(scene);
+    GLObject::render(scene, program);
     glEnable(GL_CULL_FACE);
     glDepthMask(GL_TRUE);
 

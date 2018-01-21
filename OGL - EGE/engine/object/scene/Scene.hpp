@@ -14,6 +14,11 @@
 #include <unordered_map>
 #include "GLObject.hpp"
 #include "Script.hpp"
+#include "System.hpp"
+#include <list>
+#include "Dimensions.hpp"
+#include "PostProcessor.hpp"
+
 
 class IGLObject;
 class GLObject;
@@ -21,12 +26,15 @@ class GLObject;
 class Scene: public IScriptable {
 private:
 public:
+    std::list<PostProcessor*> * effectsPipeline;
+    Dimensions * viewPort;
     std::unordered_map<std::string, Camera*> * cameras;
     std::unordered_map<std::string, IGLObject*> * objects;
     void render();
     void tick();
     Scene(GLFWwindow * window);
-    template<class ObjectType, typename std::enable_if<std::is_base_of<GLObject, ObjectType>::value>::type* = nullptr>
+    Scene();
+    template<class ObjectType, typename std::enable_if<std::is_base_of<IGLObject, ObjectType>::value>::type* = nullptr>
     ObjectType * get(std::string key) {
         try {
             return (ObjectType*)(this->objects->at(key));

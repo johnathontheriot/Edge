@@ -12,6 +12,7 @@
 #include "TextureManager.hpp"
 #include "ShaderManager.hpp"
 #include "Utilities.hpp"
+#include "Scene.hpp"
 
 void TextBox::changeText(std::string newText) {
     //todo
@@ -23,13 +24,13 @@ TextBox::TextBox(std::string text, int color): GLObject() {
     this->textures->push_back(TextureManager::getInstance()->loadTexture<DDSTexture>("glyph1", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/Holstein.DDS"));
     ShaderProgram * shader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/basic_text.fragment.glsl");
     
-    shader->bindVars = [this](GLObject* obj, Scene* scene) {
-        obj->shader->bindVariable("modelTransform", obj->getModelMatrix());
+    shader->bindVars = [this](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
         // add bind camera function
-        obj->shader->bindVariable("viewTransform", scene->cameras->at("main")->getViewMatrix());
-        obj->shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
-        obj->shader->bindVariable<Texture>("tex", obj->textures->at(0));
-        obj->shader->bindVariable("textColor", this->color);
+        shader->bindVariable("viewTransform", scene->cameras->at("main")->getViewMatrix());
+        shader->bindVariable("projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        shader->bindVariable("textColor", this->color);
     };
     this->setProgram(shader);
     // End changes

@@ -39,7 +39,7 @@ private:
     GLSLShader * fragmentShader;
     GLSLShader * geometryShader;
 public:
-    std::function<void(GLObject*, Scene*)> bindVars = NULL;
+    std::function<void(ShaderProgram*, GLObject*, Scene*)> bindVars = NULL;
     void bindVariable(std::string, glm::mat4x4);
     void bindVariable(std::string, glm::vec4);
     void bindVariable(std::string, glm::vec3);
