@@ -37,6 +37,7 @@ ShaderProgram::ShaderProgram(GLSLShader * vertexShader, GLSLShader * geometrySha
         glGetProgramInfoLog(this->id, resLength, NULL, &programCompileErr[0]);
         std::cout << &programCompileErr[0];
     }
+    this->subroutineCalls = new std::vector<ShaderSubRoutineCall>();
 }
 
 void ShaderProgram::bind(GLObject* obj, Scene * scene) {    
@@ -48,6 +49,14 @@ void ShaderProgram::bind(GLObject* obj, Scene * scene) {
 void ShaderProgram::bindVariable(std::string name,  GLfloat flt) {
     GLuint floatID = glGetUniformLocation(this->id, name.c_str());
     glUniform1f(floatID, flt);
+}
+
+void ShaderProgram::addVertexSubroutineCall(std::string name) {
+    this->subroutineCalls->push_back(ShaderSubRoutineCall(GL_VERTEX_SHADER, name));
+}
+
+void ShaderProgram::addFragmentSubroutineCall(std::string name) {
+    this->subroutineCalls->push_back(ShaderSubRoutineCall(GL_FRAGMENT_SHADER, name));
 }
 
 void ShaderProgram::bindVariable(std::string name, glm::mat4x4 mat) {
@@ -64,3 +73,9 @@ void ShaderProgram::bindVariable(std::string name, glm::vec3 vec) {
     GLuint vectorID = glGetUniformLocation(this->id, name.c_str());
     glUniform3f(vectorID, vec.r, vec.g, vec.b);
 }
+
+void ShaderProgram::bindVariable(std::string name, float * arr, int size) {
+    GLuint arrID = glGetUniformLocation(this->id, name.c_str());
+    glUniform1fv(arrID, size, arr);
+}
+

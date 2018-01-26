@@ -30,6 +30,7 @@
 #include "Light.hpp"
 #include "RenderTextureProcessor.hpp"
 #include "ParticleSystem.hpp"
+#include "BloomProcessor.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -37,20 +38,23 @@ int main(int argc, const char * argv[]) {
     
     System * system = System::getInstance();
     Scene * scene = new Scene(system->getActiveWindow());
+    
+    BloomProcessor * bloom = new BloomProcessor(new Dimensions(1600, 900));
 
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
     
-    lightingShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+    lightingShader->bindVars = [bloom](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
         shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
         shader->bindVariable<Camera>("main", scene->cameras->at("main"));
         shader->bindVariable<Texture>("tex", obj->textures->at(0));
         shader->bindVariable<Light>("light", scene->objects->at("light1"));
-        shader->bindVariable<Texture>("envtex", scene->get<SkyBox>("skyBox")->textures->at(0));
-        shader->bindVariable("cmapTransform", scene->get<SkyBox>("skyBox")->getModelMatrix());
-
+        //shader->bindVariable<Texture>("envtex", scene->get<SkyBox>("skyBox")->textures->at(0));
+        //shader->bindVariable("cmapTransform", scene->get<SkyBox>("skyBox")->getModelMatrix());
+        shader->bindVariable("reflection", 100);
     };
 
+    scene->effectsPipeline->insert(scene->effectsPipeline->begin(), bloom->processors->begin(), bloom->processors->end());
     scene->objects->insert({"title1", new TextBox("This is a cube!", 0x20437CFF)});
     
     scene->get<TextBox>("title1")->scaleLocal(.1, .1, .1);
@@ -62,8 +66,8 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
     std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
-    scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
-    scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
+    //scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
+    //scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));

@@ -15,8 +15,8 @@
 
 class FrameBuffer {
 private:
-    GLuint id;
 public:
+    GLuint id;
     FrameBuffer() {
         glGenFramebuffers(1, &this->id);
     }

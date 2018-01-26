@@ -50,14 +50,25 @@ void GLObject::render(Scene * scene, ShaderProgram* program) {
         s = this->shader;
     }
     glUseProgram(s->id);
+    int shaderCallCount = s->subroutineCalls->size();
+
     s->bind(this, scene);
     for( std::unordered_map<std::string, BufferObject*>::const_iterator it = this->geometry->buffers->begin(); it != this->geometry->buffers->end(); ++it ) {
         it->second->attach();
     }
-    glDrawArrays(this->geometry->drawType, 0, this->geometry->getVertexBufferSize("vertex"));
+    do {
+        if (shaderCallCount > 0) {
+            ShaderSubRoutineCall call = s->subroutineCalls->at(shaderCallCount - 1);
+            GLuint routineID = glGetSubroutineIndex(s->id, call.shaderType, call.routineName.c_str());
+            glUniformSubroutinesuiv(call.shaderType, 1, &routineID);
+            shaderCallCount--;
+        }
+        glDrawArrays(this->geometry->drawType, 0, this->geometry->getVertexBufferSize("vertex"));
+    } while (shaderCallCount > 0);
     for( std::unordered_map<std::string, BufferObject*>::const_iterator it = this->geometry->buffers->begin(); it != this->geometry->buffers->end(); ++it ) {
         it->second->detach();
     }
+    
 
 }
 
