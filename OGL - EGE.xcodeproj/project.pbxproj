@@ -113,6 +113,10 @@
 		AE7805F620047384000F0035 /* InputManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputManager.hpp; sourceTree = "<group>"; };
 		AE7998EA20027E8700936CF5 /* Spin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spin.cpp; sourceTree = "<group>"; };
 		AE7998EB20027E8700936CF5 /* Spin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spin.hpp; sourceTree = "<group>"; };
+		AE7D6464201EAA020049F35C /* HDRProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HDRProcessor.hpp; sourceTree = "<group>"; };
+		AE7D6467201EAA4B0049F35C /* LuminanceProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuminanceProcessor.hpp; sourceTree = "<group>"; };
+		AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PostProcessorPipeline.hpp; sourceTree = "<group>"; };
+		AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GaussianProcessor.hpp; sourceTree = "<group>"; };
 		AE9775FB20084033005DCEC0 /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
 		AE9775FC20084033005DCEC0 /* SkyBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SkyBox.hpp; sourceTree = "<group>"; };
 		AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.vertex.glsl; sourceTree = "<group>"; };
@@ -524,6 +528,10 @@
 				AEB8D60320115ADD00649109 /* PostProcessor.hpp */,
 				AEB8D60F20119E4200649109 /* RenderTextureProcessor.hpp */,
 				AE5FEEA42015226D009EDBC2 /* BloomProcessor.hpp */,
+				AE7D6464201EAA020049F35C /* HDRProcessor.hpp */,
+				AE7D6467201EAA4B0049F35C /* LuminanceProcessor.hpp */,
+				AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */,
+				AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */,
 			);
 			path = shader;
 			sourceTree = "<group>";

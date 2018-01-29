@@ -49,23 +49,17 @@ int main(int argc, const char * argv[]) {
         shader->bindVariable<Camera>("main", scene->cameras->at("main"));
         shader->bindVariable<Texture>("tex", obj->textures->at(0));
         shader->bindVariable<Light>("light", scene->objects->at("light1"));
-        //shader->bindVariable<Texture>("envtex", scene->get<SkyBox>("skyBox")->textures->at(0));
-        //shader->bindVariable("cmapTransform", scene->get<SkyBox>("skyBox")->getModelMatrix());
         shader->bindVariable("reflection", 100);
     };
 
-    scene->effectsPipeline->insert(scene->effectsPipeline->begin(), bloom->processors->begin(), bloom->processors->end());
-    scene->objects->insert({"title1", new TextBox("This is a cube!", 0x20437CFF)});
-    
-    scene->get<TextBox>("title1")->scaleLocal(.1, .1, .1);
-    scene->get<TextBox>("title1")->translateGlobal(0, .65f, 0);
+    //scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
     
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
     scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
     scene->get<GLObject>("Cube1")->setProgram(lightingShader);
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
-    std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
+    //std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
     //scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
     //scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
     

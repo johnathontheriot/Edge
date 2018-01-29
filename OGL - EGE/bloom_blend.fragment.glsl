@@ -7,6 +7,7 @@ uniform sampler2D blur;
 
 void main(){
     vec4 sC = texture(scene, vec2(vUV.r, vUV.g));
-    vec4 bC = texture(blur, vec2(vUV.r, vUV.g));
-    color =  bC;
+    vec4 bC = texture(blur, vec2(vUV.r, vUV.g)) * 1.0;
+    color = sC + bC;
+    color.rgb = vec3(1.0) - exp(-color.rgb *  9);
 }

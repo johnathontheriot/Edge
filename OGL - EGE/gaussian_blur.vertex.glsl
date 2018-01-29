@@ -7,5 +7,4 @@ layout(location = 3) in vec3 vertexNormals;
 
 void main(){
     gl_Position.xyzw = vec4(vertexMSpace, 1.0);
-
 }

@@ -27,6 +27,7 @@ class Scene: public IScriptable {
 private:
 public:
     std::list<PostProcessor*> * effectsPipeline;
+    std::list<PostProcessor*> * imageEffects;
     Dimensions * viewPort;
     std::unordered_map<std::string, Camera*> * cameras;
     std::unordered_map<std::string, IGLObject*> * objects;
