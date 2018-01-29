@@ -15,7 +15,7 @@ Of course, but how am I supposed to learn how to build a good wheel if I don't s
 
 # So how do I make a game?
 
-Good question! The answer is, you can't...yet. But here are some things you _can_ do.
+Good question! The answer is, you can't...yet. But here are some things you _can_ do. (Try checking the [Wiki](https://github.com/johnathontheriot/Edge/wiki). It is currently a work in progress, but may answer some questions you have)
 
 ### Create a Scene
 
