@@ -2,6 +2,8 @@
 
 An experimental game engine written in C++.
 
+Try checking the [Wiki](https://github.com/johnathontheriot/Edge/wiki). It is currently a work in progress, but may answer some questions you have.
+
 # What is it?
 Edge is an experimental game engine designed with developers in mind. One of the common complaints I hear about graphics developement is that setting up an environment and wiring up boiler plate code takes too much time, and in the end, results in a spaghetti mess for anyone who hasn't seen a structured example before. This engine will aim to ease some of these concerns, attempting to provide modern design examples, but also keeping code readable for newcomers.
 
@@ -15,7 +17,7 @@ Of course, but how am I supposed to learn how to build a good wheel if I don't s
 
 # So how do I make a game?
 
-Good question! The answer is, you can't...yet. But here are some things you _can_ do. (Try checking the [Wiki](https://github.com/johnathontheriot/Edge/wiki). It is currently a work in progress, but may answer some questions you have)
+Good question! The answer is, you can't...yet. But here are some things you _can_ do. 
 
 ### Create a Scene
 
