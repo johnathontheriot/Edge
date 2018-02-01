@@ -39,11 +39,10 @@ int main(int argc, const char * argv[]) {
     System * system = System::getInstance();
     Scene * scene = new Scene(system->getActiveWindow());
     
-    BloomProcessor * bloom = new BloomProcessor(new Dimensions(1600, 900));
 
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
     
-    lightingShader->bindVars = [bloom](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+    lightingShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
         shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
         shader->bindVariable<Camera>("main", scene->cameras->at("main"));
@@ -52,8 +51,6 @@ int main(int argc, const char * argv[]) {
         shader->bindVariable("reflection", 100);
     };
 
-    scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
-    
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
     scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
     scene->get<GLObject>("Cube1")->setProgram(lightingShader);
@@ -77,6 +74,10 @@ int main(int argc, const char * argv[]) {
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
+    
+    
+    BloomProcessor * bloom = new BloomProcessor(new Dimensions(1600, 900));
+    scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
     
 
     
