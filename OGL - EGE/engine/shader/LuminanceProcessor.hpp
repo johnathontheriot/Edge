@@ -16,12 +16,12 @@ class LuminanceProcessor: public PostProcessor {
     std::unordered_map<std::string, IGLObject*> * objects;
 public:
     LuminanceProcessor(ShaderProgram * shader, Dimensions * d) : PostProcessor(shader, d) {
-        this->viewPort->width = this->viewPort->width / 4.0f;
-        this->viewPort->height = this->viewPort->height / 4.0f;
+        this->viewPort->width = this->viewPort->width / 8.0f;
+        this->viewPort->height = this->viewPort->height / 8.0f;
         this->objects = new std::unordered_map<std::string, IGLObject*>();
         this->objects->insert({"plane", new GLObject(RectangularPlane::getInstance())});
         this->frame->bind();
-        this->addBuffer<LowResTextureBuffer>("texBuffer", new LowResTextureBuffer( d->width / 4.0f,  d->height / 4.0f));
+        this->addBuffer<LowResTextureBuffer>("texBuffer", new LowResTextureBuffer( d->width / 8.0f,  d->height / 8.0f));
         this->draw();
         this->frame->unbind();
     }

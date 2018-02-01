@@ -59,9 +59,9 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Cube1")->setProgram(lightingShader);
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
-    //std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
-    //scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
-    //scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
+    std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
+    scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
+    scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));

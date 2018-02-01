@@ -26,7 +26,7 @@ void main(){
     float specular = clamp( dot( normalizedEye, normalize(lightReflection) ), 0 ,1 );
     reflectionColor = vec4(vec3(1.0, 1.0, 1.0) - amnt, reflectionColor.w);
     color = vec4((lIntensity / 60.0) * diffuse *  lColor, 1.0); //texture(tex, vec2(vUV.r, - vUV.g)).rgb *
-    //color += vec4(pow(specular, 5) * vec3(0.3,0.3,0.3), 1.0);
+    color += vec4(pow(specular, 5) * vec3(0.3,0.3,0.3), 1.0);
     //color = color * vec4(texture(tex, vec2(vUV.r, - vUV.g)).rgb, color.w);
     //color = normalize(ns);
 }

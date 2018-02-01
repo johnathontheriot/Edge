@@ -40,6 +40,10 @@ public:
 
     }
     
+    virtual void postRender(Dimensions originalViewPort) {
+        
+    }
+    
     virtual std::unordered_map<std::string, StorageBuffer*> * render(Scene * scene, Dimensions * viewPort, std::unordered_map<std::string, IGLObject*> * objects) {
         this->frame->bind();
         GLint currentViewport[4];
@@ -49,6 +53,7 @@ public:
         for (std::unordered_map<std::string, IGLObject*>::const_iterator it = objects->begin(); it != objects->end(); ++it) {
             it->second->render(scene, this->shader);
         }
+        postRender(Dimensions(currentViewport[2] , currentViewport[3]));
         this->frame->unbind();
         glViewport(0, 0, currentViewport[2] , currentViewport[3]);
         
