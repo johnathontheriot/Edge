@@ -31,6 +31,7 @@
 #include "RenderTextureProcessor.hpp"
 #include "ParticleSystem.hpp"
 #include "BloomProcessor.hpp"
+#include "BloomScript.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -74,13 +75,7 @@ int main(int argc, const char * argv[]) {
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    
-    
-    BloomProcessor * bloom = new BloomProcessor(new Dimensions(1600, 900));
-    scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
-    
-
-    
+    scene->attachScript<BloomScript>("bloomControl");
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();
 }

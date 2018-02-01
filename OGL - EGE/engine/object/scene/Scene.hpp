@@ -26,6 +26,10 @@ class GLObject;
 class Scene: public IScriptable {
 private:
 public:
+    template <class ScriptType>
+    void attachScript(std::string name) {
+        IScriptable::attachScript<ScriptType, Scene>(name);
+    }
     std::list<PostProcessor*> * effectsPipeline;
     std::list<PostProcessor*> * imageEffects;
     Dimensions * viewPort;

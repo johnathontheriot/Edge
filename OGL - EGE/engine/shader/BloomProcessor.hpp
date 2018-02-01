@@ -41,6 +41,8 @@ public:
 
 class BloomProcessor : public PostPorcessorPipeline {
 public:
+    float lowerThreshold = 0.5;
+    float upperThreshold = 0.9;
     BloomProcessor(Dimensions * d) {
         this->processors = new std::list<PostProcessor*>();
         std::list<PostProcessor*>::iterator it = this->processors->begin();
@@ -48,8 +50,10 @@ public:
         HighResProcessor * highRes = new HighResProcessor(NULL, d);
         this->processors->push_back(highRes);
         ShaderProgram * lumShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/luminance.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/luminance.fragment.glsl");
-        lumShader->bindVars = [highRes](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        lumShader->bindVars = [highRes, this](ShaderProgram * shader, GLObject* obj, Scene* scene) {
             shader->bindVariable<Texture>("tex", highRes->buffers->at("texBuffer"));
+            shader->bindVariable("lowerThreshold", this->lowerThreshold);
+            shader->bindVariable("upperThreshold", this->upperThreshold);
         };
         // RENDER LUMINANCE
         LuminanceProcessor * lum = new LuminanceProcessor(lumShader, d);
