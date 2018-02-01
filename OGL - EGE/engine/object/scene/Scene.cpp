@@ -15,6 +15,7 @@
 
 Scene::Scene(GLFWwindow * window) {
     this->effectsPipeline = new std::list<PostProcessor*>;
+    this->imageEffects = new std::list<PostProcessor*>;
     Dimensions d = System::getInstance()->getWindowDimenions(window);
     this->cameras = new std::unordered_map<std::string, Camera*>();
     this->objects = new std::unordered_map<std::string, IGLObject*>();
@@ -28,9 +29,14 @@ void Scene::render() {
     for (std::list<PostProcessor*>::iterator it = this->effectsPipeline->begin(); it != this->effectsPipeline->end(); ++it) {
         (*it)->render(this, this->viewPort, this->objects);
     }
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    for( std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {
-        it->second->render(this);
+    for (std::list<PostProcessor*>::iterator it = this->imageEffects->begin(); it != this->imageEffects->end(); ++it) {
+        (*it)->render(this, this->viewPort, this->objects);
+    }
+    if (this->imageEffects->size() == 0) {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        for( std::unordered_map<std::string, IGLObject*>::const_iterator it = this->objects->begin(); it != this->objects->end(); ++it ) {
+            it->second->render(this);
+        }
     }
 }
 

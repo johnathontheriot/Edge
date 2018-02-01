@@ -63,6 +63,13 @@
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
 		AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferObject.hpp; sourceTree = "<group>"; };
+		AE5FEEA42015226D009EDBC2 /* BloomProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BloomProcessor.hpp; sourceTree = "<group>"; };
+		AE5FEEA6201532FC009EDBC2 /* luminance.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.vertex.glsl; sourceTree = "<group>"; };
+		AE5FEEA72015330F009EDBC2 /* luminance.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.fragment.glsl; sourceTree = "<group>"; };
+		AE5FEEA820154B08009EDBC2 /* gaussian_blur.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gaussian_blur.vertex.glsl; sourceTree = "<group>"; };
+		AE5FEEA920154B1D009EDBC2 /* gaussian_blur.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gaussian_blur.fragment.glsl; sourceTree = "<group>"; };
+		AE5FEEAA20156861009EDBC2 /* bloom_blend.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bloom_blend.vertex.glsl; sourceTree = "<group>"; };
+		AE5FEEAB20156872009EDBC2 /* bloom_blend.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bloom_blend.fragment.glsl; sourceTree = "<group>"; };
 		AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangularPlane.cpp; sourceTree = "<group>"; };
 		AE648F0B2006C8BD00331965 /* RectangularPlane.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectangularPlane.hpp; sourceTree = "<group>"; };
 		AE648F0D2006F5A000331965 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
@@ -106,6 +113,11 @@
 		AE7805F620047384000F0035 /* InputManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputManager.hpp; sourceTree = "<group>"; };
 		AE7998EA20027E8700936CF5 /* Spin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Spin.cpp; sourceTree = "<group>"; };
 		AE7998EB20027E8700936CF5 /* Spin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Spin.hpp; sourceTree = "<group>"; };
+		AE7D6464201EAA020049F35C /* HDRProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HDRProcessor.hpp; sourceTree = "<group>"; };
+		AE7D6467201EAA4B0049F35C /* LuminanceProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuminanceProcessor.hpp; sourceTree = "<group>"; };
+		AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PostProcessorPipeline.hpp; sourceTree = "<group>"; };
+		AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GaussianProcessor.hpp; sourceTree = "<group>"; };
+		AE8AC7032023965500824F67 /* BloomScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BloomScript.hpp; sourceTree = "<group>"; };
 		AE9775FB20084033005DCEC0 /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
 		AE9775FC20084033005DCEC0 /* SkyBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SkyBox.hpp; sourceTree = "<group>"; };
 		AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.vertex.glsl; sourceTree = "<group>"; };
@@ -516,6 +528,11 @@
 				AEB8D60220115ADD00649109 /* PostProcessor.cpp */,
 				AEB8D60320115ADD00649109 /* PostProcessor.hpp */,
 				AEB8D60F20119E4200649109 /* RenderTextureProcessor.hpp */,
+				AE5FEEA42015226D009EDBC2 /* BloomProcessor.hpp */,
+				AE7D6464201EAA020049F35C /* HDRProcessor.hpp */,
+				AE7D6467201EAA4B0049F35C /* LuminanceProcessor.hpp */,
+				AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */,
+				AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -577,6 +594,13 @@
 				AE9B6A30200C425000EED3B2 /* phong_lighting.fragment.glsl */,
 				AEB8D61420143E3900649109 /* particle_fountain.vertex.glsl */,
 				AEB8D61520143E6F00649109 /* particle_fountain.fragment.glsl */,
+				AE5FEEA6201532FC009EDBC2 /* luminance.vertex.glsl */,
+				AE5FEEA72015330F009EDBC2 /* luminance.fragment.glsl */,
+				AE5FEEA820154B08009EDBC2 /* gaussian_blur.vertex.glsl */,
+				AE5FEEA920154B1D009EDBC2 /* gaussian_blur.fragment.glsl */,
+				AE5FEEAA20156861009EDBC2 /* bloom_blend.vertex.glsl */,
+				AE5FEEAB20156872009EDBC2 /* bloom_blend.fragment.glsl */,
+				AE8AC7032023965500824F67 /* BloomScript.hpp */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";

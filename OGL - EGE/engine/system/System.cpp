@@ -46,7 +46,7 @@ System::System() {
     }
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 std::string System::readFile(std::string path) {

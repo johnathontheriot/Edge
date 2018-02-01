@@ -28,7 +28,7 @@ public:
     void generateFaceNormals();
     void generateVertexNormals();
     std::unordered_map<std::string, BufferObject*> * buffers;
-    int bufferListSize = 0;
+    int bufferListSize = 4;
     void bindBuffers();
     GLenum drawType;
     int getVertexBufferSize(std::string key);

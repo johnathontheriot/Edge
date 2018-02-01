@@ -20,6 +20,12 @@ class GLObject;
 class Scene;
 class ShaderProgram;
 
+struct ShaderSubRoutineCall {
+    GLenum shaderType;
+    std::string routineName;
+    ShaderSubRoutineCall(GLenum type, std::string name) : shaderType(type), routineName(name) {};
+};
+
 class IShaderVariable {
 private:
     friend class ShaderProgram;
@@ -35,15 +41,20 @@ protected:
 
 class ShaderProgram {
 private:
+    friend class GLObject;
+    std::vector<ShaderSubRoutineCall> * subroutineCalls;
     GLSLShader * vertexShader;
     GLSLShader * fragmentShader;
     GLSLShader * geometryShader;
 public:
     std::function<void(ShaderProgram*, GLObject*, Scene*)> bindVars = NULL;
+    void addVertexSubroutineCall(std::string);
+    void addFragmentSubroutineCall(std::string);
     void bindVariable(std::string, glm::mat4x4);
     void bindVariable(std::string, glm::vec4);
     void bindVariable(std::string, glm::vec3);
     void bindVariable(std::string, GLfloat);
+    void bindVariable(std::string, float *, int);
     GLuint id;
     void bind(GLObject*, Scene *);
     ShaderProgram(GLSLShader *, GLSLShader *, GLSLShader *);

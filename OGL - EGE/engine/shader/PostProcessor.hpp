@@ -28,7 +28,7 @@ public:
     std::unordered_map<std::string, StorageBuffer*> * buffers;
     FrameBuffer * frame;
     PostProcessor(ShaderProgram * shader, Dimensions * d) {
-        this->viewPort = d;
+        this->viewPort = new Dimensions(d->width, d->height);
         this->frame = new FrameBuffer();
         this->buffers = new std::unordered_map<std::string, StorageBuffer*>();
         this->shader = shader;
@@ -40,15 +40,23 @@ public:
 
     }
     
-    std::unordered_map<std::string, StorageBuffer*> * render(Scene * scene, Dimensions * viewPort, std::unordered_map<std::string, IGLObject*> * objects) {
+    virtual void postRender(Dimensions originalViewPort) {
+        
+    }
+    
+    virtual std::unordered_map<std::string, StorageBuffer*> * render(Scene * scene, Dimensions * viewPort, std::unordered_map<std::string, IGLObject*> * objects) {
         this->frame->bind();
+        GLint currentViewport[4];
+        glGetIntegerv( GL_VIEWPORT, currentViewport);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glViewport(0, 0, this->viewPort->width, this->viewPort->height);
         for (std::unordered_map<std::string, IGLObject*>::const_iterator it = objects->begin(); it != objects->end(); ++it) {
             it->second->render(scene, this->shader);
         }
+        postRender(Dimensions(currentViewport[2] , currentViewport[3]));
         this->frame->unbind();
-        glViewport(0, 0, viewPort->width * 2 , viewPort->height * 2);
+        glViewport(0, 0, currentViewport[2] , currentViewport[3]);
+        
         return this->buffers;
     }
     
