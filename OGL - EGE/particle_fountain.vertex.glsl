@@ -13,5 +13,4 @@ void main() {
     vec3 position = (mod(initialTime + time, 10.0) * initialVelocity) + (mod(initialTime + time, 10.0) * force) + (mod(initialTime + time, 10.0) * mod(initialTime + time, 10.0) * vec3(0, -0.08, 0));
     transparency = 1.0 - (mod(initialTime + time, 10.0) * .1);
     gl_Position.xyzw = main_projectionTransform * main_viewTransform * modelTransform * vec4(position, 1.0);
-    
 }

@@ -28,7 +28,7 @@ public:
     std::unordered_map<std::string, StorageBuffer*> * buffers;
     FrameBuffer * frame;
     PostProcessor(ShaderProgram * shader, Dimensions * d) {
-        this->viewPort = d;
+        this->viewPort = new Dimensions(d->width, d->height);
         this->frame = new FrameBuffer();
         this->buffers = new std::unordered_map<std::string, StorageBuffer*>();
         this->shader = shader;
@@ -51,6 +51,7 @@ public:
         }
         this->frame->unbind();
         glViewport(0, 0, currentViewport[2] , currentViewport[3]);
+        
         return this->buffers;
     }
     

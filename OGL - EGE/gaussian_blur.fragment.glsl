@@ -48,8 +48,8 @@ vec4 blurPass1() {
     sum += texelFetchOffset(tex, pixel, 0, ivec2(0,11)) * .00438354;
     sum += texelFetchOffset(tex, pixel, 0, ivec2(0,-11)) * .00438354;
     
-    sum += texelFetchOffset(tex, pixel, 0, ivec2(0,12)) * .00438354;
-    sum += texelFetchOffset(tex, pixel, 0, ivec2(0,-12)) * .00438354;
+    sum += texelFetchOffset(tex, pixel, 0, ivec2(0,12)) * .00244992;
+    sum += texelFetchOffset(tex, pixel, 0, ivec2(0,-12)) * .00244992;
     
     return vec4(sum.rgb, 1.0);
 }
@@ -92,9 +92,6 @@ vec4 blurPass2() {
     
     sum += texelFetchOffset(tex, pixel, 0, ivec2(11,0)) * .00438354;
     sum += texelFetchOffset(tex, pixel, 0, ivec2(-11,0)) * .00438354;
-    
-    sum += texelFetchOffset(tex, pixel, 0, ivec2(12,0)) * .00438354;
-    sum += texelFetchOffset(tex, pixel, 0, ivec2(-12,0)) * .00438354;
 
     return vec4(sum.rgb, 1.0);
 }

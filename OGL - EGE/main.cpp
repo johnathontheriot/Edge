@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
         shader->bindVariable("reflection", 100);
     };
 
-    //scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
+    scene->imageEffects->insert(scene->imageEffects->begin(), bloom->processors->begin(), bloom->processors->end());
     
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
     scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));

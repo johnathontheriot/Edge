@@ -9,9 +9,7 @@ float luminance(vec3 rgb) {
 }
 
 void main(){
-    float threshold = 0.8;
     color = texture(tex, vec2(vUV.r, vUV.g));
-    if(luminance(color.rgb) <= threshold) {
-        color = vec4(0, 0, 0, 0);
-    }
+    float l = luminance(color.rgb);
+    color = color * 4.0 * smoothstep(0.5, 0.9, l);
 }
