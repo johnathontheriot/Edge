@@ -49,15 +49,15 @@ int main(int argc, const char * argv[]) {
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
     
     ShaderProgram * depthShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/depth.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/depth.fragment.glsl");
-    
     depthShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
-        shader->bindVariable("main_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, 10, 10, 10));
-        shader->bindVariable("main_viewTransform", glm::lookAt(- scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
+        shader->bindVariable("main_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, -10.0f, 10.0f, 10.0f, -10.0f, -10.0f, 20.0f));
+        shader->bindVariable("main_viewTransform", glm::lookAt(scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
     };
     
     ShadowProcessor * shadows = new ShadowProcessor(depthShader, new Dimensions(1600, 900));
     scene->effectsPipeline->push_back(shadows);
+    
     
     lightingShader->bindVars = [shadows](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
                                                        0, 0, 0.5, 0,
                                                        0.5, 0.5, 0.5, 1.0));
         shader->bindVariable("depth_viewTransform", glm::lookAt(scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
-        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, 10, 10, 10));
+        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, -10.0f, 10.0f, 10.0f, -10.0f, -10.0f, 20.0f));
         
     };
 
