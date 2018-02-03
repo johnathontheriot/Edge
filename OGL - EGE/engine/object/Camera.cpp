@@ -57,7 +57,7 @@ Dimensions Camera::setAspect(GLfloat width, GLfloat height) {
     return d;
 }
 
-glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, int width, int height) {
+glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, int width, int height, int depth) {
     float l = this->orthographicVal * this->left;
     float r = this->orthographicVal * this->right;
     float t = this->orthographicVal * this->top;
@@ -71,6 +71,10 @@ glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, int width, in
     if (height > 0) {
         t = this->orthographicVal * (height / width);
         b = this->orthographicVal * - (height / width);
+    }
+    if (depth > 0) {
+        t = this->orthographicVal * depth;
+        b = this->orthographicVal * - depth;
     }
     switch (projection) {
         case ProjectionType::ORTHOGRAPHIC:
@@ -93,8 +97,8 @@ glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, int width, in
 }
 
 
-glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
-    return this->getProjectionMatrix(this->projection, width, height);
+glm::mat4x4 Camera::getProjectionMatrix(int width, int height, int depth) {
+    return this->getProjectionMatrix(this->projection, width, height, depth);
 }
 
 void Camera::moveCamera(float azumith, float elevation) {

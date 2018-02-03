@@ -69,8 +69,8 @@ public:
     void scaleGlobal(GLfloat x, GLfloat y, GLfloat z);
     Dimensions setAspect(GLfloat width, GLfloat height);
     glm::mat4x4 getViewMatrix();
-    glm::mat4x4 getProjectionMatrix(int width = 0, int height = 0);
-    glm::mat4x4 getProjectionMatrix(ProjectionType, int width = 0, int height = 0);
+    glm::mat4x4 getProjectionMatrix(int width = 0, int height = 0, int depth = 0);
+    glm::mat4x4 getProjectionMatrix(ProjectionType, int width = 0, int height = 0, int depth = 0);
     glm::mat4x4 getScaleRotationMatrix();
     virtual void bind(std::string name, ShaderProgram * shader) {
         shader->bindVariable(name + "_viewTransform", this->getViewMatrix());

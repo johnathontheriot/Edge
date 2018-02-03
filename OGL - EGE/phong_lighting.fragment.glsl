@@ -2,7 +2,7 @@
 
 out vec4 color;
 in vec2 vUV;
-uniform sampler2D tex;
+uniform sampler2DShadow tex;
 in vec3 ns;
 in vec3 fns;
 in float rIntensity;
@@ -25,12 +25,10 @@ void main(){
     color = vec4((lIntensity / 60.0) * diffuse *  lColor, 1.0);
     color += vec4(pow(specular, 5) * vec3(0.3,0.3,0.3), 1.0);
     //color = color * vec4(texture(tex, vec2(vUV.r, - vUV.g)).rgb, color.w);
-    float visibility = 1.0;
-    if ( texture( tex, shadowPosition.xy ).z  <  shadowPosition.z){
-        visibility = 0.5;
-    }
+    float visibility = textureProj(tex, shadowPosition);
+
     color = color * visibility;
     
-    color = vec4(texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, color.w);
+    //color = vec4(texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, color.w);
 
 }

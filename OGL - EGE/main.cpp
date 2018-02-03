@@ -12,6 +12,7 @@
 #include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include "engine/system/System.hpp"
 #include "engine/object/GLObject.hpp"
 #include "engine/shader/ShaderManager.hpp"
@@ -41,6 +42,9 @@ int main(int argc, const char * argv[]) {
     System * system = System::getInstance();
     Scene * scene = new Scene(system->getActiveWindow());
     
+    std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
+    scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
+    scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
 
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
     
@@ -48,8 +52,8 @@ int main(int argc, const char * argv[]) {
     
     depthShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
-        shader->bindVariable("main_viewTransform", glm::inverse(scene->get<Light>("light1")->getModelMatrix()));
-        shader->bindVariable("main_projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        shader->bindVariable("main_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, 10, 10, 10));
+        shader->bindVariable("main_viewTransform", glm::lookAt(- scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
     };
     
     ShadowProcessor * shadows = new ShadowProcessor(depthShader, new Dimensions(1600, 900));
@@ -66,8 +70,8 @@ int main(int argc, const char * argv[]) {
                                                        0, 0.5, 0, 0,
                                                        0, 0, 0.5, 0,
                                                        0.5, 0.5, 0.5, 1.0));
-        shader->bindVariable("depth_viewTransform", glm::inverse(scene->get<Light>("light1")->getModelMatrix()));
-        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        shader->bindVariable("depth_viewTransform", glm::lookAt(scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
+        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, 10, 10, 10));
         
     };
 
@@ -76,9 +80,7 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Cube1")->setProgram(lightingShader);
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
-    std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
-    //scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
-    //scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
+ 
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
@@ -88,13 +90,14 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);
     
     scene->objects->insert({"light1", new Light()});
-    scene->get<Light>("light1")->translateGlobal(0, 0.5, 2.5);
+    scene->get<Light>("light1")->translateGlobal(0, 0, 2);
+    //scene->get<Light>("light1")->rotateLocal(-M_PI / 4.0, 0, 0);
     scene->get<Light>("light1")->attachScript<Spin>("lightMvmnt");
     
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    //scene->attachScript<BloomScript>("bloomControl");
+    scene->attachScript<BloomScript>("bloomControl");
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();
 }
