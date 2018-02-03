@@ -118,6 +118,9 @@
 		AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PostProcessorPipeline.hpp; sourceTree = "<group>"; };
 		AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GaussianProcessor.hpp; sourceTree = "<group>"; };
 		AE8AC7032023965500824F67 /* BloomScript.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BloomScript.hpp; sourceTree = "<group>"; };
+		AE8AC70620253B4500824F67 /* ShadowProcessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ShadowProcessor.hpp; sourceTree = "<group>"; };
+		AE8AC70820253C8400824F67 /* depth.vertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = depth.vertex.glsl; sourceTree = "<group>"; };
+		AE8AC70920253CA500824F67 /* depth.fragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = depth.fragment.glsl; sourceTree = "<group>"; };
 		AE9775FB20084033005DCEC0 /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
 		AE9775FC20084033005DCEC0 /* SkyBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SkyBox.hpp; sourceTree = "<group>"; };
 		AE9775FE20084619005DCEC0 /* skybox.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.vertex.glsl; sourceTree = "<group>"; };
@@ -533,6 +536,7 @@
 				AE7D6467201EAA4B0049F35C /* LuminanceProcessor.hpp */,
 				AE7D646A201EAAEB0049F35C /* PostProcessorPipeline.hpp */,
 				AE7D646D201EAB2A0049F35C /* GaussianProcessor.hpp */,
+				AE8AC70620253B4500824F67 /* ShadowProcessor.hpp */,
 			);
 			path = shader;
 			sourceTree = "<group>";
@@ -601,6 +605,8 @@
 				AE5FEEAA20156861009EDBC2 /* bloom_blend.vertex.glsl */,
 				AE5FEEAB20156872009EDBC2 /* bloom_blend.fragment.glsl */,
 				AE8AC7032023965500824F67 /* BloomScript.hpp */,
+				AE8AC70820253C8400824F67 /* depth.vertex.glsl */,
+				AE8AC70920253CA500824F67 /* depth.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";

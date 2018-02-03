@@ -12,6 +12,7 @@ in vec3 lColor;
 in vec3 vEye;
 uniform samplerCube envtex;
 in vec3 view;
+in vec4 shadowPosition;
 
 void main(){
     float diffuseComponent = max( dot(normalize(ns) ,normalize(light) ), 0.0 );
@@ -23,5 +24,13 @@ void main(){
     float specular = clamp( dot( normalizedEye, normalize(lightReflection) ), 0 ,1 );
     color = vec4((lIntensity / 60.0) * diffuse *  lColor, 1.0);
     color += vec4(pow(specular, 5) * vec3(0.3,0.3,0.3), 1.0);
-    color = color * vec4(texture(tex, vec2(vUV.r, - vUV.g)).rgb, color.w);
+    //color = color * vec4(texture(tex, vec2(vUV.r, - vUV.g)).rgb, color.w);
+    float visibility = 1.0;
+    if ( texture( tex, shadowPosition.xy ).z  <  shadowPosition.z){
+        visibility = 0.5;
+    }
+    color = color * visibility;
+    
+    color = vec4(texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, texture(tex, vec2(vUV.r, - vUV.g)).r, color.w);
+
 }

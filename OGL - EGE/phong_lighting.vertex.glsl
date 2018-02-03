@@ -9,6 +9,9 @@ uniform mat4 modelTransform;
 uniform mat4 main_projectionTransform;
 uniform mat4 invTransMV;
 uniform mat4 cmapTransform;
+uniform mat4 shadowBias;
+uniform mat4 depth_projectionTransform;
+uniform mat4 depth_viewTransform;
 uniform vec3 light_position;
 uniform float light_intensity;
 uniform float reflection;
@@ -17,6 +20,7 @@ out vec2 vUV;
 out vec3 ns;
 out vec3 fns;
 out vec3 light;
+out vec4 shadowPosition;
 out float lIntensity;
 out vec3 lColor;
 out vec3 view;
@@ -37,5 +41,6 @@ void main(){
     fns = (invTransMV * vec4(faceNormals, 0.0)).xyz;
     lIntensity = light_intensity;
     lColor = light_color;
+    shadowPosition = shadowBias * depth_projectionTransform * depth_viewTransform * modelTransform * vec4(vertexMSpace, 1.0);
 
 }

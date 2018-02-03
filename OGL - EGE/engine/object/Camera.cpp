@@ -57,7 +57,7 @@ Dimensions Camera::setAspect(GLfloat width, GLfloat height) {
     return d;
 }
 
-glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
+glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, int width, int height) {
     float l = this->orthographicVal * this->left;
     float r = this->orthographicVal * this->right;
     float t = this->orthographicVal * this->top;
@@ -72,12 +72,12 @@ glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
         t = this->orthographicVal * (height / width);
         b = this->orthographicVal * - (height / width);
     }
-    switch (this->projection) {
+    switch (projection) {
         case ProjectionType::ORTHOGRAPHIC:
             return glm::transpose(glm::mat4x4(2.0f / (r - l), 0, 0, -(r + l) / (r - l),
-                               0, 2.0f / (t - b), 0, -(t + b) / (t - b),
-                               0, 0, - 2.0f / (f - n), -(f + n) / (f - n),
-                               0, 0, 0, 1.0f));
+                                              0, 2.0f / (t - b), 0, -(t + b) / (t - b),
+                                              0, 0, - 2.0f / (f - n), -(f + n) / (f - n),
+                                              0, 0, 0, 1.0f));
         case ProjectionType::PERSPECTIVE:
         default:
             GLfloat s = 1.0f / (tan((fov / 2.0f) * (M_PI / 180.0f)));
@@ -86,10 +86,15 @@ glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
                 a = width / height;
             }
             return glm::mat4x4(s / (a), 0, 0, 0,
-                       0, s, 0, 0,
-                       0, 0, -(far + near) / (far - near), -1.0f,
-                       0, 0, -(2.0f * far * near) / (far - near), 0);
+                               0, s, 0, 0,
+                               0, 0, -(far + near) / (far - near), -1.0f,
+                               0, 0, -(2.0f * far * near) / (far - near), 0);
     }
+}
+
+
+glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
+    return this->getProjectionMatrix(this->projection, width, height);
 }
 
 void Camera::moveCamera(float azumith, float elevation) {

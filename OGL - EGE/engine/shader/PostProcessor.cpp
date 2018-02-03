@@ -27,3 +27,8 @@ template<> void PostProcessor::addBuffer<LowResTextureBuffer>(std::string name, 
     buffer->bindToFrame(this->colorAttachment++);
     this->buffers->insert({name, buffer});
 }
+
+template<> void PostProcessor::addBuffer<DepthTextureBuffer>(std::string name, StorageBuffer * buffer) {
+    buffer->bindToFrame(GL_DEPTH_ATTACHMENT);
+    this->buffers->insert({name, buffer});
+}

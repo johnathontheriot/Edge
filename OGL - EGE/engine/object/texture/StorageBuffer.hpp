@@ -45,14 +45,37 @@ public:
     DepthBuffer(int width, int height): StorageBuffer(width, height) {
         glGenRenderbuffers(1, &this->id);
         glBindRenderbuffer(GL_RENDERBUFFER, this->id);
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, this->width, this->height);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, this->width, this->height);
     }
     
     void bindToFrame(GLenum attachment) {
         this->buffer = attachment;
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, this->id);
     }
+};
+
+class DepthTextureBuffer : public StorageBuffer {
+public:
+    DepthTextureBuffer(int width, int height): StorageBuffer(width, height) {
+        this->texEnum = TextureManager::textureEnum++;
+        this->texIndex = TextureManager::textureNumber++;
+        //GLfloat border[] = {1, 0, 0, 0};
+        glGenTextures(1, &this->id);
+        glBindTexture(GL_TEXTURE_2D, this->id);
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH_COMPONENT24, this->width, this->height);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        //glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LESS);
+    }
     
+    virtual void bindToFrame(GLenum attachment) {
+        this->buffer = attachment;
+        glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, this->id, 0);
+    }
 };
 
 class HDRTextureBuffer : public StorageBuffer {

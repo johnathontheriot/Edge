@@ -32,6 +32,7 @@
 #include "ParticleSystem.hpp"
 #include "BloomProcessor.hpp"
 #include "BloomScript.hpp"
+#include "ShadowProcessor.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -43,13 +44,31 @@ int main(int argc, const char * argv[]) {
 
     ShaderProgram * lightingShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/phong_lighting.fragment.glsl");
     
-    lightingShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+    ShaderProgram * depthShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/depth.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/depth.fragment.glsl");
+    
+    depthShader->bindVars = [](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
+        shader->bindVariable("main_viewTransform", glm::inverse(scene->get<Light>("light1")->getModelMatrix()));
+        shader->bindVariable("main_projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+    };
+    
+    ShadowProcessor * shadows = new ShadowProcessor(depthShader, new Dimensions(1600, 900));
+    scene->effectsPipeline->push_back(shadows);
+    
+    lightingShader->bindVars = [shadows](ShaderProgram * shader, GLObject* obj, Scene* scene) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
         shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
         shader->bindVariable<Camera>("main", scene->cameras->at("main"));
-        shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        shader->bindVariable<Texture>("tex", shadows->buffers->at("depthBuffer"));
         shader->bindVariable<Light>("light", scene->objects->at("light1"));
         shader->bindVariable("reflection", 100);
+        shader->bindVariable("shadowBias", glm::mat4x4(0.5, 0, 0, 0,
+                                                       0, 0.5, 0, 0,
+                                                       0, 0, 0.5, 0,
+                                                       0.5, 0.5, 0.5, 1.0));
+        shader->bindVariable("depth_viewTransform", glm::inverse(scene->get<Light>("light1")->getModelMatrix()));
+        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix());
+        
     };
 
     scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
@@ -58,8 +77,8 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
     
     std::string f = "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/";
-    scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
-    scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
+    //scene->objects->insert({"skyBox", new SkyBox(f + "s4.bmp", f + "s2.bmp", f + "s1.bmp", f + "s5.bmp", f + "s6.bmp", f + "s3.bmp")});
+    //scene->get<SkyBox>("skyBox")->rotateGlobal(M_PI, 0, 0);
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
@@ -69,13 +88,13 @@ int main(int argc, const char * argv[]) {
     scene->get<GLObject>("Plane1")->translateGlobal(0, -.501, -.53f);
     
     scene->objects->insert({"light1", new Light()});
-    scene->get<Light>("light1")->translateGlobal(0, 0, 2.1);
+    scene->get<Light>("light1")->translateGlobal(0, 0.5, 2.5);
     scene->get<Light>("light1")->attachScript<Spin>("lightMvmnt");
     
     
     scene->cameras->at("main")->translateGlobal(0, 0, -2.1);
     scene->cameras->at("main")->attachScript<BasicMovement>("movement");
-    scene->attachScript<BloomScript>("bloomControl");
+    //scene->attachScript<BloomScript>("bloomControl");
     SceneManager::getInstance()->scenes->insert({"main", scene});
     system->start();
 }
