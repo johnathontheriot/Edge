@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE4DAA1D202687D9001090E0 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE4DAA1B202687D9001090E0 /* Sphere.cpp */; };
 		AE648F0C2006C8BD00331965 /* RectangularPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */; };
 		AE648F0F2006F5A000331965 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F0D2006F5A000331965 /* TextBox.cpp */; };
 		AE648F122007136700331965 /* BMPTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE648F102007136700331965 /* BMPTexture.cpp */; };
@@ -63,6 +64,8 @@
 		AE11205A200025DD00946E26 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		AE11205B200027FF00946E26 /* taco.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taco.config.json; sourceTree = "<group>"; };
 		AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferObject.hpp; sourceTree = "<group>"; };
+		AE4DAA1B202687D9001090E0 /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		AE4DAA1C202687D9001090E0 /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
 		AE5FEEA42015226D009EDBC2 /* BloomProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BloomProcessor.hpp; sourceTree = "<group>"; };
 		AE5FEEA6201532FC009EDBC2 /* luminance.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.vertex.glsl; sourceTree = "<group>"; };
 		AE5FEEA72015330F009EDBC2 /* luminance.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.fragment.glsl; sourceTree = "<group>"; };
@@ -475,6 +478,8 @@
 				AE7805C7200302ED000F0035 /* Geometry.hpp */,
 				AE648F0A2006C8BD00331965 /* RectangularPlane.cpp */,
 				AE648F0B2006C8BD00331965 /* RectangularPlane.hpp */,
+				AE4DAA1B202687D9001090E0 /* Sphere.cpp */,
+				AE4DAA1C202687D9001090E0 /* Sphere.hpp */,
 			);
 			path = geometry;
 			sourceTree = "<group>";
@@ -1025,6 +1030,7 @@
 				AE7805E0200302ED000F0035 /* Camera.cpp in Sources */,
 				AEB8D60420115ADD00649109 /* PostProcessor.cpp in Sources */,
 				AE7998EC20027E8700936CF5 /* Spin.cpp in Sources */,
+				AE4DAA1D202687D9001090E0 /* Sphere.cpp in Sources */,
 				AE7805F12003042C000F0035 /* TextureManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

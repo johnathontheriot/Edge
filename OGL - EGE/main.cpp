@@ -34,6 +34,7 @@
 #include "BloomProcessor.hpp"
 #include "BloomScript.hpp"
 #include "ShadowProcessor.hpp"
+#include "Sphere.hpp"
 
 int main(int argc, const char * argv[]) {
     // Hardcoded for now - will be accepted through command line
@@ -63,7 +64,8 @@ int main(int argc, const char * argv[]) {
         shader->bindVariable("modelTransform", obj->getModelMatrix());
         shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
         shader->bindVariable<Camera>("main", scene->cameras->at("main"));
-        shader->bindVariable<Texture>("tex", shadows->buffers->at("depthBuffer"));
+        shader->bindVariable<Texture>("shadowMap", shadows->buffers->at("depthBuffer"));
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
         shader->bindVariable<Light>("light", scene->objects->at("light1"));
         shader->bindVariable("reflection", 100);
         shader->bindVariable("shadowBias", glm::mat4x4(0.5, 0, 0, 0,
@@ -75,12 +77,19 @@ int main(int argc, const char * argv[]) {
         
     };
 
-    scene->objects->insert({"Cube1", new GLObject(Cube::getInstance())});
-    scene->get<GLObject>("Cube1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
-    scene->get<GLObject>("Cube1")->setProgram(lightingShader);
-    scene->get<GLObject>("Cube1")->scaleLocal(.5, .5, .5);
-    
+    scene->objects->insert({"earth", new GLObject(Sphere::getInstance())});
+    scene->get<GLObject>("earth")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("earth", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/earth.bmp"));
+    scene->get<GLObject>("earth")->setProgram(lightingShader);
+    scene->get<GLObject>("earth")->scaleLocal(.5, .5, .5);
+    scene->get<GLObject>("earth")->rotateLocal(0, 0, M_PI / 2.0f);
  
+    scene->objects->insert({"crate", new GLObject(Cube::getInstance())});
+    scene->get<GLObject>("crate")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
+    scene->get<GLObject>("crate")->setProgram(lightingShader);
+    scene->get<GLObject>("crate")->translateLocal(1.1f, 0, 1.1f);
+    scene->get<GLObject>("crate")->scaleLocal(.5, .5, .5);
+    scene->get<GLObject>("crate")->rotateLocal(0, 0, M_PI / 2.0f);
+    
     
     scene->objects->insert({"Plane1", new GLObject(RectangularPlane::getInstance())});
     scene->get<GLObject>("Plane1")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("ground", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/wood_flooring.bmp"));
