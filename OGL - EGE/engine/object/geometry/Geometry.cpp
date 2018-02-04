@@ -26,8 +26,6 @@ Geometry::Geometry(GLfloat * vertexBuffer, int vertexBufferSize, GLfloat * uvBuf
     this->bindVAO(this->VAOid);
     this->buffers->insert({"vertex", new GLBufferObject<GLfloat>(0, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
     this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(1, 2, GL_FLOAT, (vertexBufferSize / 3) * 2, uvBuffer)});
-    //this->buffers->insert({"colors", new GLBufferObject<GLfloat>(this->bufferListSize++, 3, GL_FLOAT, vertexBufferSize, vertexBuffer)});
-
     this->bindBuffers();
 }
 
@@ -154,6 +152,47 @@ void Geometry::generateVertexNormals() {
             this->buffers->at("vertexnormals")->update(normalBuffer, vertexBuffer->size);
         }
     }
+}
+
+void Geometry::generateTangents() {
+    GLBufferObject<GLfloat> * vertexBuffer = (GLBufferObject<GLfloat>*)this->buffers->at("vertex");
+    GLBufferObject<GLfloat> * uvBuffer = (GLBufferObject<GLfloat>*)this->buffers->at("uvs");
+    GLfloat * vertices = vertexBuffer->data;
+    GLfloat * uvs = uvBuffer->data;
+    int numVerts = vertexBuffer->size;
+    
+    GLfloat * tangents = new GLfloat[numVerts];
+    GLfloat * bitangents = new GLfloat[numVerts];
+
+    int tangentIndex = 0;
+    for (int i = 0, j = 0; i < numVerts; i += 9, j += 6){
+        glm::vec3 p1(vertices[i], vertices[i + 1], vertices[i + 2]);
+        glm::vec3 p2(vertices[i + 3], vertices[i + 4], vertices[i + 5]);
+        glm::vec3 p3(vertices[i + 6], vertices[i + 7], vertices[i + 8]);
+        
+        glm::vec2 uv1(uvs[j], uvs[j + 1]);
+        glm::vec2 uv2(uvs[j + 2], uvs[j + 3]);
+        glm::vec2 uv3(uvs[j + 4], uvs[j + 5]);
+        
+        glm::vec3 pDelta1 = p3 - p2;
+        glm::vec3 pDelta2 = p1 - p2;
+        
+        glm::vec2 uvDelta1 = uv3 - uv2;
+        glm::vec2 uvDelta2 = uv1 - uv2;
+        
+        float r = 1.0f / (uvDelta1[0] * uvDelta2[1] - uvDelta1[1] * uvDelta2[0]);
+        glm::vec3 tangent = (pDelta1 * uvDelta2[1] - pDelta2 * uvDelta1[1]) * r;
+        glm::vec3 bitangent = (pDelta2 * uvDelta1[0] - pDelta1 * uvDelta2[0]) * r;
+        for (int l = 0; l < 3; l++){
+            for (int k = 0; k < 3; k++){
+                tangents[tangentIndex] = tangent[k];
+                bitangents[tangentIndex] = bitangent[k];
+                tangentIndex++;
+            }
+        }
+    }
+    this->buffers->insert({"tangents", new GLBufferObject<GLfloat>(4, 3, GL_FLOAT, numVerts, tangents)});
+    this->buffers->insert({"bitangents", new GLBufferObject<GLfloat>(5, 3, GL_FLOAT, numVerts, bitangents)});
 }
 
 

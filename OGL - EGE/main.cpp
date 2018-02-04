@@ -76,6 +76,25 @@ int main(int argc, const char * argv[]) {
         shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, -10.0f, 10.0f, 10.0f, -10.0f, -10.0f, 20.0f));
         
     };
+    
+    ShaderProgram * bumpShader = ShaderManager::createShaderProgram("/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/bump.vertex.glsl", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/bump.fragment.glsl");
+    bumpShader->bindVars = [shadows](ShaderProgram * shader, GLObject* obj, Scene* scene) {
+        shader->bindVariable("modelTransform", obj->getModelMatrix());
+        shader->bindVariable("invTransMV", glm::transpose(glm::inverse(scene->cameras->at("main")->getViewMatrix() * obj->getModelMatrix())));
+        shader->bindVariable<Camera>("main", scene->cameras->at("main"));
+        shader->bindVariable<Texture>("shadowMap", shadows->buffers->at("depthBuffer"));
+        shader->bindVariable<Texture>("tex", obj->textures->at(0));
+        shader->bindVariable<Texture>("bump", obj->textures->at(1));
+        shader->bindVariable<Light>("light", scene->objects->at("light1"));
+        shader->bindVariable("reflection", 100);
+        shader->bindVariable("shadowBias", glm::mat4x4(0.5, 0, 0, 0,
+                                                       0, 0.5, 0, 0,
+                                                       0, 0, 0.5, 0,
+                                                       0.5, 0.5, 0.5, 1.0));
+        shader->bindVariable("depth_viewTransform", glm::lookAt(scene->get<Light>("light1")->getPosition(), glm::vec3(0,0,0), glm::vec3(0,1,0)));
+        shader->bindVariable("depth_projectionTransform", scene->cameras->at("main")->getProjectionMatrix(ProjectionType::ORTHOGRAPHIC, -10.0f, 10.0f, 10.0f, -10.0f, -10.0f, 20.0f));
+        
+    };
 
     scene->objects->insert({"earth", new GLObject(Sphere::getInstance())});
     scene->get<GLObject>("earth")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("earth", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/earth.bmp"));
@@ -85,7 +104,8 @@ int main(int argc, const char * argv[]) {
  
     scene->objects->insert({"crate", new GLObject(Cube::getInstance())});
     scene->get<GLObject>("crate")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("crate", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/crate.bmp"));
-    scene->get<GLObject>("crate")->setProgram(lightingShader);
+    scene->get<GLObject>("crate")->textures->push_back(TextureManager::getInstance()->loadTexture<BMPTexture>("normalMap", "/Users/johnathontheriot/Desktop/OGL - EGE/OGL - EGE/bumpy.bmp"));
+    scene->get<GLObject>("crate")->setProgram(bumpShader);
     scene->get<GLObject>("crate")->translateLocal(1.1f, 0, 1.1f);
     scene->get<GLObject>("crate")->scaleLocal(.5, .5, .5);
     scene->get<GLObject>("crate")->rotateLocal(0, 0, M_PI / 2.0f);
