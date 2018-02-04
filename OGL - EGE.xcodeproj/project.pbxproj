@@ -66,6 +66,8 @@
 		AE4BFC7A200BF53800F4E371 /* BufferObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferObject.hpp; sourceTree = "<group>"; };
 		AE4DAA1B202687D9001090E0 /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
 		AE4DAA1C202687D9001090E0 /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
+		AE4DAA1E202779CE001090E0 /* bump.vertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bump.vertex.glsl; sourceTree = "<group>"; };
+		AE4DAA1F202779E0001090E0 /* bump.fragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bump.fragment.glsl; sourceTree = "<group>"; };
 		AE5FEEA42015226D009EDBC2 /* BloomProcessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BloomProcessor.hpp; sourceTree = "<group>"; };
 		AE5FEEA6201532FC009EDBC2 /* luminance.vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.vertex.glsl; sourceTree = "<group>"; };
 		AE5FEEA72015330F009EDBC2 /* luminance.fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luminance.fragment.glsl; sourceTree = "<group>"; };
@@ -612,6 +614,8 @@
 				AE8AC7032023965500824F67 /* BloomScript.hpp */,
 				AE8AC70820253C8400824F67 /* depth.vertex.glsl */,
 				AE8AC70920253CA500824F67 /* depth.fragment.glsl */,
+				AE4DAA1E202779CE001090E0 /* bump.vertex.glsl */,
+				AE4DAA1F202779E0001090E0 /* bump.fragment.glsl */,
 			);
 			path = "OGL - EGE";
 			sourceTree = "<group>";

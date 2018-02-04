@@ -100,7 +100,7 @@ Sphere::Sphere(int xRotations, int zRotations): Geometry(){
     this->buffers->insert({"uvs", new GLBufferObject<GLfloat>(1, 2, GL_FLOAT, numUVs, uvs)});
     this->generateFaceNormals();
     this->generateVertexNormals();
-    
+    this->generateTangents();
     this->bindBuffers();
 }
 
