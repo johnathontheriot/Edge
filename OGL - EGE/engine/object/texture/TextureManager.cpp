@@ -14,8 +14,8 @@
 #include <GLFW/glfw3.h>
 
 TextureManager * TextureManager::Instance;
-int TextureManager::textureNumber = 0;
-int TextureManager::textureEnum = GL_TEXTURE0;
+int TextureManager::textureNumber = 1;
+int TextureManager::textureEnum = GL_TEXTURE1;
 
 TextureManager * TextureManager::getInstance() {
     if (!TextureManager::Instance) {

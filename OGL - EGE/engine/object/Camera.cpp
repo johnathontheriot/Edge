@@ -57,39 +57,37 @@ Dimensions Camera::setAspect(GLfloat width, GLfloat height) {
     return d;
 }
 
-glm::mat4x4 Camera::getProjectionMatrix(int width, int height) {
-    float l = this->orthographicVal * this->left;
-    float r = this->orthographicVal * this->right;
-    float t = this->orthographicVal * this->top;
-    float b = this->orthographicVal * this->bottom;
-    float n = this->orthographicVal * this->near;
-    float f = this->orthographicVal * this->far;
-    if (width > 0) {
-        l = this->orthographicVal * - (width / width);
-        r = this->orthographicVal * (width / width);
-    }
-    if (height > 0) {
-        t = this->orthographicVal * (height / width);
-        b = this->orthographicVal * - (height / width);
-    }
-    switch (this->projection) {
+glm::mat4x4 Camera::getProjectionMatrix(ProjectionType projection, float left, float right, float top, float bottom, float near, float far) {
+    float l = this->orthographicVal * left;
+    float r = this->orthographicVal * right;
+    float t = this->orthographicVal * top;
+    float b = this->orthographicVal * bottom;
+    float n = this->orthographicVal * near;
+    float f = this->orthographicVal * far;
+
+    switch (projection) {
         case ProjectionType::ORTHOGRAPHIC:
-            return glm::transpose(glm::mat4x4(2.0f / (r - l), 0, 0, -(r + l) / (r - l),
-                               0, 2.0f / (t - b), 0, -(t + b) / (t - b),
-                               0, 0, - 2.0f / (f - n), -(f + n) / (f - n),
-                               0, 0, 0, 1.0f));
+            return glm::mat4x4(2.0f / (r - l), 0, 0, 0,
+                                              0, 2.0f / (t - b), 0, 0,
+                                              0, 0, - 2.0f / (f - n), 0,
+                                              -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0f);
         case ProjectionType::PERSPECTIVE:
         default:
             GLfloat s = 1.0f / (tan((fov / 2.0f) * (M_PI / 180.0f)));
             GLfloat a = this->aspect;
-            if (width > 0 && height > 0) {
-                a = width / height;
+            if (right > 0 && top > 0) {
+                a = right / top;
             }
             return glm::mat4x4(s / (a), 0, 0, 0,
-                       0, s, 0, 0,
-                       0, 0, -(far + near) / (far - near), -1.0f,
-                       0, 0, -(2.0f * far * near) / (far - near), 0);
+                               0, s, 0, 0,
+                               0, 0, -(far + near) / (far - near), -1.0f,
+                               0, 0, -(2.0f * far * near) / (far - near), 0);
     }
+}
+
+
+glm::mat4x4 Camera::getProjectionMatrix() {
+    return this->getProjectionMatrix(this->projection, this->left, this->right, this->top, this->bottom, this->near, this->far);
 }
 
 void Camera::moveCamera(float azumith, float elevation) {
@@ -127,7 +125,7 @@ glm::mat4x4 Camera::getScaleRotationMatrix() {
 }
 
 void Camera::zoom(float delta){
-    this->orthographicVal -= delta;
+    // Used to alter orthogonality here as well, but breaks shadows
     this->globalTranslation = this->globalTranslation * glm::mat4x4(1.0f, 0, 0, 0,
                                                                             0, 1.0f, 0, 0,
                                                                             0, 0, 1.0f, 0,

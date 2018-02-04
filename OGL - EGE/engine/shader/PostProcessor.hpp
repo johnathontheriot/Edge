@@ -67,6 +67,9 @@ public:
                 vec->push_back(it->second->buffer);
             }
         }
+        if (vec->size() == 0) {
+            vec->push_back(GL_NONE);
+        }
         glDrawBuffers(vec->size(), &(*vec)[0]);
     }
     
